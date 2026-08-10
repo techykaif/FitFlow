@@ -74,7 +74,7 @@ Each page must have:
 - HTML5
 - CSS3 (Flexbox & Responsive Design)
 - JavaScript (ES6 Modules)
-- GitHub Pages (Deployment)
+- Netlify (Deployment)
 
 ---
 
