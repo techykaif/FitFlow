@@ -1,29 +1,75 @@
+:root {
+  --primary: #0F9B8E;
+  --primary-dark: #0B7A70;
+  --primary-light: #E3F9F6;
+  --accent: #34D399;
+  --success: #37B24D;
+  --warning: #F59F00;
+  --danger: #E03131;
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --gray-600: #868E96;
+  --gray-700: #495057;
+  --gray-800: #343A40;
+  --gray-900: #212529;
+  --text: #343A40;
+  --text-light: #868E96;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.10);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Elegant Sticky Header */
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(46, 204, 113, 0.95); /* Semi-transparent green */
-    backdrop-filter: blur(8px); /* Frosted glass effect */
+    background: rgba(15, 155, 142, 0.95); /* Semi-transparent teal */
+    backdrop-filter: blur(8px);
     color: white;
-    padding: 12px 20px;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    padding: var(--space-3) var(--space-5);
+    box-shadow: var(--shadow-sm); /* "subtle shadow only once scrolled" - we keep it subtle */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease-in-out;
+    transition: var(--transition);
 }
 
 /* Logo Section */
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--space-3);
 }
 
 .logo img {
     height: 60px;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -41,33 +87,30 @@ header {
 }
 
 .name h1 {
-    font-size: 2rem;
+    font-size: var(--text-2xl);
     margin: 0;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #f1f1f1;
-    transition: color 0.3s, text-shadow 0.3s;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: white;
+    transition: var(--transition);
 }
 
 .name h1:hover {
-    color: #ffdd57;
+    color: var(--primary-light);
     cursor: pointer;
-    text-shadow: 0px 0px 15px rgba(255, 0, 0, 0.7);
 }
 
 .name p {
-    font-size: 1rem;
-    font-weight: 300;
-    margin-top: 6px;
-    color: #f4f4f4;
+    font-size: var(--text-sm);
+    font-weight: 400;
+    margin-top: 2px;
+    color: var(--primary-light);
     opacity: 0.95;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition: var(--transition);
 }
 
 .name:hover p {
-    color: #ffdd57;
-    text-shadow: 0px 0px 15px rgba(255, 0, 0, 0.6);
+    color: white;
 }
 
 /* Navigation */
@@ -78,7 +121,7 @@ nav {
 
 nav ul {
     display: flex;
-    gap: 20px;
+    gap: var(--space-5);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -88,14 +131,14 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1rem;
-    padding: 10px 14px;
-    border-radius: 8px;
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-2);
     position: relative;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 nav ul li a::after {
@@ -115,47 +158,48 @@ nav ul li a:hover::after {
 }
 
 nav ul li a:hover {
-    background-color: #27ae60;
+    background-color: var(--primary-dark);
     transform: scale(1.05);
 }
 
 /* Mobile Hamburger */
 .menu-toggle {
     display: none;
-    font-size: 2rem;
+    font-size: var(--text-2xl);
     color: white;
     cursor: pointer;
-    padding-left: 20px;
+    padding-left: var(--space-5);
 }
+
 @media (max-width: 1440px) and (min-width: 768px) {
     .logo img {
         height: 50px;
     }
 
     .name h1 {
-        font-size: 1.6rem;
+        font-size: var(--text-xl);
     }
 
     .name p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     nav ul {
-        gap: 15px;
+        gap: var(--space-3);
     }
 
     nav ul li a {
-        font-size: 0.95rem;
-        padding: 8px 12px;
+        font-size: var(--text-sm);
+        padding: var(--space-2);
     }
 
     header {
-        padding: 10px 16px;
+        padding: var(--space-2) var(--space-4);
     }
 
     .cta-button {
-        font-size: 1rem;
-        padding: 10px 16px;
+        font-size: var(--text-sm);
+        padding: var(--space-2) var(--space-3);
     }
 
     .modal-content {
@@ -163,7 +207,6 @@ nav ul li a:hover {
         max-width: 350px;
     }
 }
-
 
 /* Responsive Nav */
 @media (max-width: 768px) {
@@ -177,10 +220,10 @@ nav ul li a:hover {
         position: absolute;
         top: 72px;
         right: 20px;
-        background: rgba(46, 204, 113, 0.95);
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        background: rgba(15, 155, 142, 0.95);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        box-shadow: var(--shadow-md);
         width: 180px;
         animation: dropdown 0.3s ease forwards;
     }
@@ -190,16 +233,16 @@ nav ul li a:hover {
     }
 
     nav ul li {
-        margin: 10px 0;
+        margin: var(--space-2) 0;
     }
 
     nav ul li a {
         justify-content: flex-start;
     }
+    
     header nav ul {
         flex-direction: column;
-        background-color: #00bfa5;
-        /* Matching vibrant green for mobile menu */
+        background-color: var(--primary-dark);
         position: absolute;
         top: 60px;
         left: 0;
@@ -209,10 +252,6 @@ nav ul li a:hover {
 
     header nav.active ul {
         display: flex;
-    }
-
-    header .menu-toggle {
-        display: block;
     }
 }
 
@@ -227,134 +266,121 @@ nav ul li a:hover {
     }
 }
 
-
 .custom-tooltip {
     position: absolute;
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 12px;
+    background-color: var(--gray-800);
+    color: white;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
     z-index: 10001;
 }
 
-
-/* Navigation menu styling */
-/* Navigation menu styling */
 #tooltip {
     display: none;
-    /* Hidden by default */
     position: absolute;
-    /* Positioned relative to the header */
     justify-content: center;
     vertical-align: middle;
     top: 63px;
-    /* Adjust according to header height */
     right: 0;
     width: 160px;
     height: 485px;
-    /* Full viewport height minus header height */
-    background-color: #2ecc71;
-    /* Background color for visibility */
+    background-color: var(--gray-800);
     list-style: none;
     padding: 0;
     margin: 0;
     z-index: 1000;
-    /* Ensure menu is on top */
-    transition: display 0.3s ease-in-out;
-    /* Smooth transition */
+    transition: var(--transition);
     margin-top: 40px;
-    background-color: rgb(117, 112, 112);
 }
 
 #tooltip li {
     display: flex;
-    /* Ensure list items are block-level */
     flex-direction: column;
-    /* Remove default margin */
 }
 
 #tooltip a {
-    color: rgb(233, 241, 237);
+    color: var(--gray-100);
     text-decoration: none;
-    padding: 12px;
-    /* Padding around the link */
+    padding: var(--space-3);
     display: flex;
-    /* Align icon and text horizontally */
     align-items: center;
-    /* Vertically align icon and text */
 }
 
 #tooltip a i {
-    margin-right: 8px;
-    /* Space between icon and text */
-    font-size: 16px;
-    /* Adjust icon size */
+    margin-right: var(--space-2);
+    font-size: var(--text-base);
 }
 
-/* Hover effect for links */
 #tooltip a:hover {
-    background-color: #0d552b;
-    /* Darker green */
-    text-decoration: underline;
-    text-underline-offset: 5px;
+    background-color: var(--gray-700);
+    text-decoration: none;
 }
 
 /* Modal (Dialog Box) CSS */
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Black background with opacity */
     justify-content: center;
     align-items: center;
     z-index: 999;
 }
 
 .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    background-color: white;
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
     width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-lg);
     text-align: center;
 }
 
 .modal-content h2 {
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: var(--space-5);
+    color: var(--gray-800);
+    font-size: var(--text-2xl);
+    font-weight: 700;
 }
 
 .modal-content p {
-    margin-bottom: 20px;
-    color: #555;
+    margin-bottom: var(--space-5);
+    color: var(--text-light);
+    font-size: var(--text-base);
 }
 
 .close-btn {
     position: absolute;
     top: 10px;
     right: 20px;
-    font-size: 24px;
+    font-size: var(--text-2xl);
     cursor: pointer;
+    color: var(--gray-500);
+}
+
+.close-btn:hover {
+    color: var(--gray-800);
 }
 
 .cta-button {
-    background-color: #2ecc71;
+    background-color: var(--primary);
     color: white;
-    padding: 12px 20px;
+    padding: var(--space-3) var(--space-5);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s;
+    font-weight: 600;
+    font-size: var(--text-base);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
 
 .cta-button:hover {
-    background-color: #27ae60;
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
