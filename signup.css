@@ -1,354 +1,343 @@
+:root {
+  --primary: #0F9B8E;
+  --primary-dark: #0B7A70;
+  --primary-light: #E3F9F6;
+  --accent: #34D399;
+  --success: #37B24D;
+  --warning: #F59F00;
+  --danger: #E03131;
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --gray-600: #868E96;
+  --gray-700: #495057;
+  --gray-800: #343A40;
+  --gray-900: #212529;
+  --text: #343A40;
+  --text-light: #868E96;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.10);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Modern Signup Section Styling */
 .signup-section {
-    padding: 3rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+  padding: var(--space-7) var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.signup-section h1 {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-2);
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.signup-section p {
+  color: var(--text-light);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+}
+
+.signup-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-7);
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.signup-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.signup-container:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  text-align: left;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: var(--text-sm);
+}
+
+form input {
+  padding: var(--space-4);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  transition: var(--transition);
+  background-color: var(--gray-100);
+  font-family: var(--font-sans);
+}
+
+form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
+  background-color: white;
+}
+
+.error-message {
+  color: var(--danger);
+  text-align: left;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+  height: 20px;
+  transition: var(--transition);
+  display: none;
+}
+
+.cta-button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.cta-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+.signup-container p {
+  color: var(--text-light);
+  margin-top: var(--space-5);
+}
+
+.signup-container p a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.signup-container p a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Status message styling */
+.status-text {
+  margin-top: var(--space-4);
+  font-weight: 500;
+  height: 24px;
+  transition: var(--transition);
+}
+
+.status-text.success {
+  color: var(--success);
+}
+
+.status-text.error {
+  color: var(--danger);
+}
+
+/* Password strength indicator */
+.password-strength {
+  height: 4px;
+  width: 100%;
+  background: var(--gray-200);
+  margin-bottom: var(--space-4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.password-strength-bar {
+  height: 100%;
+  width: 0;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.password-strength-text {
+  text-align: left;
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-4);
+  color: var(--text-light);
+}
+
+/* Animation for form submission */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.8s ease;
+}
+
+/* Success animation */
+@keyframes success-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.success-pulse {
+  animation: success-pulse 0.5s ease;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .signup-container {
+    padding: var(--space-6) var(--space-5);
   }
-  
+
   .signup-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, #4caf50, #2e7d32);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
+    font-size: var(--text-3xl);
   }
-  
-  .signup-section p {
-    color: #666;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-  
+}
+
+@media screen and (max-width: 480px) {
   .signup-container {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 2.5rem;
-    max-width: 500px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    padding: var(--space-5) var(--space-4);
   }
-  
-  .signup-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: linear-gradient(90deg, #4caf50, #2e7d32);
+
+  .signup-section h1 {
+    font-size: var(--text-2xl);
   }
-  
-  .signup-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  form label {
-    text-align: left;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #333;
-    font-size: 0.95rem;
-  }
-  
+
   form input {
-    padding: 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #f9f9f9;
+    padding: var(--space-3);
   }
-  
-  form input:focus {
-    border-color: #4caf50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-    outline: none;
-    background-color: #fff;
-  }
-  
-  .error-message {
-    color: #e53935;
-    text-align: left;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-    height: 20px;
-    transition: all 0.3s ease;
-    display: none;
-  }
-  
+
   .cta-button {
-    background: linear-gradient(90deg, #4caf50, #2e7d32);
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin-top: 1rem;
+    padding: var(--space-3);
   }
-  
-  .cta-button:hover {
-    background: linear-gradient(90deg, #43a047, #2e7d32);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
-  }
-  
-  .cta-button:active {
-    transform: translateY(0);
-  }
-  
-  .cta-button::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: -100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: all 0.5s ease;
-  }
-  
-  .cta-button:hover::after {
-    left: 100%;
-  }
-  
-  .signup-container p {
-    color: #666;
-    margin-top: 1.5rem;
-  }
-  
-  .signup-container p a {
-    color: #4caf50;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .signup-container p a:hover {
-    color: #2e7d32;
-    text-decoration: underline;
-  }
-  
-  /* Status message styling */
-  .status-text {
-    margin-top: 1rem;
-    font-weight: 500;
-    height: 24px;
-    transition: all 0.3s ease;
-  }
-  
-  .status-text.success {
-    color: #4caf50;
-  }
-  
-  .status-text.error {
-    color: #e53935;
-  }
-  
-  /* Password strength indicator */
-  .password-strength {
-    height: 4px;
-    width: 100%;
-    background: #e0e0e0;
-    margin-bottom: 1rem;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  
-  .password-strength-bar {
-    height: 100%;
-    width: 0;
-    transition: width 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .password-strength-text {
-    text-align: left;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-    color: #666;
-  }
-  
-  /* Animation for form submission */
-  @keyframes shake {
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-      transform: translateX(-5px);
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-      transform: translateX(5px);
-    }
-  }
-  
-  .shake {
-    animation: shake 0.8s ease;
-  }
-  
-  /* Success animation */
-  @keyframes success-pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .success-pulse {
-    animation: success-pulse 0.5s ease;
-  }
-  
-  /* Loading animation */
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.6;
-    }
-  }
-  
-  .loading {
-    animation: pulse 1.5s infinite;
-  }
-  
-  /* Responsive adjustments */
-  @media screen and (max-width: 768px) {
-    .signup-container {
-      padding: 2rem 1.5rem;
-    }
-  
-    .signup-section h1 {
-      font-size: 2rem;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .signup-container {
-      padding: 1.5rem 1rem;
-    }
-  
-    .signup-section h1 {
-      font-size: 1.8rem;
-    }
-  
-    form input {
-      padding: 0.8rem;
-    }
-  
-    .cta-button {
-      padding: 0.8rem;
-    }
-  }
-  
-  /* Input with error */
-  input.error {
-    border-color: #e53935;
-  }
-  
-  /* Show error message when input has error */
-  input.error + .error-message {
-    display: block;
-  }
-  
-  /* Additional styling for the form elements */
-  #name,
-  #email,
-  #password,
-  #confirmPassword {
-    transition: transform 0.2s ease;
-  }
-  
-  #name:focus,
-  #email:focus,
-  #password:focus,
-  #confirmPassword:focus {
-    transform: scale(1.01);
-  }
-  
-  /* Add a subtle hover effect to inputs */
-  form input:hover {
-    border-color: #bdbdbd;
-  }
-  
-  /* Style the "Already have an account?" text */
-  .signup-container > p {
-    font-size: 0.95rem;
-    margin-top: 2rem;
-  }
-  
-  /* Add a subtle border to the form */
-  .signup-container {
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Make the form feel more interactive with subtle transitions */
-  .signup-container form {
-    transition: all 0.3s ease;
-  }
-  
-  .signup-container form:focus-within {
-    transform: translateY(-2px);
-  }
-  
-  /* Add a subtle background pattern */
-  .signup-section {
-    background-image: radial-gradient(circle at 1px 1px, rgba(76, 175, 80, 0.05) 1px, transparent 0);
-    background-size: 20px 20px;
-  }
-  
-  /* Enhance the button with a more pronounced hover effect */
-  .cta-button:hover {
-    letter-spacing: 0.5px;
-  }
-  
-  .input-group {
-    position: relative;
+}
+
+/* Input with error */
+input.error {
+  border-color: var(--danger);
+}
+
+/* Show error message when input has error */
+input.error + .error-message {
+  display: block;
+}
+
+/* Additional styling for the form elements */
+#name,
+#email,
+#password,
+#confirmPassword {
+  transition: transform 0.2s ease;
+}
+
+#name:focus,
+#email:focus,
+#password:focus,
+#confirmPassword:focus {
+  transform: scale(1.01);
+}
+
+/* Style the "Already have an account?" text */
+.signup-container > p {
+  font-size: var(--text-sm);
+  margin-top: var(--space-6);
+}
+
+/* Add a subtle background pattern */
+.signup-section {
+  background-image: radial-gradient(circle at 1px 1px, rgba(15, 155, 142, 0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.input-group {
+  position: relative;
 }
 
 .input-group input {
-    width: 100%;
-    padding-right: 40px; /* Leave space for the icon */
+  width: 100%;
+  padding-right: 40px; /* Leave space for the icon */
 }
 
 .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-    user-select: none;
+  position: absolute;
+  right: 12px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+  color: var(--gray-500);
+}
+.toggle-password:hover {
+  color: var(--gray-800);
 }
