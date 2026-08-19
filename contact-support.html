@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact FitFlow support, find quick answers, and send product feedback or account questions.">
+    <meta name="theme-color" content="#0f9b8e">
+    <link rel="icon" href="logo.webp" type="image/webp">
+    <title>Contact & Support — FitFlow</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="premium-components.css">
+    <link rel="stylesheet" href="contact-support.css">
+</head>
+<body class="contact-support-page">
+<header>
+    <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+    <div class="name"><h1>FITFLOW</h1><p>Personal wellness, made useful.</p></div>
+    <nav aria-label="Primary navigation">
+        <ul id="nav-menu"></ul>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">☰</button>
+    </nav>
+</header>
+
+<main>
+    <section class="cs-hero" aria-labelledby="cs-title">
+        <div class="cs-hero-copy">
+            <span class="cs-eyebrow"><i class="fa-solid fa-life-ring" aria-hidden="true"></i> CONTACT & SUPPORT</span>
+            <h1 id="cs-title">Need a hand? <span>Let's figure it out.</span></h1>
+            <p>Find a quick answer, report an issue, share feedback, or tell us what would make FitFlow more useful.</p>
+            <div class="cs-hero-actions">
+                <a href="#message" class="cs-btn cs-btn-primary">Send a message <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+                <a href="mailto:fitflow71@gmail.com" class="cs-btn cs-btn-secondary"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email FitFlow</a>
+            </div>
+        </div>
+        <div class="cs-hero-card">
+            <div class="cs-hero-icon"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+            <div><strong>One place for help</strong><p>Product questions, account issues, and feedback now live together.</p></div>
+        </div>
+    </section>
+
+    <section class="cs-content" aria-label="Support information">
+        <div class="cs-faq-panel">
+            <div class="cs-section-heading">
+                <span class="cs-eyebrow"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> QUICK ANSWERS</span>
+                <h2>Before you send a message</h2>
+                <p>A few common answers can save you a wait.</p>
+            </div>
+            <details open><summary><i class="fa-solid fa-key" aria-hidden="true"></i> How do I reset my password?</summary><p>Open the login page, choose “Forgot Password,” and follow the Firebase email reset flow.</p></details>
+            <details><summary><i class="fa-solid fa-chart-line" aria-hidden="true"></i> How do I get useful progress?</summary><p>Log activities, sleep, and nutrition consistently. FitFlow uses those records to surface trends and milestones.</p></details>
+            <details><summary><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> How is my account protected?</summary><p>Authentication is handled through Firebase Authentication, while user records are protected by the project's Firebase data rules.</p></details>
+            <details><summary><i class="fa-solid fa-user-gear" aria-hidden="true"></i> Something is not working</summary><p>Tell us what you were doing, what you expected, and what happened. Include the page name and any visible error message.</p></details>
+        </div>
+
+        <div class="cs-message-panel" id="message">
+            <div class="cs-section-heading">
+                <span class="cs-eyebrow"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> GET IN TOUCH</span>
+                <h2>Send a message</h2>
+                <p>Your message opens in your email client with the details already prepared. No Formspree or FitFlow backend is required.</p>
+            </div>
+            <form id="contact-support-form" novalidate>
+                <div class="cs-form-grid">
+                    <label><span>Name</span><input type="text" id="cs-name" name="name" placeholder="Your name" autocomplete="name" required></label>
+                    <label><span>Email</span><input type="email" id="cs-email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+                </div>
+                <label><span>Reason</span>
+                    <select id="cs-topic" name="topic">
+                        <option value="Support request">Support request</option>
+                        <option value="Product feedback">Product feedback</option>
+                        <option value="Account issue">Account issue</option>
+                        <option value="Bug report">Bug report</option>
+                        <option value="Project collaboration">Project collaboration</option>
+                    </select>
+                </label>
+                <label><span>Message</span><textarea id="cs-message" name="message" rows="7" placeholder="Tell us what you need help with..." required></textarea></label>
+                <button class="cs-btn cs-btn-primary cs-submit" type="submit"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i> Prepare email</button>
+                <p class="cs-form-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This uses your device's mail app. If no mail app is configured, use the email link above.</p>
+                <div id="cs-feedback" class="cs-feedback" role="status" aria-live="polite" hidden></div>
+            </form>
+        </div>
+    </section>
+
+    <section class="cs-email-strip" aria-label="Direct email contact">
+        <div class="cs-email-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+        <div><span>Prefer email?</span><strong>fitflow71@gmail.com</strong></div>
+        <a href="mailto:fitflow71@gmail.com">Open your mail app <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+    </section>
+</main>
+
+<footer></footer>
+<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>FitFlow uses account and wellness data to provide its tracking features.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
+<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>Use FitFlow responsibly and only record information you are comfortable storing in your account.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
+<script src="privacyandterms.js"></script>
+<script src="hamburger.js"></script>
+<script src="contact-support.js"></script>
+</body>
+</html>
