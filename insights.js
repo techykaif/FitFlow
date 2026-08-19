@@ -1,105 +1,84 @@
-import {
-    database,
-    ref,
-    get,
-    child,
-    getAuth
-} from "./firebaseConfig.js";
+import { database, ref, get, child } from "./firebaseConfig.js";
 
-// 2. Fetch user data
-async function fetchAllData(email) {
-    const formattedEmail = email.replace(/\./g, "_");
-    const baseRef = ref(database, `users/${formattedEmail}`);
+function normalizeUserKey(value) {
+    if (!value) return "";
+    return value.includes("@")
+        ? value.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_")
+        : value;
+}
 
+async function fetchAllData(userKey) {
+    const baseRef = ref(database, `users/${normalizeUserKey(userKey)}`);
     const [sleepSnap, nutritionSnap, activitySnap] = await Promise.all([
         get(child(baseRef, "sleep")),
         get(child(baseRef, "nutrition")),
         get(child(baseRef, "activities")),
     ]);
 
-    // Convert snapshots into arrays for sleep and activities data
-    const sleepData = sleepSnap.exists() ? Object.values(sleepSnap.val()) : [];
-    const activityData = activitySnap.exists() ? Object.values(activitySnap.val()) : [];
-
-    // Fetching individual nutrition data for each meal
-    const nutritionData = nutritionSnap.exists() ? nutritionSnap.val() : {};
-
     return {
-        sleep: sleepData,
-        nutrition: nutritionData,
-        activity: activityData,
+        sleep: sleepSnap.exists() ? Object.values(sleepSnap.val()) : [],
+        nutrition: nutritionSnap.exists() ? Object.values(nutritionSnap.val()) : [],
+        activity: activitySnap.exists() ? Object.values(activitySnap.val()) : [],
     };
 }
 
+function buildInsights(data) {
+    const sleepValues = data.sleep
+        .map((entry) => Number(entry.duration) || 0)
+        .filter((value) => value > 0 && value < 24);
+    const activityMinutes = data.activity.reduce((sum, entry) => sum + (Number(entry.duration) || 0), 0);
+    const calories = data.nutrition.reduce((sum, entry) => sum + (Number(entry.calories) || 0), 0);
+    const averageSleep = sleepValues.length
+        ? sleepValues.reduce((sum, value) => sum + value, 0) / sleepValues.length
+        : 0;
 
-// 3. Create prompt
-function createPrompt(data) {
-    return `
-  You are a fitness assistant. Analyze the following fitness data and give 3 personalized suggestions for improvement.
-  
-  Sleep data:
-  ${JSON.stringify(data.sleep, null, 2)}
-  
-  Nutrition data:
-  ${JSON.stringify(data.nutrition, null, 2)}
-  
-  Activity data:
-  ${JSON.stringify(data.activity, null, 2)}
-  
-  Provide actionable, motivating advice.
-    `;
+    const insights = [];
+
+    if (!sleepValues.length) {
+        insights.push({ icon: "fa-bed", title: "Start tracking sleep", text: "Add your first sleep record so FitFlow can identify recovery patterns." });
+    } else if (averageSleep < 7) {
+        insights.push({ icon: "fa-bed", title: "Prioritize recovery", text: `Your recorded average is ${averageSleep.toFixed(1)} hours. Aim for a consistent 7–9 hour sleep window.` });
+    } else {
+        insights.push({ icon: "fa-bed", title: "Sleep is on track", text: `Your recorded average is ${averageSleep.toFixed(1)} hours. Keep your sleep and wake times consistent.` });
+    }
+
+    if (activityMinutes === 0) {
+        insights.push({ icon: "fa-person-running", title: "Add some movement", text: "A short walk or workout today is a simple way to build momentum." });
+    } else if (activityMinutes < 150) {
+        insights.push({ icon: "fa-person-running", title: "Build your activity base", text: `${Math.round(activityMinutes)} minutes are recorded. Gradually working toward 150 minutes per week is a useful benchmark.` });
+    } else {
+        insights.push({ icon: "fa-person-running", title: "Strong activity trend", text: `${Math.round(activityMinutes)} minutes are recorded. Keep balancing training with recovery.` });
+    }
+
+    if (calories === 0) {
+        insights.push({ icon: "fa-apple-whole", title: "Log your meals", text: "Recording meals gives you a clearer picture of your nutrition patterns." });
+    } else {
+        insights.push({ icon: "fa-apple-whole", title: "Keep nutrition consistent", text: `${Math.round(calories).toLocaleString()} calories are recorded. Focus on balanced meals and steady hydration.` });
+    }
+
+    return insights;
 }
 
-// 4. Fetch AI response from Hugging Face
-async function getAIResponse(prompt) {
+function renderInsights(insights) {
+    const element = document.getElementById("ai-insights");
+    if (!element) return;
+
+    element.innerHTML = insights.map((insight) => `
+        <article class="insight-item">
+            <span class="insight-icon"><i class="fa-solid ${insight.icon}" aria-hidden="true"></i></span>
+            <div><strong>${insight.title}</strong><p>${insight.text}</p></div>
+        </article>
+    `).join("");
+}
+
+export async function generateAIInsights(userKey) {
+    const element = document.getElementById("ai-insights");
     try {
-        const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3", {
-            method: "POST",
-            headers: {
-                Authorization: "Bearer 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", // Replace with your Hugging Face token
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ inputs: prompt }),
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch AI response.");
-        }
-
-        const data = await response.json();
-        let aiResponse = data[0]?.generated_text || "No insights generated.";
-
-        // Process the AI response to remove prompt-based text
-        // Remove everything before "Provide actionable, motivating advice." and after that point
-        const adviceStartIndex = aiResponse.indexOf("1.");
-        const actionableInsights = aiResponse.substring(adviceStartIndex).trim();
-
-        return actionableInsights || "❌ An error occurred while generating actionable insights.";
+        if (element) element.innerHTML = '<p class="insight-placeholder"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Preparing your insights...</p>';
+        const data = await fetchAllData(userKey);
+        renderInsights(buildInsights(data));
     } catch (error) {
-        console.error("Error during AI response:", error);
-        return "❌ An error occurred while generating insights. Please try again.";
+        console.error("Smart insight generation failed:", error);
+        if (element) element.innerHTML = '<p class="insight-placeholder"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> We could not load your insights right now.</p>';
     }
 }
-
-// 5. Render the insights on the dashboard
-function renderInsights(text) {
-    const insightsElement = document.getElementById("ai-insights");
-    if (insightsElement) {
-        insightsElement.innerHTML = `<p style="font-size: 16px; color: #333;">${text.replace(/\n/g, "<br>")}</p>`;
-    }
-}
-
-// 6. Run everything (using user email passed from onAuthStateChanged)
-export async function generateAIInsights(formattedEmail) {
-    try {
-        renderInsights("Generating insights...");
-        const data = await fetchAllData(formattedEmail); // Use the formatted email to fetch data
-        const prompt = createPrompt(data);
-        const insights = await getAIResponse(prompt);
-        renderInsights(insights);
-    } catch (err) {
-        console.error("Insight generation failed", err);
-        renderInsights("❌ Unable to generate insights. Please try again.");
-    }
-}
-

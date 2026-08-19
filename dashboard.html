@@ -1,126 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Tracker Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="sidebar.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f9b8e">
+<title>Dashboard | FitFlow</title>
+<link rel="icon" href="logo.webp" type="image/webp">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="sidebar.css">
 </head>
-<script src="notifications.js" type="module"></script>
 <body>
-      <div class="dashboard">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="logo">
-                    <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
-                </div>
-                <nav class="nav">
-                    <ul>
-                        <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
-                        <li><a href="activites.html"><span class="icon">👟</span> Activities</a></li>
-                        <li><a href="progress.html"><span class="icon">📈</span> Progress</a></li>
-                        <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
-                        <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
-                        <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
-                    </ul>   
-                </nav>
-                <div class="user-profile">
-                    <div class="avatar" id="user-avatar">JD</div>
-                    <div class="user-info">
-                        <h4 id="user-name">Loading...</h4>
-                    </div>
-                </div>
-                
-            </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button class="search-btn" >🔍</button>
-                </div>
-                <div class="header-actions">
-                    <div class="notification-wrapper">
-                        <button id="bell-icon" class="notification-btn">
-                          🔔
-                        </button>
-                        <div id="login-history" class="dropdown hidden">
-                          <ul></ul>
-                        </div>
-                      </div>
-                </div>
-            </header>
-
-            <div class="welcome-section user-info">
-                <h1>Welcome , <span id="user-name1">loding...</span></h1>
-                <p>Here's your fitness summary for today</p>
-            </div>
-            <br>
-            <div class="dashboard-container">
-              
-              <!-- Dashboard Summary Cards -->
-              <div class="dashboard-grid">
-                <!-- Sleep Summary -->
-                <div class="dashboard-card">
-                  <h3>🛌 Sleep</h3>
-                  <p class="summary-value" id="dashboardSleep">Loading...</p>
-                  <p class="summary-label">Last Recorded Sleep</p>
-                </div>
-                <!-- Nutrition Summary -->
-                <div class="dashboard-card">
-                  <h3>🍎 Nutrition</h3>
-                  <p class="summary-value" id="dashboardNutrition">Loading...</p>
-                  <p class="summary-label">Today's Calorie Intake</p>
-                </div>
-                <!-- Activity Summary -->
-                <div class="dashboard-card">
-                  <h3>🏃 Activity</h3>
-                  <p class="summary-value" id="dashboardActivity">Loading...</p>
-                  <p class="summary-label">Minutes of Exercise</p>
-                </div>
-              </div>
-              
-              <!-- Quote of the Day Section -->
-              <div class="quote-container">
-                <div class="quote-card" id="quoteOfTheDay">
-                  <p class="quote-text">"The best way to predict the future is to create it."</p>
-                  <p class="quote-author">— Abraham Lincoln</p>
-                </div>
-              </div>
-              <div class="dashboard-card">
-                <h3>🧠 AI Insights</h3>
-                <p id="ai-insights">Loading AI insights...</p>
-              </div><br>
-              <!-- Weekly Charts Section -->
-              <div class="dashboard-charts">
-                <div class="chart-card">
-                  <h4>Weekly Sleep Chart</h4>
-                  <div class="chart-container">
-                    <canvas id="dashboardSleepChart"></canvas>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h4>Weekly Activity Chart</h4>
-                  <div class="chart-container">
-                    <canvas id="dashboardActivityChart"></canvas>
-                  </div>
-                </div>
-              </div>
-             
-            </div>
-           
-            
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-          
-    <script type="module" src="dashboard.js"></script>
-    <script type="module">
-        import { initSidebar } from "./components/sidebar.js";
-        initSidebar()
-      </script>
-      
-    <script type="module" src="dashboardjs.js"></script>
-</body>
-</html>
+<div class="dashboard">
+<aside class="sidebar">
+<div class="logo"><a class="brand" href="index.html" aria-label="FitFlow home"><img src="logo.webp" alt="" class="brand-icon"><span>FitFlow</span></a></div>
+<nav class="nav" aria-label="Primary navigation"><ul>
+<li class="active"><a href="dashboard.html"><i class="fa-solid fa-chart-pie premium-icon" aria-hidden="true"></i> Dashboard</a></li>
+<li><a href="activites.html"><i class="fa-solid fa-shoe-prints premium-icon" aria-hidden="true"></i> Activities</a></li>
+<li><a href="progress.html"><i class="fa-solid fa-chart-line premium-icon" aria-hidden="true"></i> Progress</a></li>
+<li><a href="nutrition.html"><i class="fa-solid fa-apple-whole premium-icon" aria-hidden="true"></i> Nutrition</a></li>
+<li><a href="sleep.html"><i class="fa-solid fa-moon premium-icon" aria-hidden="true"></i> Sleep</a></li>
+<li><a href="settings.html"><i class="fa-solid fa-gear premium-icon" aria-hidden="true"></i> Settings</a></li>
+</ul></nav>
+<div class="user-profile"><div class="avatar" id="user-avatar">U</div><div class="user-info"><h4 id="user-name">Loading...</h4></div></div>
+</aside>
+<main class="main-content">
+<header class="header"><div class="search-bar" role="search"><input type="search" placeholder="Search..." aria-label="Search FitFlow"><button class="search-btn" type="button" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button></div><div class="header-actions"><div class="notification-wrapper"><button id="bell-icon" class="notification-btn" type="button" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button><div id="login-history" class="dropdown hidden" aria-label="Login history"><ul></ul></div></div></div></header>
+<section class="welcome-section user-info" aria-labelledby="dashboard-welcome"><div><p class="eyebrow"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> Your daily overview</p><h1 id="dashboard-welcome">Welcome, <span id="user-name1">Loading...</span></h1><p>Here's your fitness summary for today.</p></div></section>
+<div class="dashboard-container">
+<section class="dashboard-grid" aria-label="Today's fitness summary">
+<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-bed" aria-hidden="true"></i></span><h3>Sleep</h3></div><p class="summary-value" id="dashboardSleep">Loading...</p><p class="summary-label">Last recorded sleep</p></article>
+<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></span><h3>Nutrition</h3></div><p class="summary-value" id="dashboardNutrition">Loading...</p><p class="summary-label">Today's calorie intake</p></article>
+<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-person-running" aria-hidden="true"></i></span><h3>Activity</h3></div><p class="summary-value" id="dashboardActivity">Loading...</p><p class="summary-label">Minutes of exercise</p></article>
+</section>
+<section class="quote-container" aria-label="Quote of the day"><div class="quote-card" id="quoteOfTheDay"><div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div><div><p class="quote-text">"The best way to predict the future is to create it."</p><p class="quote-author">— Abraham Lincoln</p></div></div></section>
+<section class="dashboard-card insights-card" aria-labelledby="insights-title"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span><div><h3 id="insights-title">Smart Insights</h3><p class="section-kicker">Personalized guidance from your activity data</p></div></div><div id="ai-insights" class="insights-content"><p class="insight-placeholder"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Preparing your insights...</p></div></section>
+<section class="dashboard-charts" aria-label="Weekly fitness charts"><article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Recovery</span><h4>Weekly Sleep</h4></div><i class="fa-solid fa-bed" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardSleepChart"></canvas></div></article><article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Movement</span><h4>Weekly Activity</h4></div><i class="fa-solid fa-person-running" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardActivityChart"></canvas></div></article></section>
+</div></main></div>
+<script src="notifications.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script type="module" src="dashboard.js"></script>
+<script type="module">import { initSidebar } from "./components/sidebar.js"; initSidebar();</script>
+<script type="module" src="dashboardjs.js"></script>
+</body></html>

@@ -2,45 +2,53 @@ import "./components/icon-system.js";
 import { auth, database, ref, get, onAuthStateChanged } from "./firebaseConfig.js";
 import { generateAIInsights } from "./insights.js";
 
-// Function to format email for Firebase keys
 function formatEmail(email) {
     return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
 }
 
-// Check if the user is logged in and fetch data
-onAuthStateChanged(auth, (user) => {
+function renderAvatar(element, user, name) {
+    if (!element) return;
+    element.replaceChildren();
+
+    if (user?.photoURL) {
+        const image = document.createElement("img");
+        image.src = user.photoURL;
+        image.alt = "Profile photo";
+        image.referrerPolicy = "no-referrer";
+        image.addEventListener("error", () => {
+            element.textContent = (name || "U").charAt(0).toUpperCase();
+        }, { once: true });
+        element.appendChild(image);
+        return;
+    }
+
+    element.textContent = (name || "U").charAt(0).toUpperCase();
+}
+
+onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        // Redirect to login page if the user is not authenticated
-        window.location.href = "tracker.html";
-    } else {
-        // Fetch user data
-        const formattedEmail = formatEmail(user.email);
-        const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+        window.location.href = "login.html";
+        return;
+    }
+
+    const formattedEmail = formatEmail(user.email);
+    const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+
+    try {
         generateAIInsights(formattedEmail);
+        const snapshot = await get(userRef);
 
-        get(userRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const userData = snapshot.val();
-                    document.getElementById("user-name").textContent = userData.name || "User";
+        if (snapshot.exists()) {
+            const userData = snapshot.val();
+            const name = userData.name || user.displayName || "User";
+            document.getElementById("user-name").textContent = name;
 
-                    // Check if the element with ID "user-name1" exists before updating it
-                    if (document.getElementById("user-name1")) {
-                        document.getElementById("user-name1").textContent = userData.name || "User";
-                    }
+            const welcomeName = document.getElementById("user-name1");
+            if (welcomeName) welcomeName.textContent = name;
 
-                    // Set avatar (either from Firebase profile pic or initials)
-                    const avatarElement = document.getElementById("user-avatar");
-                    if (user.photoURL) {
-                        avatarElement.innerHTML = `<img src="${user.photoURL}" alt="User Avatar">`;
-                    } else {
-                        const initials = userData.name ? userData.name[0].toUpperCase() : "U";
-                        avatarElement.textContent = initials;
-                    }
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching user data:", error);
-            });
+            renderAvatar(document.getElementById("user-avatar"), user, name);
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
     }
 });

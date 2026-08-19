@@ -1,224 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FitFlow Health & Wellness Tracker</title>
+    <link rel="icon" href="logo.webp" type="image/webp">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="website icon" href="logo.jpeg" type="jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
 </head>
-
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="logo.webp" alt="Health & Wellness Logo">
-        </div>
-        <div class="name">
-            <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
-        </div>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ul>
+<header>
+    <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+    <div class="name"><h1>FITFLOW</h1><p>Growing Strong, Staying Healthy</p></div>
+    <nav>
+        <ul id="nav-menu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="tracker.html"><i class="fas fa-heartbeat"></i> Go to Tracker</a></li>
+            <li><a href="features.html"><i class="fas fa-list"></i> Features</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="support.html"><i class="fas fa-question-circle"></i> Support</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </nav>
+</header>
 
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ol>
+<section class="login-section" id="loginSection">
+    <h1>Log In to FitFlow</h1>
+    <p>Welcome back! Please log in to continue.</p>
+    <div class="login-container">
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+            <div id="emailError" class="error-message"></div>
 
-        </div>
-    </header>
-    
-    
-    <!-- Login Section -->
-    <section class="login-section" id="loginSection">
-        <h1>Log In to FitFlow</h1>
-        <p>Welcome back! Please log in to continue.</p>
-    
-        <div class="login-container">
-            <form id="loginForm">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                <div id="emailError" class="error-message"></div> <!-- Error message container -->
-    
-                <label for="password">Password</label>
-                <div class="password-container">
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    <button type="button" class="toggle-password" id="togglePassword">
-                        <i class="fa fa-eye"></i> <!-- Font Awesome icon for visibility toggle -->
-                    </button>
-                </div>
-                <div id="passwordError" class="error-message"></div> <!-- Error message container -->
-                <div id="incorrectMessage" style="display: none; color: red; margin-top: 10px;">
-                    Incorrect email or password. Please try again.
-                </div>
-                <div id="loadingMessage">Logging in, please wait...</div><br>
-                <button type="button" class="cta-button" id="loginBtn">Log In</button>
-            </form><br>
-            <a href="forgotpassword.html" class="forgotpassword">Forgot Password?</a>
-            <p>Don't have an account? <a href="signup.html">Sign Up here</a>.</p>
-        </div>
-    </section>
-    
-
-    <!-- Footer -->
-    <footer style="@media screen and (max-width: 1440px) {
-       margin-top: 120px;
-        
-    }">
-        <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              </div>
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
             </div>
-        </div>
-        <div class="copyright">
-            <p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
-    </footer>
+            <div id="passwordError" class="error-message"></div>
+            <div id="incorrectMessage" class="auth-message" role="alert" aria-live="polite" style="display:none;"></div>
+            <div id="loadingMessage" role="status" aria-live="polite">Logging in, please wait...</div>
+            <button type="button" class="cta-button" id="loginBtn">Log In</button>
+        </form>
 
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with
-                third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this
-                privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
+        <div class="auth-divider" aria-hidden="true"><span>or</span></div>
+        <button type="button" class="google-signin-btn" id="googleSignInBtn">
+            <i class="fa-brands fa-google google-brand-icon" aria-hidden="true"></i>
+            <span>Continue with Google</span>
+        </button>
+
+        <a href="forgotpassword.html" class="forgotpassword">Forgot Password?</a>
+        <p>Don't have an account? <a href="signup.html">Sign Up here</a>.</p>
     </div>
+</section>
 
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure
-                to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform
-                constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
+<footer>
+    <div class="footer-content">
+        <ul class="quick-links"><li><a href="#">Privacy Policy</a></li><li><a href="#terms">Terms of Service</a></li></ul>
+        <div class="social-media">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
+        <div class="contact-info"><p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p><p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p><p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p></div>
     </div>
-    </footer>
-    <script>
+    <div class="copyright"><p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p></div>
+</footer>
 
-        // Get modal elements
-        const privacyModal = document.getElementById("privacy-modal");
-        const termsModal = document.getElementById("terms-modal");
+<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p><p>By using this platform, you agree to the collection and use of information in accordance with this privacy policy.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
+<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure to read these terms carefully before using our services.</p><p>We reserve the right to modify or update our terms at any time, and your continued use of the platform constitutes acceptance of the updated terms.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
 
-        // Get close buttons
-        const closePrivacyBtn = document.querySelector(".close-btn");
-        const closeTermsBtn = document.querySelector(".terms-close-btn");
-
-        // Get understood buttons
-        const understoodPrivacyBtn = document.getElementById("understood-btn");
-        const understoodTermsBtn = document.getElementById("terms-understood-btn");
-
-        // Open Privacy modal
-        document.querySelector(".quick-links a[href='#']").addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default link behavior
-            privacyModal.style.display = "flex"; // Show Privacy modal
-        });
-
-        // Open Terms modal
-        document.querySelector(".quick-links a[href='#terms']").addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default link behavior
-            termsModal.style.display = "flex"; // Show Terms modal
-        });
-
-        // Close Privacy modal
-        closePrivacyBtn.addEventListener("click", function () {
-            privacyModal.style.display = "none"; // Hide modal
-        });
-
-        // Close Terms modal
-        closeTermsBtn.addEventListener("click", function () {
-            termsModal.style.display = "none"; // Hide modal
-        });
-
-        // Close modal on 'Understood' button
-        understoodPrivacyBtn.addEventListener("click", function () {
-            privacyModal.style.display = "none"; // Hide modal
-        });
-        understoodTermsBtn.addEventListener("click", function () {
-            termsModal.style.display = "none"; // Hide modal
-        });
-
-        // Close modal if clicked outside of the modal content
-        window.addEventListener("click", function (event) {
-            if (event.target == privacyModal) {
-                privacyModal.style.display = "none";
-            }
-            if (event.target == termsModal) {
-                termsModal.style.display = "none";
-            }
-        });
-        const emailField = document.getElementById('email');
-        const passwordField = document.getElementById('password');
-
-        // Add event listener to both input fields
-        [emailField, passwordField].forEach(field => {
-            field.addEventListener('keydown', function (event) {
-                // Check if the Enter key is pressed
-                if (event.key === 'Enter') {
-                    event.preventDefault(); // Prevent the default form submission
-                    document.getElementById('loginBtn').click(); // Trigger the login button click
-                }
-            });
-        });
-
-    </script>
-    <script src="hamburger.js"></script>
-    <script type="module" src="login.js"></script>
-    <script src="privacyandterms.js"></script>
+<script>
+const privacyModal=document.getElementById("privacy-modal"),termsModal=document.getElementById("terms-modal");
+const closePrivacyBtn=document.querySelector(".close-btn"),closeTermsBtn=document.querySelector(".terms-close-btn");
+const understoodPrivacyBtn=document.getElementById("understood-btn"),understoodTermsBtn=document.getElementById("terms-understood-btn");
+document.querySelector(".quick-links a[href='#']").addEventListener("click",e=>{e.preventDefault();privacyModal.style.display="flex";});
+document.querySelector(".quick-links a[href='#terms']").addEventListener("click",e=>{e.preventDefault();termsModal.style.display="flex";});
+closePrivacyBtn.addEventListener("click",()=>privacyModal.style.display="none");closeTermsBtn.addEventListener("click",()=>termsModal.style.display="none");
+understoodPrivacyBtn.addEventListener("click",()=>privacyModal.style.display="none");understoodTermsBtn.addEventListener("click",()=>termsModal.style.display="none");
+window.addEventListener("click",e=>{if(e.target===privacyModal)privacyModal.style.display="none";if(e.target===termsModal)termsModal.style.display="none";});
+[document.getElementById("email"),document.getElementById("password")].forEach(field=>field.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();document.getElementById("loginBtn").click();}}));
+</script>
+<script src="hamburger.js"></script>
+<script type="module" src="login.js"></script>
+<script src="privacyandterms.js"></script>
 </body>
-
 </html>
