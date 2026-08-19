@@ -24,11 +24,11 @@
 .cta-button:focus-visible,.google-signin-btn:focus-visible,.toggle-password:focus-visible{outline:3px solid rgba(52,211,153,.42);outline-offset:3px}
 .auth-divider{display:flex;align-items:center;gap:14px;margin:24px 0 18px;color:#829292;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:#dcebea}
-.google-signin-btn{display:flex;align-items:center;justify-content:center;gap:11px;padding:13px 18px;background:#fff;color:#173f40;border:1px solid #cfdedd;box-shadow:0 5px 16px rgba(16,42,43,.05)}
-.google-signin-btn:hover{border-color:#a8c9c5;box-shadow:0 9px 22px rgba(16,42,43,.08)}
+.google-signin-btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 18px;background:#fff;color:#1f2d2f;border:1px solid #d7dedf;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.google-signin-btn:hover{border-color:rgba(15,155,142,.45);background:#fbfefe;box-shadow:0 8px 18px rgba(15,155,142,.10)}
 .google-signin-btn:disabled,.cta-button:disabled{opacity:.68;cursor:wait;transform:none}
-.google-mark{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:#f3faf8;border:1px solid #dcebea;flex:0 0 34px;box-shadow:0 2px 7px rgba(16,42,43,.06)}
-.google-mark i{font-size:1.08rem;color:#4285f4;line-height:1}
+.google-mark{width:28px;height:28px;display:grid;place-items:center;font-size:19px;flex:0 0 28px}
+.google-mark i{background:conic-gradient(from -45deg,#4285f4 0 25%,#34a853 25% 50%,#fbbc05 50% 75%,#ea4335 75%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .auth-button-spinner{width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
 .auth-message{display:flex;align-items:flex-start;gap:9px;padding:12px 14px;border-radius:12px;margin:0 0 14px;text-align:left;font-size:14px;line-height:1.45}
 .auth-message-error{color:#8d2727;background:rgba(224,49,49,.08);border:1px solid rgba(224,49,49,.14)}
