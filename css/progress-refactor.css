@@ -20,8 +20,8 @@
   padding: 0.7rem 1.15rem;
   border: 1px solid transparent;
   border-radius: 10px;
-  background: transparent;
-  color: #163d3b;
+  background: #ffffff !important;
+  color: #163d3b !important;
   font: inherit;
   font-weight: 700;
   line-height: 1;
@@ -30,27 +30,36 @@
   visibility: visible !important;
   position: relative;
   z-index: 2;
-  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
 
 .time-range-selector .time-btn:hover {
-  background: #e1f2f0;
-  color: #087f78;
+  background: #e1f2f0 !important;
+  color: #087f78 !important;
 }
 
-/* Explicit state wins over the legacy Progress styles. */
+/* Selected range: solid teal surface + white label for clear contrast. */
 .time-range-selector .time-btn.active,
 .time-range-selector .time-btn[aria-selected="true"],
 .time-range-selector .time-btn[aria-pressed="true"],
 .time-range-selector .time-btn.selected {
-  background: #ffffff !important;
-  color: #087f78 !important;
-  border-color: #c9e5e1 !important;
-  box-shadow: 0 4px 12px rgba(15, 155, 142, 0.12) !important;
+  background: #0f9b8e !important;
+  color: #ffffff !important;
+  border-color: #0f9b8e !important;
+  box-shadow: 0 5px 14px rgba(15, 155, 142, 0.22) !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
+.time-range-selector .time-btn.active:hover,
+.time-range-selector .time-btn[aria-selected="true"]:hover,
+.time-range-selector .time-btn[aria-pressed="true"]:hover,
+.time-range-selector .time-btn.selected:hover {
+  background: #0b7a70 !important;
+  color: #ffffff !important;
+}
+
+/* Remove decorative legacy pseudo-elements from the selected control. */
 .time-range-selector .time-btn.active::before,
 .time-range-selector .time-btn.active::after,
 .time-range-selector .time-btn[aria-selected="true"]::before,
@@ -65,9 +74,10 @@
 .time-range-selector .time-btn[aria-selected="true"] *,
 .time-range-selector .time-btn[aria-pressed="true"] *,
 .time-range-selector .time-btn.selected * {
-  color: inherit !important;
+  color: #ffffff !important;
   opacity: 1 !important;
   visibility: visible !important;
+  text-shadow: none !important;
 }
 
 @media (max-width: 640px) {
