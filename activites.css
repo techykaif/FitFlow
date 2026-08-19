@@ -348,13 +348,40 @@
     font-size: 1rem;
   }
   
+  /* Empty states use the shared Font Awesome icon system rather than emoji. */
   .no-activities::before {
-    content: '📊';
-    display: block;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    content: none;
+    display: none;
   }
-  
+
+  .empty-state-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    background: #e3f9f6;
+    color: #0f9b8e;
+    font-size: 1.35rem;
+    box-shadow: 0 10px 24px rgba(15, 155, 142, 0.12);
+  }
+
+  .no-activities h3 {
+    margin: 0 0 0.35rem;
+    color: #153b3d;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .no-activities p {
+    max-width: 32rem;
+    margin: 0 auto;
+    color: #6b8587;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
   /* Animations */
   @keyframes spin {
     to { transform: rotate(360deg); }
