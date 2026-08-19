@@ -2,6 +2,54 @@ function getPublicMenu() {
     return document.getElementById("nav-menu") || document.getElementById("tooltip");
 }
 
+const PUBLIC_NAV_ITEMS = [
+    ["index.html", "fa-house", "Home"],
+    ["about.html", "fa-circle-info", "About"],
+    ["tracker.html", "fa-heart-pulse", "Tracker"],
+    ["features.html", "fa-table-cells-large", "Features"],
+    ["blog.html", "fa-book-open", "Blog"],
+    ["signup.html", "fa-user-plus", "Sign Up"],
+    ["login.html", "fa-arrow-right-to-bracket", "Log In"],
+    ["contact.html", "fa-envelope", "Contact"],
+    ["support.html", "fa-circle-question", "Support"]
+];
+
+function getCurrentPublicPage() {
+    const path = window.location.pathname.split("/").filter(Boolean).pop();
+    return path || "index.html";
+}
+
+function normalizePublicNavigation() {
+    const menu = document.getElementById("nav-menu");
+    if (!menu) return;
+
+    const currentPage = getCurrentPublicPage();
+    const fragment = document.createDocumentFragment();
+
+    PUBLIC_NAV_ITEMS.forEach(([href, icon, label]) => {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        const iconElement = document.createElement("i");
+
+        link.href = href;
+        link.textContent = ` ${label}`;
+        link.title = label;
+
+        if (href === currentPage) {
+            link.setAttribute("aria-current", "page");
+        }
+
+        iconElement.className = `fa-solid ${icon}`;
+        iconElement.setAttribute("aria-hidden", "true");
+        link.prepend(iconElement);
+
+        item.appendChild(link);
+        fragment.appendChild(item);
+    });
+
+    menu.replaceChildren(fragment);
+}
+
 function setMenuOpen(open) {
     const menu = getPublicMenu();
     const toggle = document.querySelector(".menu-toggle");
@@ -71,6 +119,7 @@ function replaceFakeTestimonials() {
 }
 
 function initPublicPolish() {
+    normalizePublicNavigation();
     mountPublicFooter();
     replaceFakeTestimonials();
 
