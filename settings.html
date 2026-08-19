@@ -3,36 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <meta name="theme-color" content="#0f9b8e">
+    <title>Settings | FitFlow</title>
+    <link rel="icon" href="logo.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="settings.css">
 </head>
-
 <body>
-    <div class="settings-container">
-        <h2>Settings</h2>
-
-        <!-- Profile Section -->
-        <div class="user-profile">
-            <div class="avatar" id="user-avatar">JD</div>
-            <div class="user-info">
-                <h4 id="user-name">Loading...</h4>
-                <p id="user-email">Loading...</p> <!-- Added email here -->
-            </div>
+    <main class="settings-page">
+        <div class="settings-brand">
+            <a href="dashboard.html" class="brand-link" aria-label="Back to FitFlow dashboard">
+                <img src="logo.webp" alt="" class="brand-icon">
+                <span>FitFlow</span>
+            </a>
+            <a href="dashboard.html" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Dashboard</a>
         </div>
 
-        <hr>
+        <section class="settings-container" aria-labelledby="settings-title">
+            <div class="settings-heading">
+                <div>
+                    <span class="eyebrow"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Account</span>
+                    <h1 id="settings-title">Settings</h1>
+                    <p>Manage your FitFlow profile and account preferences.</p>
+                </div>
+                <span class="settings-heading-icon"><i class="fa-solid fa-gear" aria-hidden="true"></i></span>
+            </div>
 
-        <!-- Profile Settings -->
-<div class="profile-settings">
-    <h3>Profile Settings</h3>
-    <input type="text" id="name" placeholder="Your Name">
+            <div class="user-profile">
+                <div class="avatar" id="user-avatar">U</div>
+                <div class="user-info">
+                    <h2 id="user-name">Loading...</h2>
+                    <p id="user-email">Loading...</p>
+                </div>
+            </div>
 
-    <button id="saveChangesBtn">Save Changes</button>
-    <button id="changePasswordBtn">Change Password</button> <!-- New Change Password Button -->
-    <button id="logoutBtn">Logout</button>
-    <button id="dashboardBtn">Go to Dashboard</button>
-</div>
+            <hr>
 
+            <section class="profile-settings" aria-labelledby="profile-title">
+                <div class="section-title">
+                    <span class="section-icon"><i class="fa-solid fa-user-pen" aria-hidden="true"></i></span>
+                    <div><h2 id="profile-title">Profile Settings</h2><p>Keep your account details up to date.</p></div>
+                </div>
+
+                <label for="name">Display name</label>
+                <input type="text" id="name" placeholder="Your Name" autocomplete="name">
+
+                <div class="settings-actions">
+                    <button id="saveChangesBtn" class="primary-action"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i><span>Save Changes</span></button>
+                    <button id="changePasswordBtn" class="secondary-action"><i class="fa-solid fa-key" aria-hidden="true"></i><span>Change Password</span></button>
+                    <button id="dashboardBtn" class="secondary-action"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Go to Dashboard</span></button>
+                    <button id="logoutBtn" class="danger-action"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>Logout</span></button>
+                </div>
+            </section>
+        </section>
+    </main>
 
     <script type="module" src="settings.js"></script>
 </body>
