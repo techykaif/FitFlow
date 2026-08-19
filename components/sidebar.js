@@ -11,27 +11,26 @@ function createSidebar() {
     line-height: 1.2;
     margin-bottom: 0.5rem; " onclick="window.location.href='index.html'">FitFlow</h2>
     </div>
-    <button class="close-sidebar-btn">❌</button>
-    <nav class="nav">
+    <button class="close-sidebar-btn" aria-label="Close navigation"><i class="fa-solid fa-xmark premium-icon" aria-hidden="true"></i></button>
+    <nav class="nav" aria-label="Primary navigation">
       <ul>
         <li class="${pageName === "dashboard.html" ? "active" : ""}">
-          <a href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+          <a href="dashboard.html"><i class="fa-solid fa-chart-pie premium-icon" aria-hidden="true"></i> Dashboard</a>
         </li>
         <li class="${pageName === "progress.html" ? "active" : ""}">
-          <a href="progress.html"><span class="icon">📈</span> Progress</a>
+          <a href="progress.html"><i class="fa-solid fa-chart-line premium-icon" aria-hidden="true"></i> Progress</a>
         </li>
         <li class="${pageName === "activites.html" ? "active" : ""}">
-          <a href="activites.html"><span class="icon">👟</span> Activities</a>
+          <a href="activites.html"><i class="fa-solid fa-shoe-prints premium-icon" aria-hidden="true"></i> Activities</a>
         </li>
-        
         <li class="${pageName === "nutrition.html" ? "active" : ""}">
-          <a href="nutrition.html"><span class="icon">🍎</span> Nutrition</a>
+          <a href="nutrition.html"><i class="fa-solid fa-apple-whole premium-icon" aria-hidden="true"></i> Nutrition</a>
         </li>
         <li class="${pageName === "sleep.html" ? "active" : ""}">
-          <a href="sleep.html"><span class="icon">💤</span> Sleep</a>
+          <a href="sleep.html"><i class="fa-solid fa-moon premium-icon" aria-hidden="true"></i> Sleep</a>
         </li>
         <li class="${pageName === "settings.html" ? "active" : ""}">
-          <a href="settings.html"><span class="icon">⚙️</span> Settings</a>
+          <a href="settings.html"><i class="fa-solid fa-gear premium-icon" aria-hidden="true"></i> Settings</a>
         </li>
       </ul>
     </nav>
@@ -52,24 +51,23 @@ function setupMobileMenu() {
   const header = document.querySelector(".header");
   const sidebar = document.querySelector(".sidebar");
 
-  // Hamburger button
   let hamburger = document.querySelector(".hamburger-menu");
   if (!hamburger) {
     hamburger = document.createElement("button");
     hamburger.className = "hamburger-menu";
-    hamburger.innerHTML = "☰";
+    hamburger.setAttribute("aria-label", "Open navigation");
+    hamburger.innerHTML = `<i class="fa-solid fa-bars premium-icon" aria-hidden="true"></i>`;
     hamburger.style.cssText = `
       display: none;
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
       margin-right: 15px;
     `;
     header.prepend(hamburger);
   }
 
-  // Close button is already in sidebar HTML (class="close-sidebar-btn")
   const closeSidebarBtn = sidebar.querySelector(".close-sidebar-btn");
   closeSidebarBtn.style.cssText = `
     display: none;
@@ -78,7 +76,7 @@ function setupMobileMenu() {
     right: 15px;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 18px;
     cursor: pointer;
   `;
 
@@ -107,7 +105,6 @@ function setupMobileMenu() {
   });
 }
 
-// Initialize sidebar component
 function initSidebar() {
   const dashboard = document.querySelector(".dashboard");
 

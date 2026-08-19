@@ -1,3 +1,4 @@
+import "./components/icon-system.js";
 import { auth, database, ref, get, update, onAuthStateChanged, signOut } from "./firebaseConfig.js";
 
 // Function to format email for Firebase keys
@@ -25,11 +26,11 @@ function showToast(message, type = "success") {
 
     setTimeout(() => {
         toast.classList.add("show");
-    }, 100); // Smooth fade-in
+    }, 100);
 
     setTimeout(() => {
         toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 500); // Smooth fade-out
+        setTimeout(() => toast.remove(), 500);
     }, 3000);
 }
 
@@ -105,10 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (user) {
                 const formattedEmail = formatEmail(user.email);
-                const deviceId = getDeviceId(); // Get consistent device ID
+                const deviceId = getDeviceId();
                 const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
 
-                // Mark this session as inactive
                 update(sessionRef, { active: false })
                     .then(() => {
                         signOut(auth)
@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Error updating session: " + error.message, "error");
                     });
             } else {
-                // Fallback logout
                 signOut(auth)
                     .then(() => {
                         showToast("Logged out successfully!", "success");
