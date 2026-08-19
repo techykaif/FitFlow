@@ -26,6 +26,8 @@ button,input[type="submit"],input[type="button"] { cursor:pointer; }
 .notification-btn .premium-icon,.search-btn .premium-icon { margin:0; font-size:1rem; }
 .card-icon .premium-icon,.insight-icon .premium-icon,.empty-icon .premium-icon { margin:0; font-size:1.15em; }
 button .premium-icon { pointer-events:none; }
+.registration-success-message { display:flex; align-items:flex-start; gap:10px; margin-bottom:18px; padding:12px 14px; color:#075e56; background:var(--ff-primary-soft); border:1px solid #bce9e2; border-radius:12px; font-size:.9rem; line-height:1.45; }
+.registration-success-message i { margin-top:2px; color:var(--ff-primary); }
 
 .enhanced-hero {
   background:radial-gradient(circle at 80% 20%,rgba(52,211,153,.20),transparent 34%),linear-gradient(135deg,#f4fbfa 0%,#e8f7f4 48%,#f8fcfb 100%) !important;
