@@ -6,6 +6,7 @@ import {
     update,
     get,
 } from "./firebaseConfig.js";
+import { signInWithPopup, googleProvider } from "./components/google-auth.js";
 
 function formatEmail(email) {
     return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
@@ -67,19 +68,87 @@ function showRegistrationConfirmation() {
     window.history.replaceState({}, document.title, window.location.pathname);
 }
 
+function setLoginMessage(message, type = "error") {
+    const element = document.getElementById("incorrectMessage");
+    if (!element) return;
+
+    element.className = type === "success" ? "auth-message auth-message-success" : "auth-message auth-message-error";
+    element.innerHTML = `<i class="fa-solid ${type === "success" ? "fa-circle-check" : "fa-circle-exclamation"}" aria-hidden="true"></i><span>${message}</span>`;
+    element.style.display = "flex";
+}
+
+async function completeLogin(user) {
+    if (!user?.email) throw new Error("Your Google account did not provide an email address.");
+
+    const email = user.email.toLowerCase();
+    const formattedEmail = formatEmail(email);
+    const currentLoginTime = getCurrentIST();
+    const deviceId = await getDeviceId();
+
+    const profileRef = ref(database, `users/${formattedEmail}/personal_information`);
+    const profileSnapshot = await get(profileRef);
+
+    if (!profileSnapshot.exists()) {
+        await update(profileRef, {
+            name: user.displayName || "FitFlow User",
+            email,
+            uid: user.uid,
+            photoURL: user.photoURL || "",
+            auth_provider: "google",
+        });
+
+        await update(ref(database, `users/${formattedEmail}/login_activity`), {
+            account_created: currentLoginTime,
+        });
+    } else if (user.photoURL) {
+        await update(profileRef, { photoURL: user.photoURL });
+    }
+
+    const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
+    const snapshot = await get(loginRef);
+    const loginData = snapshot.val() || {};
+    let previousLogins = loginData.previous_logins || [];
+
+    if (loginData.last_login) {
+        previousLogins = [...previousLogins, loginData.last_login].slice(-20);
+    }
+
+    await update(loginRef, {
+        last_login: currentLoginTime,
+        previous_logins: previousLogins,
+    });
+
+    const sessionsRef = ref(database, `users/${formattedEmail}/sessions`);
+    const sessionsSnapshot = await get(sessionsRef);
+    const sessions = sessionsSnapshot.val() || {};
+    const sessionUpdates = {};
+
+    Object.keys(sessions).forEach((key) => {
+        sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
+    });
+
+    sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/active`] = true;
+    sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/lastLogin`] = currentLoginTime;
+
+    await update(ref(database), sessionUpdates);
+    window.location.href = "dashboard.html";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const loginBtn = document.getElementById("loginBtn");
+    const googleSignInBtn = document.getElementById("googleSignInBtn");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
 
-    loginBtn.addEventListener("click", login);
+    loginBtn?.addEventListener("click", login);
+    googleSignInBtn?.addEventListener("click", signInWithGoogle);
 
-    emailInput.addEventListener("focus", () => {
+    emailInput?.addEventListener("focus", () => {
         emailError.style.display = "none";
     });
-    passwordInput.addEventListener("focus", () => {
+    passwordInput?.addEventListener("focus", () => {
         passwordError.style.display = "none";
     });
 
@@ -92,7 +161,6 @@ export async function login() {
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
     const loadingMessage = document.getElementById("loadingMessage");
-    const incorrectMessage = document.getElementById("incorrectMessage");
 
     if (!validateEmail(email)) {
         emailError.textContent = "Please enter a valid email address";
@@ -106,52 +174,52 @@ export async function login() {
         return;
     }
 
+    setLoginMessage("");
     loadingMessage.style.display = "block";
-    incorrectMessage.style.display = "none";
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const formattedEmail = formatEmail(email);
-        const currentLoginTime = getCurrentIST();
-        const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
-        const deviceId = await getDeviceId();
-
-        const snapshot = await get(loginRef);
-        const loginData = snapshot.val();
-        let previousLogins = [];
-
-        if (loginData?.last_login) {
-            previousLogins = loginData.previous_logins || [];
-            previousLogins.push(loginData.last_login);
-        }
-
-        await update(loginRef, {
-            last_login: currentLoginTime,
-            previous_logins: previousLogins,
-        });
-
-        const sessionsRef = ref(database, `users/${formattedEmail}/sessions`);
-        const sessionsSnapshot = await get(sessionsRef);
-        const sessions = sessionsSnapshot.val() || {};
-        const sessionUpdates = {};
-
-        Object.keys(sessions).forEach((key) => {
-            sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
-        });
-
-        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/active`] = true;
-        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/lastLogin`] = currentLoginTime;
-
-        await update(ref(database), sessionUpdates);
-
-        window.location.href = "dashboard.html";
+        await completeLogin(userCredential.user);
     } catch (error) {
-        console.error("Login failed:", error.message);
-        incorrectMessage.style.display = "block";
-        document.getElementById("email").value = "";
+        console.error("Login failed:", error);
+        setLoginMessage("Incorrect email or password. Please try again.");
         document.getElementById("password").value = "";
     } finally {
         loadingMessage.style.display = "none";
+    }
+}
+
+async function signInWithGoogle() {
+    const button = document.getElementById("googleSignInBtn");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const originalContent = button?.innerHTML;
+
+    if (!button) return;
+
+    button.disabled = true;
+    button.innerHTML = '<span class="auth-button-spinner" aria-hidden="true"></span><span>Connecting to Google...</span>';
+    loadingMessage.style.display = "block";
+    loadingMessage.textContent = "Opening secure Google sign-in...";
+
+    try {
+        const result = await signInWithPopup(auth, googleProvider);
+        await completeLogin(result.user);
+    } catch (error) {
+        console.error("Google sign-in failed:", error);
+
+        if (error.code === "auth/popup-closed-by-user") {
+            setLoginMessage("Google sign-in was cancelled.");
+        } else if (error.code === "auth/account-exists-with-different-credential") {
+            setLoginMessage("This email already has a FitFlow account. Sign in with your email and password instead.");
+        } else if (error.code === "auth/unauthorized-domain") {
+            setLoginMessage("This website is not authorized for Google sign-in. Add the FitFlow domain in Firebase Authentication settings.");
+        } else {
+            setLoginMessage("Google sign-in could not be completed. Please try again.");
+        }
+    } finally {
+        loadingMessage.style.display = "none";
+        button.disabled = false;
+        button.innerHTML = originalContent;
     }
 }
 
