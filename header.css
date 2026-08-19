@@ -1,5 +1,10 @@
 @import url('premium-components.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 
+/* FitFlow Premium Component Layer
+   Shared presentation only: no application logic or layout dependencies.
+   Reusable foundation lives in design-system.css; this file adds FitFlow-specific components.
+*/
 :root {
   --primary: #0f9b8e;
   --primary-dark: #087f75;
@@ -65,7 +70,6 @@ nav ul li a i { color: rgba(167,243,208,.92); }
 .close-btn { position: absolute; top: 12px; right: 16px; color: #7b9090; font-size: 1.5rem; cursor: pointer; }
 .close-btn:hover { color: var(--ink); }
 
-/* Public/auth pages: keep large layouts fluid instead of letting fixed cards overflow. */
 main, section, article, .container, .content, .login-container, .signup-container, .form-container, .contact-container { min-width: 0; max-width: 100%; }
 input, select, textarea, button { max-width: 100%; }
 form { max-width: 100%; }
@@ -122,4 +126,178 @@ form { max-width: 100%; }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }
   *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+
+/*
+ * Public navbar contract
+ * ----------------------
+ * Public pages historically had page-level rules targeting the bare <header>,
+ * <nav>, and <nav> ul selectors. Those rules could change the shared navbar's
+ * dimensions depending on which page stylesheet loaded last. The public shell
+ * is always a direct child of <body>, so this stronger selector intentionally
+ * owns its geometry without affecting the authenticated dashboard header.
+ */
+body > header {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 76px !important;
+  min-height: 76px !important;
+  max-height: 76px !important;
+  margin: 0 !important;
+  padding: 10px clamp(18px, 4vw, 48px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  overflow: visible !important;
+}
+body > header .logo {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 52px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+body > header .logo img {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  max-width: 52px !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+}
+body > header .name {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 auto 0 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+body > header .name h1,
+body > header .name p {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body > header nav {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+}
+body > header nav ul {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  list-style: none !important;
+}
+body > header nav ul li {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+body > header nav ul li a {
+  box-sizing: border-box !important;
+  width: auto !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  padding: 9px 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+}
+body > header .menu-toggle {
+  box-sizing: border-box !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  margin: 0 !important;
+  padding: 9px 11px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width:1120px) {
+  body > header { gap: 14px !important; }
+  body > header nav ul { gap: 1px !important; }
+  body > header nav ul li a { height: 40px !important; min-height: 40px !important; max-height: 40px !important; padding: 8px 9px !important; font-size: .78rem !important; }
+}
+@media (max-width:820px) {
+  body > header {
+    height: 68px !important;
+    min-height: 68px !important;
+    max-height: 68px !important;
+    padding: 8px 16px !important;
+  }
+  body > header .logo,
+  body > header .logo img { width: 46px !important; height: 46px !important; min-width: 46px !important; max-width: 46px !important; }
+  body > header .name { flex: 1 1 auto !important; }
+  body > header nav ul {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: auto !important;
+    right: 0 !important;
+    width: min(320px, calc(100vw - 28px)) !important;
+    height: auto !important;
+    max-height: calc(100vh - 82px) !important;
+    overflow-y: auto !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    padding: 9px !important;
+    box-sizing: border-box !important;
+  }
+  body > header nav ul.show,
+  body > header nav.active ul,
+  body > header nav ul.is-open { display: flex !important; }
+  body > header nav ul li,
+  body > header nav ul li a { width: 100% !important; }
+  body > header nav ul li a {
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    justify-content: flex-start !important;
+    padding: 11px 12px !important;
+  }
+  body > header .menu-toggle { display: inline-flex !important; }
+}
+@media (max-width:600px) {
+  body > header { padding-inline: 12px !important; }
+  body > header .name h1 { font-size: 1rem !important; }
+}
+@media (max-width:380px) {
+  body > header { padding-inline: 10px !important; }
+  body > header .logo,
+  body > header .logo img { width: 42px !important; height: 42px !important; min-width: 42px !important; max-width: 42px !important; }
+  body > header .name h1 { font-size: .9rem !important; }
+  body > header .menu-toggle { width: 42px !important; height: 42px !important; min-width: 42px !important; min-height: 42px !important; }
 }
