@@ -1,9 +1,13 @@
-# Ignore specific files
+# Local/editor files
+.DS_Store
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Project documents that are not part of the web app
 Cover Page.docx
 Cover Page.pdf
 Presentation.pptx
-.DS_Store
-.gitignore
-.vscode/
-# Ignore all .DS_Store files
-# Ignore all .vscode folders
