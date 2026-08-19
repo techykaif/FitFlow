@@ -1,478 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="FitFlow - Your all-in-one fitness tracker for sleep, nutrition, and activity insights. Stay fit, stay flowing!">
+    <meta name="description" content="FitFlow — a calm, practical wellness tracker for building better daily habits across movement, nutrition, sleep, and progress.">
+    <meta name="theme-color" content="#0f9b8e">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#4361ee">
-
-    <!-- Favicon (fallback) -->
-    <link rel="icon" href="/icons/icon-192x192.webp" type="image/webp">
-
-    <title>FitFlow Health & Wellness Tracker</title>
+    <link rel="icon" href="logo.jpeg" type="image/jpeg">
+    <title>FitFlow — Personal Wellness, Without the Noise</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="website icon" href="logo.jpeg" type="jpeg">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="home-premium.css">
 </head>
-<!-- 🍞 Toast Notification -->
-<div id="toast" style="
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff4d4d;
-  color: white;
-  padding: 14px 24px;
-  border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 15px;
-  display: none;
-  z-index: 9999;
-  animation: fadein 0.3s ease, fadeout 0.3s ease 2.7s;
-">
-    Session expired. Redirecting to login...
-</div>
-
-<style>
-    @keyframes fadein {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeout {
-        from {
-            opacity: 1;
-        }
-
-        to {
-            opacity: 0;
-        }
-    }
-</style>
-
 <body>
-    <!-- Header -->
+    <div id="toast" role="status" aria-live="polite">Session expired. Redirecting to login...</div>
     <header>
-        <div class="logo">
-            <img src="logo.webp" alt="Health & Wellness Logo">
-        </div>
-        <div class="name">
-            <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
-        </div>
-        <nav>
+        <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+        <div class="name"><h1>FITFLOW</h1><p>Personal wellness, made useful.</p></div>
+        <nav aria-label="Primary navigation">
             <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
+                <li><a href="index.html" aria-current="page"><i class="fas fa-house" aria-hidden="true"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-circle-info" aria-hidden="true"></i> About</a></li>
+                <li><a href="tracker.html"><i class="fas fa-heart-pulse" aria-hidden="true"></i> Tracker</a></li>
+                <li><a href="features.html"><i class="fas fa-table-cells-large" aria-hidden="true"></i> Features</a></li>
+                <li><a href="blog.html"><i class="fas fa-book-open" aria-hidden="true"></i> Blog</a></li>
+                <li><a href="signup.html"><i class="fas fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
+                <li><a href="login.html"><i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i> Log In</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                <li><a href="support.html"><i class="fas fa-circle-question" aria-hidden="true"></i> Support</a></li>
             </ul>
-
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">☰</button>
         </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ol>
-
-        </div>
     </header>
-
-    <!-- Enhanced Hero Section -->
-    <section class="enhanced-hero">
-        <div class="hero-content">
-            <h1 class="animated-text">Your Journey to a <span class="highlight">Healthier Life</span> Starts Here</h1>
-            <p>Track your wellness, monitor your health, and achieve your goals with our comprehensive platform.</p>
-            <div class="hero-buttons">
-                <a href="tracker.html" class="cta-button primary" id="trackerPageBtn">Get Started</a>
-                <a href="features.html" class="cta-button secondary">Explore Features</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="stats-card steps">
-                <div class="icon-container">
-                    <i class="fas fa-walking"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>Daily Steps</h3>
-                    <div class="stat-value" id="step-counter">0</div>
-                    <div class="progress-bar">
-                        <div class="progress" id="step-progress"></div>
-                    </div>
-                    <p>Goal: 10,000</p>
+    <main>
+        <section class="enhanced-hero" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 id="hero-title">Build a healthier routine that <span class="highlight">actually fits your life.</span></h1>
+                <p>FitFlow turns the small things you already do — move, eat, sleep, reflect — into one simple feedback loop you can understand and improve.</p>
+                <div class="hero-buttons">
+                    <a href="signup.html" class="cta-button primary">Create your free account <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    <a href="tracker.html" class="cta-button secondary">Try the tracker</a>
                 </div>
             </div>
-            <div class="stats-card calories">
-                <div class="icon-container">
-                    <i class="fas fa-fire"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>Calories Burned</h3>
-                    <div class="stat-value" id="calorie-counter">0</div>
-                    <div class="progress-bar">
-                        <div class="progress" id="calorie-progress"></div>
-                    </div>
-                    <p>Goal: 500</p>
-                </div>
+            <div class="hero-visual" aria-label="Example wellness dashboard">
+                <div class="stats-card steps"><div class="icon-container"><i class="fas fa-person-walking" aria-hidden="true"></i></div><div class="stat-content"><h3>Movement</h3><div class="stat-value">0</div><div class="progress-bar"><div class="progress" style="width:0%"></div></div><p>Log your first activity</p></div></div>
+                <div class="stats-card calories"><div class="icon-container"><i class="fas fa-utensils" aria-hidden="true"></i></div><div class="stat-content"><h3>Nutrition</h3><div class="stat-value">0</div><div class="progress-bar"><div class="progress" style="width:0%"></div></div><p>Build your meal history</p></div></div>
+                <div class="stats-card heart"><div class="icon-container"><i class="fas fa-moon" aria-hidden="true"></i></div><div class="stat-content"><h3>Recovery</h3><div class="stat-value">0h</div><div class="progress-bar"><div class="progress" style="width:0%"></div></div><p>Record your sleep</p></div></div>
+                <div class="stats-card water"><div class="icon-container"><i class="fas fa-chart-line" aria-hidden="true"></i></div><div class="stat-content"><h3>Progress</h3><div class="stat-value">Start</div><div class="progress-bar"><div class="progress" style="width:0%"></div></div><p>Review your patterns</p></div></div>
+                <div class="pulse-circle" aria-hidden="true"></div>
             </div>
-            <div class="stats-card heart">
-                <div class="icon-container">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>Heart Rate</h3>
-                    <div class="stat-value" id="heart-counter">0</div>
-                    <div class="heart-animation">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <p>BPM</p>
-                </div>
+        </section>
+        <section class="enhanced-features" aria-labelledby="features-title">
+            <div class="section-header"><h2 id="features-title">Everything you need to <span class="highlight">close the loop.</span></h2><p>Capture the basics, see the patterns, and decide what is worth improving next.</p></div>
+            <div class="features-container">
+                <article class="feature-card"><div class="feature-icon"><i class="fas fa-person-running" aria-hidden="true"></i></div><div class="feature-content"><h3>Movement</h3><p>Keep a practical record of walks, workouts, runs, and other activity.</p></div><div class="feature-hover"><ul><li><i class="fas fa-check" aria-hidden="true"></i> Activity history</li><li><i class="fas fa-check" aria-hidden="true"></i> Duration and calories</li><li><i class="fas fa-check" aria-hidden="true"></i> Trends over time</li></ul></div></article>
+                <article class="feature-card"><div class="feature-icon"><i class="fas fa-utensils" aria-hidden="true"></i></div><div class="feature-content"><h3>Nutrition</h3><p>Log meals and build a useful picture of what your routine looks like.</p></div><div class="feature-hover"><ul><li><i class="fas fa-check" aria-hidden="true"></i> Meal records</li><li><i class="fas fa-check" aria-hidden="true"></i> Calorie tracking</li><li><i class="fas fa-check" aria-hidden="true"></i> Nutrition history</li></ul></div></article>
+                <article class="feature-card"><div class="feature-icon"><i class="fas fa-moon" aria-hidden="true"></i></div><div class="feature-content"><h3>Sleep & Recovery</h3><p>Record sleep and use consistency as another signal in your weekly review.</p></div><div class="feature-hover"><ul><li><i class="fas fa-check" aria-hidden="true"></i> Sleep records</li><li><i class="fas fa-check" aria-hidden="true"></i> Recovery trends</li><li><i class="fas fa-check" aria-hidden="true"></i> Consistency view</li></ul></div></article>
+                <article class="feature-card"><div class="feature-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div><div class="feature-content"><h3>Progress</h3><p>Turn your records into simple comparisons and milestones instead of noise.</p></div><div class="feature-hover"><ul><li><i class="fas fa-check" aria-hidden="true"></i> Weekly reviews</li><li><i class="fas fa-check" aria-hidden="true"></i> Achievements</li><li><i class="fas fa-check" aria-hidden="true"></i> Pattern spotting</li></ul></div></article>
             </div>
-            <div class="stats-card water">
-                <div class="icon-container">
-                    <i class="fas fa-tint"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>Water Intake</h3>
-                    <div class="stat-value" id="water-counter">0</div>
-                    <div class="water-container">
-                        <div class="water-level" id="water-level"></div>
-                    </div>
-                    <p>Goal: 2L</p>
-                </div>
+        </section>
+        <section class="how-it-works" aria-labelledby="loop-title">
+            <div class="section-header"><h2 id="loop-title">The FitFlow <span class="highlight">feedback loop.</span></h2><p>It is not about logging everything. It is about making the information you do log useful.</p></div>
+            <div class="steps-container">
+                <article class="step"><div class="step-number">01</div><div class="step-icon"><i class="fas fa-plus" aria-hidden="true"></i></div><h3>Log</h3><p>Add a meal, activity, or sleep record when it matters.</p></article>
+                <div class="step-connector" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                <article class="step"><div class="step-number">02</div><div class="step-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div><h3>Understand</h3><p>Review your history and spot what is changing.</p></article>
+                <div class="step-connector" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                <article class="step"><div class="step-number">03</div><div class="step-icon"><i class="fas fa-person-walking" aria-hidden="true"></i></div><h3>Act</h3><p>Choose one small improvement worth carrying into tomorrow.</p></article>
             </div>
-            <div class="pulse-circle"></div>
-        </div>
-    </section>
-
-    <!-- Enhanced Features Section -->
-    <section class="enhanced-features">
-        <div class="section-header">
-            <h2>Our <span class="highlight">Features</span></h2>
-            <p>Comprehensive tools to help you on your wellness journey</p>
-        </div>
-        <div class="features-container">
-            <div class="feature-card" data-aos="fade-up">
-                <div class="feature-icon">
-                    <i class="fas fa-running"></i>
-                </div>
-                <div class="feature-content">
-                    <h3>Track Your Activities</h3>
-                    <p>Log your daily physical activities and keep track of your progress with detailed analytics and
-                        insights.</p>
-                </div>
-                <div class="feature-hover">
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Running, walking, cycling tracking</li>
-                        <li><i class="fas fa-check-circle"></i> Distance and pace monitoring</li>
-                        <li><i class="fas fa-check-circle"></i> Workout history and trends</li>
-                        <li><i class="fas fa-check-circle"></i> Activity recommendations</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-icon">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <div class="feature-content">
-                    <h3>Monitor Your Health</h3>
-                    <p>Track vital signs like heart rate, sleep patterns, and more to ensure you're maintaining optimal
-                        health.</p>
-                </div>
-                <div class="feature-hover">
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Heart rate monitoring</li>
-                        <li><i class="fas fa-check-circle"></i> Sleep quality analysis</li>
-                        <li><i class="fas fa-check-circle"></i> Stress level tracking</li>
-                        <li><i class="fas fa-check-circle"></i> Health trend reports</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <div class="feature-content">
-                    <h3>Personalized Goals</h3>
-                    <p>Set and achieve personalized health and wellness goals tailored to your specific needs and
-                        lifestyle.</p>
-                </div>
-                <div class="feature-hover">
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Custom goal setting</li>
-                        <li><i class="fas fa-check-circle"></i> Progress tracking</li>
-                        <li><i class="fas fa-check-circle"></i> Achievement celebrations</li>
-                        <li><i class="fas fa-check-circle"></i> Adaptive goal recommendations</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-icon">
-                    <i class="fas fa-apple-alt"></i>
-                </div>
-                <div class="feature-content">
-                    <h3>Nutrition Insights</h3>
-                    <p>Track your meals, calorie intake, and nutritional information to maintain a balanced and healthy
-                        diet.</p>
-                </div>
-                <div class="feature-hover">
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Meal logging</li>
-                        <li><i class="fas fa-check-circle"></i> Nutritional analysis</li>
-                        <li><i class="fas fa-check-circle"></i> Dietary recommendations</li>
-                        <li><i class="fas fa-check-circle"></i> Hydration tracking</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="section-header">
-            <h2>How <span class="highlight">FitFlow</span> Works</h2>
-            <p>Three simple steps to transform your health journey</p>
-        </div>
-        <div class="steps-container">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <h3>Create Your Profile</h3>
-                <p>Sign up and tell us about your health goals, preferences, and current fitness level.</p>
-            </div>
-            <div class="step-connector">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-icon">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <h3>Track Your Activities</h3>
-                <p>Log your daily activities, meals, and health metrics using our intuitive interface.</p>
-            </div>
-            <div class="step-connector">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Achieve Your Goals</h3>
-                <p>Monitor your progress, adjust your goals, and celebrate your achievements.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Testimonials Section -->
-    <section class="enhanced-testimonials">
-        <div class="section-header">
-            <h2>What Our <span class="highlight">Users</span> Say</h2>
-            <p>Real stories from people who have transformed their health with FitFlow</p>
-        </div>
-        <div class="testimonial-container">
-            <div class="testimonial-card-container" id="testimonial-container">
-                <div class="testimonial-card active">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">"This tracker has helped me stay on top of my health goals! I've lost 15
-                        pounds and feel more energetic than ever."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Mahesh Aggrawal</h4>
-                            <p>FitFlow User - 6 months</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">"A great tool for monitoring my daily activities. The interface is
-                        intuitive and the insights have been incredibly helpful for my fitness journey."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Saloni Mehta</h4>
-                            <p>FitFlow User - 1 year</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">"I love the personalized goals feature. It's so motivating! FitFlow has
-                        completely changed how I approach my health and wellness."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Suresh Sharma</h4>
-                            <p>FitFlow User - 8 months</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-controls">
-                <button class="testimonial-btn prev" id="prev-testimonial" aria-label="Previous Testimonial">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="testimonial-indicators">
-                    <span class="indicator active" data-index="0"></span>
-                    <span class="indicator" data-index="1"></span>
-                    <span class="indicator" data-index="2"></span>
-                </div>
-                <button class="testimonial-btn next" id="next-testimonial" aria-label="Next Testimonial">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to Transform Your Health Journey?</h2>
-            <p>Join thousands of users who have already improved their wellness with FitFlow.</p>
-            <div class="cta-buttons">
-                <a href="signup.html" aria-label="signup up free" class="cta-button primary">Sign Up Free</a>
-                <a href="tracker.html" aria-label="try the tracker" class="cta-button secondary">Try the Tracker</a>
-            </div>
-        </div>
-        <div class="cta-background"></div>
-    </section>
-    <!-- Floating WhatsApp Button with Text -->
-    <a href="javascript:void(0);" class="whatsapp-button" onclick="openChat()">
-        <i class="fab fa-whatsapp"></i>
-        <span>Chat with Us</span>
-    </a>
-
-   <!-- Modal Dialog (WhatsApp-like chat interface) -->
-<div id="chatModal" class="fitflow-chat-modal">
-    <div class="fitflow-modal-content">
-        <div class="fitflow-modal-header">
-            <img src="logo.webp" alt="FitFlow" class="fitflow-icon">
-            <h3>FitFlow</h3>
-            <p class="fitflow-location">Online</p>
-            <span class="fitflow-close-btn" onclick="closeChat()">&times;</span>
-        </div>
-        <div class="fitflow-chat-body">
-            <div class="fitflow-chat-message">
-                <div class="fitflow-message-box received">
-                    <p>Hi  👋</p>
-                    <br>
-                        <p> How can I help you today?</p>
-                </div>
-            </div>
-        </div>
-        <div class="fitflow-modal-footer">
-            <button class="fitflow-whatsapp-chat-btn"
-                onclick="window.open('https://wa.me/your-phone-number', '_blank')">Start Chat</button>
-        </div>
-    </div>
-</div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            </div>
-
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with
-                third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this
-                privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure
-                to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform
-                constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-    <script src="privacyandterms.js"></script>
+        </section>
+    </main>
+    <script type="module" src="main.js"></script>
     <script src="hamburger.js"></script>
-    <script src="scripts.js"></script>
-    <script src="enhanced-scripts.js"></script>
-    <script type="module" src="menuhider.js" defer></script>
 </body>
-
 </html>
