@@ -1,0 +1,48 @@
+/* FitFlow Nutrition — final product UI */
+.nutrition-page { --n-teal:#0f9b8e; --n-dark:#173738; --n-muted:#6b7f80; --n-line:#d7e9e7; --n-soft:#eff9f7; }
+.main-content .welcome-section { max-width:1280px; margin:0 auto; padding:28px 32px 56px; text-align:left; }
+.main-content .welcome-section::before { display:none; }
+.main-content .welcome-section > .eyebrow { margin-bottom:5px; }
+.main-content .welcome-section h1 { color:var(--n-dark)!important; font-size:clamp(2rem,4vw,2.8rem)!important; letter-spacing:-.04em; margin:4px 0 8px!important; }
+.main-content .welcome-section > p { color:var(--n-muted)!important; max-width:720px; margin:0 0 22px!important; }
+.nutrition-container { display:grid!important; grid-template-columns:minmax(320px,.9fr) minmax(420px,1.1fr)!important; gap:18px!important; margin:0 0 18px!important; }
+.meal-form-container,.nutrition-charts,.meal-log-container { background:#fff!important; border:1px solid var(--n-line)!important; border-radius:20px!important; box-shadow:0 8px 24px rgba(16,42,43,.045)!important; padding:22px!important; }
+.meal-form-container:hover,.nutrition-charts:hover,.meal-log-container:hover { box-shadow:0 12px 32px rgba(16,42,43,.07)!important; }
+.section-title { display:flex; align-items:flex-start; gap:12px; margin-bottom:18px!important; }
+.section-icon { width:42px; height:42px; flex:0 0 42px; display:grid; place-items:center; border-radius:12px; background:var(--n-soft)!important; color:var(--n-teal)!important; }
+.section-title h2,.meal-form-container h2,.nutrition-charts h2,.meal-log-container h2 { color:var(--n-dark)!important; font-size:1.2rem!important; margin:0!important; padding:0!important; }
+.section-title h2::after,.meal-form-container h2::after,.nutrition-charts h2::after,.meal-log-container h2::after,.chart-container h2::after { display:none!important; }
+.section-title p { margin:4px 0 0!important; color:var(--n-muted)!important; font-size:.82rem!important; }
+.meal-form-container form { display:grid; gap:0; }
+.form-group { margin-bottom:14px!important; }
+.form-row { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px!important; margin-bottom:0!important; }
+.form-row .form-group { min-width:0; }
+.meal-form-container label { color:var(--n-dark)!important; font-size:.78rem!important; font-weight:750!important; margin-bottom:6px!important; }
+.meal-form-container input,.meal-form-container select,.meal-log-filters input,.meal-log-filters select { min-height:44px!important; width:100%!important; border:1px solid var(--n-line)!important; border-radius:11px!important; background:#fff!important; color:var(--n-dark)!important; box-shadow:none!important; }
+.meal-form-container input:focus,.meal-form-container select:focus,.meal-log-filters input:focus,.meal-log-filters select:focus { border-color:var(--n-teal)!important; box-shadow:0 0 0 3px rgba(15,155,142,.1)!important; }
+.log-meal-btn { width:100%!important; min-height:46px; margin-top:4px; background:var(--n-teal)!important; border:0!important; border-radius:12px!important; box-shadow:0 8px 18px rgba(15,155,142,.16)!important; }
+.log-meal-btn:hover { background:#0b7a70!important; transform:translateY(-1px)!important; }
+.nutrition-charts { display:grid!important; grid-template-columns:1fr 1fr; gap:14px!important; padding:18px!important; }
+.nutrition-charts .chart-container { min-width:0; min-height:330px!important; height:330px!important; padding:16px!important; border:1px solid var(--n-line); border-radius:16px; background:#fbfefd; position:relative; }
+.nutrition-charts .section-title { margin-bottom:10px!important; }
+.nutrition-charts canvas { max-width:100%!important; max-height:250px!important; }
+.meal-log-container { margin-top:0!important; }
+.section-header { display:flex; justify-content:space-between; align-items:end; gap:14px; margin-bottom:14px!important; }
+.section-header h2 { color:var(--n-dark)!important; margin:3px 0 0!important; }
+.section-kicker { color:var(--n-muted); font-size:.78rem; }
+.meal-log-filters { display:grid!important; grid-template-columns:180px 180px 1fr; gap:10px!important; margin-bottom:14px!important; padding:10px!important; background:var(--n-soft)!important; border:1px solid var(--n-line); border-radius:14px!important; }
+.meal-log { max-height:none!important; border:1px solid var(--n-line); border-radius:14px!important; overflow:hidden!important; }
+.date-header { background:var(--n-soft)!important; border-left:3px solid var(--n-teal)!important; color:var(--n-dark); }
+.date-total::before,.meal-calories::before { content:none!important; }
+.meal-item { padding:14px 16px!important; border-bottom:1px solid #edf4f2!important; }
+.meal-item:hover { background:#fbfefd!important; }
+.meal-type { box-shadow:none!important; border:1px solid var(--n-line); background:var(--n-soft)!important; color:var(--n-teal)!important; }
+.meal-details h3,.meal-calories { color:var(--n-dark)!important; }
+.meal-macros { gap:12px!important; color:var(--n-muted)!important; }
+.meal-actions button { border:1px solid var(--n-line)!important; color:var(--n-muted)!important; background:#fff!important; }
+.no-meals { padding:38px 18px!important; color:var(--n-muted)!important; }
+.no-meals::before { content:'\f03a'; font-family:'Font Awesome 6 Free'; font-weight:900; display:grid; place-items:center; width:46px; height:46px; margin:0 auto 10px; border-radius:13px; background:var(--n-soft); color:var(--n-teal); }
+.loading-meals::after { display:none!important; }
+@media(max-width:1050px){ .nutrition-container{grid-template-columns:1fr!important;} .nutrition-charts{grid-template-columns:1fr 1fr;} }
+@media(max-width:700px){ .main-content .welcome-section{padding:20px 14px 38px;} .form-row{grid-template-columns:1fr!important;} .nutrition-charts{grid-template-columns:1fr!important;padding:14px!important;} .nutrition-charts .chart-container{height:300px!important;min-height:300px!important;} .meal-log-filters{grid-template-columns:1fr!important;} .section-header{align-items:flex-start;flex-direction:column;} }
+@media(prefers-reduced-motion:reduce){.meal-form-container,.nutrition-charts,.meal-log-container{transition:none!important;}}
