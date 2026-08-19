@@ -1,143 +1,141 @@
 import "./components/icon-system.js";
 import { auth, database, ref, get, update, onAuthStateChanged, signOut } from "./firebaseConfig.js";
 
-// Function to format email for Firebase keys
 function formatEmail(email) {
     return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
 }
 
-// Function to get a consistent device ID (stored in localStorage)
 function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
         deviceId = crypto.randomUUID();
-        localStorage.setItem("deviceId", deviceId); // Persist it!
+        localStorage.setItem("deviceId", deviceId);
     }
     return deviceId;
 }
 
-// Function to show custom toast messages
 function showToast(message, type = "success") {
     const toast = document.createElement("div");
     toast.className = `toast ${type}`;
     toast.textContent = message;
-
     document.body.appendChild(toast);
-
-    setTimeout(() => {
-        toast.classList.add("show");
-    }, 100);
-
+    requestAnimationFrame(() => toast.classList.add("show"));
     setTimeout(() => {
         toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 500);
+        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
-// Change Password Button
-const changePass = document.getElementById("changePasswordBtn");
-changePass.addEventListener("click", () => {
-    window.location.href = "changepassword.html";
-});
+function renderAvatar(element, user, name) {
+    if (!element) return;
+    element.replaceChildren();
 
-// Get UI elements
-const logoutBtn = document.getElementById("logoutBtn");
-const saveChangesBtn = document.getElementById("saveChangesBtn");
-const nameInput = document.getElementById("name");
-
-// Fetch user info and render UI
-onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        window.location.href = "index.html";
-    } else {
-        const formattedEmail = formatEmail(user.email);
-        const userRef = ref(database, `users/${formattedEmail}/personal_information`);
-
-        get(userRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const userData = snapshot.val();
-                    document.getElementById("user-name").textContent = userData.name || "User";
-                    nameInput.value = userData.name || "";
-                    document.getElementById("user-email").textContent = userData.email || "No Email";
-
-                    const avatarElement = document.getElementById("user-avatar");
-                    if (user.photoURL) {
-                        avatarElement.innerHTML = `<img src="${user.photoURL}" alt="User Avatar">`;
-                    } else {
-                        const initials = userData.name ? userData.name[0].toUpperCase() : "U";
-                        avatarElement.textContent = initials;
-                    }
-                }
-            });
-    }
-});
-
-// Save Changes - Update Name in Firebase
-saveChangesBtn.addEventListener("click", () => {
-    const newName = nameInput.value.trim();
-    if (newName === "") {
-        showToast("Name cannot be empty.", "error");
+    if (user?.photoURL) {
+        const image = document.createElement("img");
+        image.src = user.photoURL;
+        image.alt = "Profile photo";
+        image.referrerPolicy = "no-referrer";
+        image.addEventListener("error", () => {
+            element.textContent = (name || "U").charAt(0).toUpperCase();
+        }, { once: true });
+        element.appendChild(image);
         return;
     }
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const formattedEmail = formatEmail(user.email);
-            const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+    element.textContent = (name || "U").charAt(0).toUpperCase();
+}
 
-            update(userRef, { name: newName })
-                .then(() => {
-                    document.getElementById("user-name").textContent = newName;
-                    showToast("Name updated successfully!", "success");
-                })
-                .catch((error) => {
-                    showToast("Error updating name: " + error.message, "error");
-                });
+const changePass = document.getElementById("changePasswordBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const saveChangesBtn = document.getElementById("saveChangesBtn");
+const dashboardBtn = document.getElementById("dashboardBtn");
+const nameInput = document.getElementById("name");
+
+let currentUser = null;
+
+onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const formattedEmail = formatEmail(user.email);
+    const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+
+    try {
+        const snapshot = await get(userRef);
+        const userData = snapshot.exists() ? snapshot.val() : {};
+        const name = userData.name || user.displayName || "User";
+
+        document.getElementById("user-name").textContent = name;
+        document.getElementById("user-email").textContent = user.email || "No Email";
+        nameInput.value = name;
+        renderAvatar(document.getElementById("user-avatar"), user, name);
+
+        const isGoogleAccount = user.providerData.some((provider) => provider.providerId === "google.com");
+        if (isGoogleAccount) {
+            changePass.title = "Google accounts manage passwords through Google";
+            changePass.innerHTML = '<i class="fa-brands fa-google" aria-hidden="true"></i><span>Managed by Google</span>';
         }
-    });
-});
-
-// Logout Button - Device-based Session Logout
-document.addEventListener("DOMContentLoaded", () => {
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-            const user = auth.currentUser;
-
-            if (user) {
-                const formattedEmail = formatEmail(user.email);
-                const deviceId = getDeviceId();
-                const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
-
-                update(sessionRef, { active: false })
-                    .then(() => {
-                        signOut(auth)
-                            .then(() => {
-                                showToast("Logged out successfully!", "success");
-                                setTimeout(() => (window.location.href = "login.html"), 1500);
-                            })
-                            .catch((error) => {
-                                showToast("Error signing out: " + error.message, "error");
-                            });
-                    })
-                    .catch((error) => {
-                        showToast("Error updating session: " + error.message, "error");
-                    });
-            } else {
-                signOut(auth)
-                    .then(() => {
-                        showToast("Logged out successfully!", "success");
-                        setTimeout(() => (window.location.href = "login.html"), 1500);
-                    })
-                    .catch((error) => {
-                        showToast("Error signing out: " + error.message, "error");
-                    });
-            }
-        });
+    } catch (error) {
+        console.error("Error loading settings:", error);
+        showToast("Unable to load your profile right now.", "error");
     }
 });
 
-// Dashboard Navigation
-document.getElementById("dashboardBtn").addEventListener("click", () => {
+changePass?.addEventListener("click", () => {
+    if (currentUser?.providerData.some((provider) => provider.providerId === "google.com")) {
+        showToast("This account uses Google Sign-In. Manage your password through Google.", "error");
+        return;
+    }
+    window.location.href = "changepassword.html";
+});
+
+saveChangesBtn?.addEventListener("click", async () => {
+    const newName = nameInput.value.trim();
+    if (!newName) {
+        showToast("Name cannot be empty.", "error");
+        nameInput.focus();
+        return;
+    }
+    if (!currentUser?.email) return;
+
+    saveChangesBtn.disabled = true;
+    try {
+        const formattedEmail = formatEmail(currentUser.email);
+        const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+        await update(userRef, { name: newName });
+        document.getElementById("user-name").textContent = newName;
+        renderAvatar(document.getElementById("user-avatar"), currentUser, newName);
+        showToast("Name updated successfully!", "success");
+    } catch (error) {
+        console.error("Error updating name:", error);
+        showToast("Unable to update your name. Please try again.", "error");
+    } finally {
+        saveChangesBtn.disabled = false;
+    }
+});
+
+logoutBtn?.addEventListener("click", async () => {
+    try {
+        const user = auth.currentUser;
+        if (user?.email) {
+            const formattedEmail = formatEmail(user.email);
+            const deviceId = getDeviceId();
+            await update(ref(database, `users/${formattedEmail}/sessions/${deviceId}`), { active: false });
+        }
+
+        await signOut(auth);
+        showToast("Logged out successfully!", "success");
+        setTimeout(() => (window.location.href = "login.html"), 900);
+    } catch (error) {
+        console.error("Error signing out:", error);
+        showToast("Unable to sign out. Please try again.", "error");
+    }
+});
+
+dashboardBtn?.addEventListener("click", () => {
     window.location.href = "dashboard.html";
 });
