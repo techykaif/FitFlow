@@ -24,11 +24,11 @@ const ICON_MAP = {
   "❌": "fa-xmark"
 };
 
-const iconPattern = new RegExp(Object.keys(ICON_MAP).map(escapeRegExp).join("|"), "gu");
-
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
+
+const iconPattern = new RegExp(Object.keys(ICON_MAP).map(escapeRegExp).join("|"), "gu");
 
 function replacePremiumIcons(root = document.body) {
   if (!root) return;
@@ -37,9 +37,9 @@ function replacePremiumIcons(root = document.body) {
     acceptNode(node) {
       const parent = node.parentElement;
       if (!parent || parent.closest("script,style,textarea")) return NodeFilter.FILTER_REJECT;
-      if (!node.nodeValue || !iconPattern.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+      if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
       iconPattern.lastIndex = 0;
-      return NodeFilter.FILTER_ACCEPT;
+      return iconPattern.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
     }
   });
 
@@ -54,10 +54,7 @@ function replacePremiumIcons(root = document.body) {
     let match;
 
     while ((match = iconPattern.exec(text)) !== null) {
-      if (match.index > lastIndex) {
-        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-      }
-
+      if (match.index > lastIndex) fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
       const icon = document.createElement("i");
       icon.className = `fa-solid ${ICON_MAP[match[0]]} premium-icon`;
       icon.setAttribute("aria-hidden", "true");
@@ -65,17 +62,13 @@ function replacePremiumIcons(root = document.body) {
       lastIndex = match.index + match[0].length;
     }
 
-    if (lastIndex < text.length) {
-      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-    }
-
+    if (lastIndex < text.length) fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
     node.replaceWith(fragment);
   });
 }
 
 function initPremiumIcons() {
   replacePremiumIcons();
-
   const observer = new MutationObserver((mutations) => {
     mutations.forEach(({ addedNodes }) => {
       addedNodes.forEach((node) => {
@@ -84,12 +77,8 @@ function initPremiumIcons() {
       });
     });
   });
-
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initPremiumIcons, { once: true });
-} else {
-  initPremiumIcons();
-}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPremiumIcons, { once: true });
+else initPremiumIcons();
