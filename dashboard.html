@@ -10,37 +10,66 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" href="dashboard.css">
 <link rel="stylesheet" href="sidebar.css">
+<link rel="stylesheet" href="premium-pages.css">
 </head>
 <body>
 <div class="dashboard">
-<aside class="sidebar">
-<div class="logo"><a class="brand" href="index.html" aria-label="FitFlow home"><img src="logo.webp" alt="" class="brand-icon"><span>FitFlow</span></a></div>
-<nav class="nav" aria-label="Primary navigation"><ul>
-<li class="active"><a href="dashboard.html"><i class="fa-solid fa-chart-pie premium-icon" aria-hidden="true"></i> Dashboard</a></li>
-<li><a href="activites.html"><i class="fa-solid fa-shoe-prints premium-icon" aria-hidden="true"></i> Activities</a></li>
-<li><a href="progress.html"><i class="fa-solid fa-chart-line premium-icon" aria-hidden="true"></i> Progress</a></li>
-<li><a href="nutrition.html"><i class="fa-solid fa-apple-whole premium-icon" aria-hidden="true"></i> Nutrition</a></li>
-<li><a href="sleep.html"><i class="fa-solid fa-moon premium-icon" aria-hidden="true"></i> Sleep</a></li>
-<li><a href="settings.html"><i class="fa-solid fa-gear premium-icon" aria-hidden="true"></i> Settings</a></li>
-</ul></nav>
-<div class="user-profile"><div class="avatar" id="user-avatar">U</div><div class="user-info"><h4 id="user-name">Loading...</h4></div></div>
-</aside>
 <main class="main-content">
-<header class="header"><div class="search-bar" role="search"><input type="search" placeholder="Search..." aria-label="Search FitFlow"><button class="search-btn" type="button" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button></div><div class="header-actions"><div class="notification-wrapper"><button id="bell-icon" class="notification-btn" type="button" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button><div id="login-history" class="dropdown hidden" aria-label="Login history"><ul></ul></div></div></div></header>
-<section class="welcome-section user-info" aria-labelledby="dashboard-welcome"><div><p class="eyebrow"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> Your daily overview</p><h1 id="dashboard-welcome">Welcome, <span id="user-name1">Loading...</span></h1><p>Here's your fitness summary for today.</p></div></section>
+<header class="header">
+  <div class="search-bar" role="search"><input type="search" placeholder="Search your FitFlow data..." aria-label="Search FitFlow"><button class="search-btn" type="button" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button></div>
+  <div class="header-actions"><div class="notification-wrapper"><button id="bell-icon" class="notification-btn" type="button" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button><div id="login-history" class="dropdown hidden" aria-label="Login history"><ul></ul></div></div></div>
+</header>
+<section class="welcome-section user-info" aria-labelledby="dashboard-welcome">
+  <div>
+    <p class="eyebrow"><i class="fa-solid fa-sun" aria-hidden="true"></i> Your daily wellness hub</p>
+    <h1 id="dashboard-welcome">Welcome, <span id="user-name1">Loading...</span></h1>
+    <p>See what matters today, take one small action, and keep your momentum.</p>
+  </div>
+</section>
 <div class="dashboard-container">
 <section class="dashboard-grid" aria-label="Today's fitness summary">
-<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-bed" aria-hidden="true"></i></span><h3>Sleep</h3></div><p class="summary-value" id="dashboardSleep">Loading...</p><p class="summary-label">Last recorded sleep</p></article>
-<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></span><h3>Nutrition</h3></div><p class="summary-value" id="dashboardNutrition">Loading...</p><p class="summary-label">Today's calorie intake</p></article>
-<article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-person-running" aria-hidden="true"></i></span><h3>Activity</h3></div><p class="summary-value" id="dashboardActivity">Loading...</p><p class="summary-label">Minutes of exercise</p></article>
+  <article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-bed" aria-hidden="true"></i></span><h3>Sleep</h3></div><p class="summary-value" id="dashboardSleep">Loading...</p><p class="summary-label">Recorded average</p></article>
+  <article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></span><h3>Nutrition</h3></div><p class="summary-value" id="dashboardNutrition">Loading...</p><p class="summary-label">Calories recorded</p></article>
+  <article class="dashboard-card summary-card"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-person-running" aria-hidden="true"></i></span><h3>Activity</h3></div><p class="summary-value" id="dashboardActivity">Loading...</p><p class="summary-label">Exercise minutes</p></article>
 </section>
+
+<section class="dashboard-card daily-plan-card" aria-labelledby="daily-plan-title">
+  <div class="card-heading">
+    <span class="card-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span>
+    <div><h3 id="daily-plan-title">Today's Plan</h3><p class="section-kicker">Simple actions based on what you have logged</p></div>
+  </div>
+  <div id="daily-plan" class="daily-plan-grid">
+    <article class="plan-item"><span class="plan-number">01</span><div><strong>Loading your plan...</strong><p>FitFlow is checking your recent activity.</p></div></article>
+  </div>
+</section>
+
+<section class="quick-actions" aria-labelledby="quick-actions-title">
+  <div class="section-heading"><div><span class="eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Quick actions</span><h2 id="quick-actions-title">Keep the loop moving</h2></div></div>
+  <div class="quick-action-grid">
+    <a href="activites.html" class="quick-action"><span class="card-icon"><i class="fa-solid fa-person-running" aria-hidden="true"></i></span><strong>Log activity</strong><span>Record a workout or walk</span></a>
+    <a href="nutrition.html" class="quick-action"><span class="card-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span><strong>Log a meal</strong><span>Keep your nutrition history useful</span></a>
+    <a href="sleep.html" class="quick-action"><span class="card-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></span><strong>Log sleep</strong><span>Track recovery and consistency</span></a>
+    <a href="progress.html" class="quick-action"><span class="card-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span><strong>Review progress</strong><span>See trends and achievements</span></a>
+  </div>
+</section>
+
 <section class="quote-container" aria-label="Quote of the day"><div class="quote-card" id="quoteOfTheDay"><div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div><div><p class="quote-text">"The best way to predict the future is to create it."</p><p class="quote-author">— Abraham Lincoln</p></div></div></section>
-<section class="dashboard-card insights-card" aria-labelledby="insights-title"><div class="card-heading"><span class="card-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span><div><h3 id="insights-title">Smart Insights</h3><p class="section-kicker">Personalized guidance from your activity data</p></div></div><div id="ai-insights" class="insights-content"><p class="insight-placeholder"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Preparing your insights...</p></div></section>
-<section class="dashboard-charts" aria-label="Weekly fitness charts"><article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Recovery</span><h4>Weekly Sleep</h4></div><i class="fa-solid fa-bed" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardSleepChart"></canvas></div></article><article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Movement</span><h4>Weekly Activity</h4></div><i class="fa-solid fa-person-running" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardActivityChart"></canvas></div></article></section>
-</div></main></div>
+
+<section class="dashboard-charts" aria-label="Weekly fitness charts">
+  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Recovery</span><h4>Weekly Sleep</h4></div><i class="fa-solid fa-bed" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardSleepChart"></canvas></div></article>
+  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Movement</span><h4>Weekly Activity</h4></div><i class="fa-solid fa-person-running" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardActivityChart"></canvas></div></article>
+</section>
+
+<section class="dashboard-card weekly-review-card" aria-labelledby="weekly-review-title">
+  <div class="card-heading"><span class="card-icon"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i></span><div><h3 id="weekly-review-title">Your weekly loop</h3><p class="section-kicker">FitFlow works best when you return to review, not just record.</p></div></div>
+  <div class="review-steps"><span><b>01</b> Log</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span><b>02</b> Understand</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span><b>03</b> Act</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span><b>04</b> Review</span></div>
+</section>
+</div>
+</main></div>
 <script src="notifications.js" type="module"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script type="module" src="dashboard.js"></script>
 <script type="module">import { initSidebar } from "./components/sidebar.js"; initSidebar();</script>
 <script type="module" src="dashboardjs.js"></script>
-</body></html>
+</body>
+</html>
