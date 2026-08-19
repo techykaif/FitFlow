@@ -1,0 +1,105 @@
+/* Progress page final visual refinement */
+.progress-page .progress-period-selector,
+.progress-page .time-range-selector,
+.progress-page .period-selector,
+.progress-page .range-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  background: #eef8f7;
+  border: 1px solid #d5ebe8;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.progress-page .progress-period-selector button,
+.progress-page .time-range-selector button,
+.progress-page .period-selector button,
+.progress-page .range-selector button {
+  appearance: none;
+  min-width: 92px;
+  min-height: 46px;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #163d3b;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  z-index: 1;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.progress-page .progress-period-selector button:hover,
+.progress-page .time-range-selector button:hover,
+.progress-page .period-selector button:hover,
+.progress-page .range-selector button:hover {
+  background: #e1f2f0;
+  color: #087f78;
+}
+
+.progress-page .progress-period-selector button.active,
+.progress-page .progress-period-selector button[aria-selected="true"],
+.progress-page .progress-period-selector button[aria-pressed="true"],
+.progress-page .progress-period-selector button.selected,
+.progress-page .time-range-selector button.active,
+.progress-page .time-range-selector button[aria-selected="true"],
+.progress-page .time-range-selector button[aria-pressed="true"],
+.progress-page .time-range-selector button.selected,
+.progress-page .period-selector button.active,
+.progress-page .period-selector button[aria-selected="true"],
+.progress-page .period-selector button[aria-pressed="true"],
+.progress-page .period-selector button.selected,
+.progress-page .range-selector button.active,
+.progress-page .range-selector button[aria-selected="true"],
+.progress-page .range-selector button[aria-pressed="true"],
+.progress-page .range-selector button.selected {
+  background: #ffffff;
+  color: #087f78;
+  border-color: #c9e5e1;
+  box-shadow: 0 4px 12px rgba(15, 155, 142, 0.12);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Some older page styles target the active tab with low contrast. Keep the selected label readable. */
+.progress-page .progress-period-selector button.active *,
+.progress-page .progress-period-selector button[aria-selected="true"] *,
+.progress-page .progress-period-selector button[aria-pressed="true"] *,
+.progress-page .time-range-selector button.active *,
+.progress-page .time-range-selector button[aria-selected="true"] *,
+.progress-page .time-range-selector button[aria-pressed="true"] *,
+.progress-page .period-selector button.active *,
+.progress-page .period-selector button[aria-selected="true"] *,
+.progress-page .period-selector button[aria-pressed="true"] *,
+.progress-page .range-selector button.active *,
+.progress-page .range-selector button[aria-selected="true"] *,
+.progress-page .range-selector button[aria-pressed="true"] * {
+  color: inherit;
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 640px) {
+  .progress-page .progress-period-selector,
+  .progress-page .time-range-selector,
+  .progress-page .period-selector,
+  .progress-page .range-selector {
+    width: 100%;
+  }
+
+  .progress-page .progress-period-selector button,
+  .progress-page .time-range-selector button,
+  .progress-page .period-selector button,
+  .progress-page .range-selector button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0.75rem;
+  }
+}
