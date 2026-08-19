@@ -1,5 +1,3 @@
-import { auth, onAuthStateChanged } from "./firebaseConfig.js";
-
 function getPublicMenu() {
     return document.getElementById("nav-menu") || document.getElementById("tooltip");
 }
@@ -43,9 +41,7 @@ function normalizePublicNavigation(isAuthenticated = Boolean(currentAuthUser)) {
         link.textContent = ` ${label}`;
         link.title = label;
 
-        if (href === currentPage) {
-            link.setAttribute("aria-current", "page");
-        }
+        if (href === currentPage) link.setAttribute("aria-current", "page");
 
         iconElement.className = `fa-solid ${icon}`;
         iconElement.setAttribute("aria-hidden", "true");
@@ -58,13 +54,37 @@ function normalizePublicNavigation(isAuthenticated = Boolean(currentAuthUser)) {
     menu.replaceChildren(fragment);
 }
 
+async function initAuthAwareNavigation() {
+    try {
+        // hamburger.js is intentionally loaded as a classic script on the public pages,
+        // so use a dynamic module import instead of a static ES-module import.
+        const { auth, onAuthStateChanged } = await import("./firebaseConfig.js");
+
+        currentAuthUser = auth.currentUser;
+        normalizePublicNavigation(Boolean(currentAuthUser));
+
+        onAuthStateChanged(auth, (user) => {
+            currentAuthUser = user;
+            normalizePublicNavigation(Boolean(user));
+            setMenuOpen(false);
+        });
+    } catch (error) {
+        // Firebase should never make the public navigation unusable.
+        console.error("FitFlow navigation auth state could not be initialized:", error);
+        currentAuthUser = null;
+        normalizePublicNavigation(false);
+    }
+}
+
 function setMenuOpen(open) {
     const menu = getPublicMenu();
     const toggle = document.querySelector(".menu-toggle");
     if (!menu) return;
+
     menu.classList.toggle("show", open);
     menu.classList.toggle("is-open", open);
     if (menu.id === "tooltip") menu.style.display = open ? "block" : "none";
+
     if (toggle) {
         toggle.setAttribute("aria-expanded", String(open));
         toggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
@@ -75,7 +95,12 @@ function toggleMenu(event) {
     event?.stopPropagation();
     const menu = getPublicMenu();
     if (!menu) return;
-    const open = menu.classList.contains("show") || menu.classList.contains("is-open") || menu.style.display === "flex" || menu.style.display === "block";
+
+    const open = menu.classList.contains("show") ||
+        menu.classList.contains("is-open") ||
+        menu.style.display === "flex" ||
+        menu.style.display === "block";
+
     setMenuOpen(!open);
 }
 
@@ -127,15 +152,10 @@ function replaceFakeTestimonials() {
 }
 
 function initPublicPolish() {
-    normalizePublicNavigation();
+    normalizePublicNavigation(false);
     mountPublicFooter();
     replaceFakeTestimonials();
-
-    onAuthStateChanged(auth, (user) => {
-        currentAuthUser = user;
-        normalizePublicNavigation(Boolean(user));
-        setMenuOpen(false);
-    });
+    initAuthAwareNavigation();
 
     const toggle = document.querySelector(".menu-toggle");
     if (toggle) {
@@ -152,27 +172,17 @@ function initPublicPolish() {
         });
     }
 
-    document.querySelectorAll("#nav-menu a, #tooltip a").forEach((link) => {
-        link.addEventListener("click", () => setMenuOpen(false));
-        link.addEventListener("mouseenter", (event) => {
-            const title = link.getAttribute("title");
-            if (!title || document.querySelector(".custom-tooltip")) return;
-            const tooltip = document.createElement("div");
-            tooltip.className = "custom-tooltip";
-            tooltip.textContent = title;
-            document.body.appendChild(tooltip);
-            tooltip.style.left = `${event.pageX}px`;
-            tooltip.style.top = `${event.pageY + 30}px`;
-        });
-        link.addEventListener("mouseleave", () => document.querySelector(".custom-tooltip")?.remove());
-    });
-
     document.addEventListener("click", (event) => {
         const menu = getPublicMenu();
         const menuToggle = document.querySelector(".menu-toggle");
-        if (menu && menuToggle && !menu.contains(event.target) && !menuToggle.contains(event.target)) setMenuOpen(false);
+        if (menu && menuToggle && !menu.contains(event.target) && !menuToggle.contains(event.target)) {
+            setMenuOpen(false);
+        }
     });
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPublicPolish, { once: true });
-else initPublicPolish();
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPublicPolish, { once: true });
+} else {
+    initPublicPolish();
+}
