@@ -7,9 +7,10 @@ function createSidebar() {
 
   sidebar.innerHTML = `
     <div class="logo">
-      <h2 style="cursor: pointer;font-weight: 700 !important;font-size: 1.5rem !important;
-    line-height: 1.2;
-    margin-bottom: 0.5rem; " onclick="window.location.href='index.html'">FitFlow</h2>
+      <a class="brand" href="index.html" aria-label="FitFlow home">
+        <img src="logo.webp" alt="" class="brand-icon">
+        <span>FitFlow</span>
+      </a>
     </div>
     <button class="close-sidebar-btn" aria-label="Close navigation"><i class="fa-solid fa-xmark premium-icon" aria-hidden="true"></i></button>
     <nav class="nav" aria-label="Primary navigation">
@@ -45,7 +46,6 @@ function createSidebar() {
   return sidebar;
 }
 
-// Mobile sidebar setup
 function setupMobileMenu() {
   const dashboard = document.querySelector(".dashboard");
   const header = document.querySelector(".header");
@@ -124,7 +124,7 @@ function initSidebar() {
 }
 
 function loadUserData() {
-  // Load user info here
+  // User information is hydrated by the page-level auth/data modules.
 }
 
 export { initSidebar };
