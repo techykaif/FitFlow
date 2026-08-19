@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
 /* FitFlow Premium Component Layer
    Shared presentation only: no application logic or layout dependencies. */
 :root {
@@ -18,6 +20,12 @@ input:not([type="checkbox"]):not([type="radio"]):focus,select:focus,textarea:foc
 button,input[type="submit"],input[type="button"] { cursor:pointer; }
 .primary,.btn-primary,.primary-btn,.submit-btn,.submit-button { background:linear-gradient(135deg,var(--ff-primary),#0b857b) !important; border-color:transparent !important; color:#fff !important; box-shadow:0 10px 24px rgba(15,155,142,.18); }
 .primary:hover,.btn-primary:hover,.primary-btn:hover,.submit-btn:hover,.submit-button:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(15,155,142,.24); }
+
+.premium-icon { display:inline-block; width:1.15em; margin-inline-end:.42em; font-size:.92em; line-height:1; vertical-align:-.06em; color:currentColor; }
+.nav .premium-icon { width:20px; margin-inline-end:11px; font-size:.92rem; text-align:center; }
+.notification-btn .premium-icon,.search-btn .premium-icon { margin:0; font-size:1rem; }
+.card-icon .premium-icon,.insight-icon .premium-icon,.empty-icon .premium-icon { margin:0; font-size:1.15em; }
+button .premium-icon { pointer-events:none; }
 
 .enhanced-hero {
   background:radial-gradient(circle at 80% 20%,rgba(52,211,153,.20),transparent 34%),linear-gradient(135deg,#f4fbfa 0%,#e8f7f4 48%,#f8fcfb 100%) !important;
