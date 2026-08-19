@@ -125,7 +125,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (activities.length === 0) {
-                activitiesList.innerHTML = '<div class="no-activities">No activities found. Add your first activity above!</div>';
+                activitiesList.innerHTML = `
+                    <div class="no-activities">
+                        <div class="empty-state-icon" aria-hidden="true">
+                            <i class="fa-solid fa-person-running"></i>
+                        </div>
+                        <h3>No activities yet</h3>
+                        <p>Add your first activity above to start building your movement history.</p>
+                    </div>`;
                 return;
             }
 
@@ -191,7 +198,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (filteredActivities.length === 0) {
-            activitiesList.innerHTML = '<div class="no-activities">No matching activities found.</div>';
+            activitiesList.innerHTML = `
+                <div class="no-activities">
+                    <div class="empty-state-icon" aria-hidden="true">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3>No matching activities</h3>
+                    <p>Try a different search term or clear the search to see your activity history.</p>
+                </div>`;
             return;
         }
 
@@ -208,13 +222,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p>${activity.notes || 'No notes'}</p>
                 </div>
                 <div class="activity-meta">
-                    <span>📅 ${activityDate}</span>
-                    <span>⏱️ ${activity.duration} min</span>
-                    <span>🔥 ${activity.calories} cal</span>
+                    <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${activityDate}</span>
+                    <span><i class="fa-regular fa-clock" aria-hidden="true"></i> ${activity.duration} min</span>
+                    <span><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i> ${activity.calories} cal</span>
                 </div>
                 <div class="activity-actions">
-                    <button class="edit-btn" data-id="${activity.id}">✏️</button>
-                    <button class="delete-btn" data-id="${activity.id}">🗑️</button>
+                    <button class="edit-btn" data-id="${activity.id}" aria-label="Edit ${activity.name}"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
+                    <button class="delete-btn" data-id="${activity.id}" aria-label="Delete ${activity.name}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                 </div>
             `;
 
