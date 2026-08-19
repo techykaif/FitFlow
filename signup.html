@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - FitFlow Health & Wellness Tracker</title>
+    <title>Create your FitFlow account</title>
+    <link rel="icon" href="logo.webp" type="image/webp">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="icon" href="logo.webp" type="image/webp">
     <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
@@ -27,13 +27,13 @@
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             <li><a href="support.html"><i class="fas fa-question-circle"></i> Support</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
     </nav>
 </header>
 
 <section class="signup-section">
-    <h1>Sign Up for FitFlow</h1>
-    <p>Create your account and start tracking your wellness journey!</p>
+    <h1>Create your FitFlow account</h1>
+    <p>Start building a wellness loop you can actually learn from.</p>
     <div class="signup-container">
         <button type="button" class="google-signup-btn" id="googleSignUpBtn">
             <span class="google-mark" aria-hidden="true"><i class="fa-brands fa-google"></i></span>
@@ -42,26 +42,26 @@
         <div class="auth-divider" aria-hidden="true"><span>or continue with email</span></div>
         <form>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" required>
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required>
             <span id="nameError" class="error-message">Please enter your name</span>
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
             <span id="emailError" class="error-message">Please enter a valid email address</span>
             <label for="password">Password</label>
             <div class="input-group">
-                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="new-password" required>
-                <span class="toggle-password" data-target="password"><i class="fa fa-eye"></i></span>
+                <input type="password" id="password" name="password" placeholder="At least 6 characters" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" data-target="password" aria-label="Show password"><i class="fa fa-eye"></i></button>
             </div>
             <span id="passwordError" class="error-message">Password must be at least 6 characters long</span>
-            <label for="confirm-password">Confirm Password</label>
+            <label for="confirmPassword">Confirm Password</label>
             <div class="input-group">
-                <input type="password" id="confirmPassword" name="confirm-password" placeholder="Confirm your password" autocomplete="new-password" required>
-                <span class="toggle-password" data-target="confirmPassword"><i class="fa fa-eye"></i></span>
+                <input type="password" id="confirmPassword" name="confirm-password" placeholder="Repeat your password" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Show password"><i class="fa fa-eye"></i></button>
             </div>
             <span id="confirmPasswordError" class="error-message">Passwords do not match</span>
             <button type="button" class="cta-button" id="signUpBtn">Create account</button>
             <div id="statusMessage" class="status-text" role="status" aria-live="polite"></div>
-            <p>Already have an account? <a href="login.html">Log In here</a>.</p>
+            <p>Already have an account? <a href="login.html">Log in</a>.</p>
         </form>
     </div>
 </section>
@@ -73,13 +73,13 @@
             <a href="https://github.com/techykaif/FitFlow" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://techykaif.netlify.app" target="_blank" rel="noopener" aria-label="Portfolio"><i class="fas fa-globe"></i></a>
         </div>
-        <div class="contact-info"><p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p></div>
+        <div class="contact-info"><p><i class="fas fa-envelope"></i> <a href="mailto:fitflow71@gmail.com">fitflow71@gmail.com</a></p></div>
     </div>
     <div class="copyright"><p>© 2026 FitFlow. Built to help people build healthier routines.</p></div>
 </footer>
 
-<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>We value your privacy. Your personal information is used to provide FitFlow's tracking and account features.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
-<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>By using FitFlow, you agree to use the service responsibly and to provide information that you are comfortable storing in your account.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
+<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>FitFlow uses account and wellness data to provide its tracking features.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
+<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>Use FitFlow responsibly and only record information you are comfortable storing in your account.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
 
 <script>
 const emailField=document.getElementById('email'),passwordField=document.getElementById('password'),confirmPasswordField=document.getElementById('confirmPassword'),nameField=document.getElementById('name');
