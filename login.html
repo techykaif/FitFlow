@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FitFlow Health & Wellness Tracker</title>
+    <title>Log in to FitFlow</title>
     <link rel="icon" href="logo.webp" type="image/webp">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -27,19 +27,18 @@
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             <li><a href="support.html"><i class="fas fa-question-circle"></i> Support</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
     </nav>
 </header>
 
 <section class="login-section" id="loginSection">
-    <h1>Log In to FitFlow</h1>
-    <p>Welcome back! Please log in to continue.</p>
+    <h1>Welcome back</h1>
+    <p>Log in to continue your FitFlow journey.</p>
     <div class="login-container">
         <form id="loginForm">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
             <div id="emailError" class="error-message"></div>
-
             <label for="password">Password</label>
             <div class="password-container">
                 <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
@@ -50,41 +49,28 @@
             <div id="loadingMessage" role="status" aria-live="polite">Logging in, please wait...</div>
             <button type="button" class="cta-button" id="loginBtn">Log In</button>
         </form>
-
         <div class="auth-divider" aria-hidden="true"><span>or</span></div>
         <button type="button" class="google-signin-btn" id="googleSignInBtn">
             <span class="google-mark" aria-hidden="true"><i class="fa-brands fa-google"></i></span>
             <span>Continue with Google</span>
         </button>
-
         <a href="forgotpassword.html" class="forgotpassword">Forgot Password?</a>
-        <p>Don't have an account? <a href="signup.html">Sign Up here</a>.</p>
+        <p>Don't have an account? <a href="signup.html">Create one</a>.</p>
     </div>
 </section>
 
-<footer>
-    <div class="footer-content">
-        <ul class="quick-links"><li><a href="#">Privacy Policy</a></li><li><a href="#terms">Terms of Service</a></li></ul>
-        <div class="social-media">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <div class="contact-info"><p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p><p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p><p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p></div>
-    </div>
-    <div class="copyright"><p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p></div>
-</footer>
-
-<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p><p>By using this platform, you agree to the collection and use of information in accordance with this privacy policy.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
-<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure to read these terms carefully before using our services.</p><p>We reserve the right to modify or update our terms at any time, and your continued use of the platform constitutes acceptance of the updated terms.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
+<footer></footer>
+<div id="privacy-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><h2>Privacy Policy</h2><p>FitFlow uses account and wellness data to provide its tracking features.</p><button id="understood-btn" class="cta-button">Understood</button></div></div>
+<div id="terms-modal" class="modal"><div class="modal-content"><span class="close-btn terms-close-btn">&times;</span><h2>Terms of Service</h2><p>Use FitFlow responsibly and only record information you are comfortable storing in your account.</p><button id="terms-understood-btn" class="cta-button">Understood</button></div></div>
 
 <script>
 const privacyModal=document.getElementById("privacy-modal"),termsModal=document.getElementById("terms-modal");
 const closePrivacyBtn=document.querySelector(".close-btn"),closeTermsBtn=document.querySelector(".terms-close-btn");
 const understoodPrivacyBtn=document.getElementById("understood-btn"),understoodTermsBtn=document.getElementById("terms-understood-btn");
-document.querySelector(".quick-links a[href='#']").addEventListener("click",e=>{e.preventDefault();privacyModal.style.display="flex";});
-document.querySelector(".quick-links a[href='#terms']").addEventListener("click",e=>{e.preventDefault();termsModal.style.display="flex";});
-closePrivacyBtn.addEventListener("click",()=>privacyModal.style.display="none");closeTermsBtn.addEventListener("click",()=>termsModal.style.display="none");
-understoodPrivacyBtn.addEventListener("click",()=>privacyModal.style.display="none");understoodTermsBtn.addEventListener("click",()=>termsModal.style.display="none");
+document.querySelector(".quick-links a[href='#']")?.addEventListener("click",e=>{e.preventDefault();privacyModal.style.display="flex";});
+document.querySelector(".quick-links a[href='#terms']")?.addEventListener("click",e=>{e.preventDefault();termsModal.style.display="flex";});
+closePrivacyBtn?.addEventListener("click",()=>privacyModal.style.display="none");closeTermsBtn?.addEventListener("click",()=>termsModal.style.display="none");
+understoodPrivacyBtn?.addEventListener("click",()=>privacyModal.style.display="none");understoodTermsBtn?.addEventListener("click",()=>termsModal.style.display="none");
 window.addEventListener("click",e=>{if(e.target===privacyModal)privacyModal.style.display="none";if(e.target===termsModal)termsModal.style.display="none";});
 [document.getElementById("email"),document.getElementById("password")].forEach(field=>field.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();document.getElementById("loginBtn").click();}}));
 </script>
