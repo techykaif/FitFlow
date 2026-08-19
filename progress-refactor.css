@@ -1,0 +1,39 @@
+/* FitFlow Progress — final product UI */
+.progress-page-shell { --p-teal:#0f9b8e; --p-dark:#173738; --p-muted:#6b7f80; --p-line:#d7e9e7; --p-soft:#eff9f7; }
+.progress-page-shell, .main-content .container { color:var(--p-dark); }
+.main-content .container { max-width:1280px; padding:28px 32px 56px; }
+.main-content .container > .welcome-section { padding:18px 0 10px; margin:0 0 14px; text-align:left; }
+.main-content .container > .welcome-section h1 { margin:4px 0 8px; color:var(--p-dark); font-size:clamp(2rem,4vw,2.8rem); letter-spacing:-.04em; }
+.main-content .container > .welcome-section > p:last-child { margin:0; max-width:700px; color:var(--p-muted); }
+.main-content .container > .welcome-section::before { display:none; }
+.time-range-selector { display:flex; justify-content:flex-start; gap:8px; margin:8px 0 22px; }
+.time-btn { border:1px solid var(--p-line)!important; background:#fff!important; color:var(--p-muted)!important; border-radius:12px!important; padding:10px 18px!important; font-weight:750!important; box-shadow:none!important; }
+.time-btn:hover { transform:none!important; border-color:#afd4d0!important; }
+.time-btn.active { background:var(--p-teal)!important; border-color:var(--p-teal)!important; color:#fff!important; box-shadow:0 8px 18px rgba(15,155,142,.16)!important; }
+.overview-section { margin-bottom:20px; }
+.overview-cards { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:12px; }
+.overview-card { min-height:148px; padding:20px!important; border:1px solid var(--p-line); border-radius:18px!important; box-shadow:0 8px 24px rgba(16,42,43,.045)!important; animation:none!important; }
+.overview-card::after { width:3px!important; background:var(--p-teal)!important; }
+.card-icon { width:44px!important; height:44px!important; flex:0 0 44px; font-size:1.05rem!important; color:var(--p-teal); background:var(--p-soft)!important; }
+.card-content h3 { color:var(--p-dark); font-size:1rem; margin-bottom:8px; }
+.stat-value { color:var(--p-dark)!important; font-size:1.75rem; }
+.stat-label { color:var(--p-muted)!important; }
+.progress-bar { background:#e7f1ef!important; height:5px!important; }
+.progress-fill { background:var(--p-teal)!important; }
+.progress-section { margin:0 0 16px!important; padding:22px!important; border:1px solid var(--p-line); border-radius:20px!important; box-shadow:0 8px 24px rgba(16,42,43,.045)!important; animation:none!important; opacity:1!important; }
+.section-header { margin-bottom:14px!important; align-items:center!important; }
+.section-header h2 { color:var(--p-dark)!important; margin:3px 0 0!important; font-size:1.25rem!important; }
+.eyebrow { color:var(--p-teal)!important; font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.insight-btn { background:var(--p-soft)!important; color:var(--p-teal-dark,#0b7a70)!important; border:1px solid var(--p-line)!important; border-radius:11px!important; padding:9px 13px!important; }
+.progress-section .chart-container { height:270px!important; margin:0 0 12px!important; padding:10px 4px; }
+.progress-section .summary-container { background:var(--p-soft)!important; border:1px solid var(--p-line); border-left:3px solid var(--p-teal)!important; border-radius:12px!important; padding:12px 14px!important; }
+.summary-text { color:var(--p-muted)!important; font-size:.88rem!important; }
+.combined-section .chart-container { height:250px!important; }
+.achievements-section { margin-top:4px!important; padding:22px; border:1px solid var(--p-line); border-radius:20px; background:#fff; box-shadow:0 8px 24px rgba(16,42,43,.045); }
+.achievements-container { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:12px; }
+.achievements-container:empty::before { content:'Keep logging consistently and your first achievements will appear here.'; display:block; grid-column:1/-1; padding:24px; text-align:center; color:var(--p-muted); background:var(--p-soft); border:1px dashed var(--p-line); border-radius:14px; }
+.insight-modal { background:rgba(10,35,36,.45)!important; backdrop-filter:blur(4px); }
+.insight-content { border:1px solid var(--p-line); background:#fff!important; }
+@media(max-width:900px){ .overview-cards{grid-template-columns:1fr 1fr;} .main-content .container{padding:22px 20px 44px;} }
+@media(max-width:640px){ .main-content .container{width:100%;padding:18px 14px 36px;} .overview-cards{grid-template-columns:1fr;} .overview-card{min-height:125px;} .progress-section{padding:16px!important;} .progress-section .chart-container,.combined-section .chart-container{height:230px!important;} .section-header{align-items:flex-start!important;} .insight-btn{width:100%;justify-content:center;} }
+@media(prefers-reduced-motion:reduce){.overview-card,.progress-section{animation:none!important;transition:none!important;}}
