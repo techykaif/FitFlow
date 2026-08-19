@@ -1,115 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitFlow</title>
+    <meta name="description" content="Explore the FitFlow wellness tracker and see how movement, nutrition, sleep, and progress connect in one simple feedback loop.">
+    <meta name="theme-color" content="#0f9b8e">
+    <link rel="icon" href="logo.jpeg" type="image/jpeg">
+    <title>Tracker — FitFlow</title>
+
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="website icon" href="logo.jpeg" type="jpeg">
-    <link rel="stylesheet" href="tracker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="premium-components.css">
+    <link rel="stylesheet" href="tracker.css">
 </head>
-
-<script type="module">
-    import { auth, onAuthStateChanged } from "./firebaseConfig.js";
-
-    // Tracker is a public entry page. Never redirect an unauthenticated visitor
-    // back to tracker.html: doing that creates a redirect/reload loop on hosts
-    // where the pathname is normalized (for example /tracker or /tracker.html/).
-    // Authenticated users can continue directly to their dashboard.
-    onAuthStateChanged(auth, (user) => {
-        if (!user) return;
-
-        const currentPage = window.location.pathname.split("/").filter(Boolean).pop() || "index.html";
-        if (currentPage === "tracker.html" || currentPage === "tracker") {
-            window.location.replace("dashboard.html");
-        }
-    });
-</script>
-
-<body>
-    <!-- Header -->
+<body class="tracker-page-body">
     <header>
         <div class="logo">
             <img src="logo.webp" alt="FitFlow logo">
         </div>
         <div class="name">
             <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
+            <p>Personal wellness, made useful.</p>
         </div>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a></li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a></li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a></li>
-            </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav aria-label="Primary navigation">
+            <ul id="nav-menu"></ul>
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">☰</button>
         </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a></li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a></li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a></li>
-            </ol>
-        </div>
     </header>
 
-    <div class="content-wrapper">
-        <main class="main-content">
-            <section class="tagline">
-                <h2>Your Wellness Journey Starts Here</h2>
-                <p>Track Progress, Transform Life</p>
-            </section>
+    <main class="tracker-page">
+        <section class="tracker-hero" aria-labelledby="tracker-title">
+            <div class="tracker-hero-copy">
+                <span class="tracker-eyebrow"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> YOUR WELLNESS LOOP</span>
+                <h2 id="tracker-title">Track what matters. <span>Understand what changes.</span></h2>
+                <p class="tracker-lead">FitFlow brings movement, meals, sleep, and progress into one calm place so your records become useful decisions instead of another list of numbers.</p>
 
-            <div id="auth-buttons">
-                <button id="loginBtn" class="auth-btn" onclick="window.location.href='login.html'">Log In</button>
-                <button id="signupBtn" class="auth-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+                <div class="tracker-actions">
+                    <a class="tracker-btn tracker-btn-primary" href="signup.html">Start tracking <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                    <a class="tracker-btn tracker-btn-secondary" href="login.html">I already have an account</a>
+                </div>
+
+                <div class="tracker-proof" aria-label="FitFlow tracking areas">
+                    <span><i class="fa-solid fa-person-walking" aria-hidden="true"></i> Movement</span>
+                    <span><i class="fa-solid fa-utensils" aria-hidden="true"></i> Nutrition</span>
+                    <span><i class="fa-solid fa-moon" aria-hidden="true"></i> Recovery</span>
+                </div>
             </div>
-        </main>
-    </div>
 
-    <!-- Footer is normalized by hamburger.js so every public page uses the same footer. -->
+            <div class="tracker-visual" aria-label="FitFlow tracker preview">
+                <div class="tracker-visual-glow" aria-hidden="true"></div>
+                <div class="tracker-preview-card">
+                    <div class="tracker-preview-top">
+                        <div>
+                            <span>Today's snapshot</span>
+                            <strong>Your wellness loop</strong>
+                        </div>
+                        <span class="tracker-live-dot"><i class="fa-solid fa-circle" aria-hidden="true"></i> Live</span>
+                    </div>
+
+                    <div class="tracker-metric-grid">
+                        <article class="tracker-metric">
+                            <div class="tracker-metric-icon"><i class="fa-solid fa-person-walking" aria-hidden="true"></i></div>
+                            <div><span>Activity</span><strong>0 min</strong><small>Ready to log</small></div>
+                        </article>
+                        <article class="tracker-metric">
+                            <div class="tracker-metric-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></div>
+                            <div><span>Nutrition</span><strong>0 cal</strong><small>Start a meal log</small></div>
+                        </article>
+                        <article class="tracker-metric">
+                            <div class="tracker-metric-icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
+                            <div><span>Sleep</span><strong>0 hrs</strong><small>Record recovery</small></div>
+                        </article>
+                    </div>
+
+                    <div class="tracker-mini-chart" aria-hidden="true">
+                        <div class="tracker-mini-chart-header"><span>Weekly consistency</span><strong>Build your baseline</strong></div>
+                        <div class="tracker-bars">
+                            <i style="height:24%"></i><i style="height:38%"></i><i style="height:31%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:66%"></i><i style="height:78%"></i>
+                        </div>
+                        <div class="tracker-chart-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+                    </div>
+                </div>
+
+                <div class="tracker-floating-card tracker-floating-card-top">
+                    <span class="tracker-floating-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+                    <div><small>Next step</small><strong>Review your pattern</strong></div>
+                </div>
+                <div class="tracker-floating-card tracker-floating-card-bottom">
+                    <span class="tracker-floating-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                    <div><small>Simple by design</small><strong>One useful action at a time</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tracker-loop" aria-labelledby="loop-heading">
+            <div class="tracker-section-heading">
+                <span class="tracker-eyebrow"><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> THE FITFLOW METHOD</span>
+                <h2 id="loop-heading">A tracker with a reason to come back.</h2>
+                <p>Logging is only the beginning. FitFlow turns small records into a repeatable loop you can actually use.</p>
+            </div>
+
+            <div class="tracker-loop-grid">
+                <article class="tracker-loop-card">
+                    <span class="tracker-step-number">01</span>
+                    <div class="tracker-loop-icon"><i class="fa-solid fa-plus" aria-hidden="true"></i></div>
+                    <h3>Log</h3>
+                    <p>Capture a workout, meal, or sleep record without making your routine feel like a spreadsheet.</p>
+                </article>
+                <article class="tracker-loop-card">
+                    <span class="tracker-step-number">02</span>
+                    <div class="tracker-loop-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+                    <h3>Understand</h3>
+                    <p>Compare your history and notice the patterns that are actually worth paying attention to.</p>
+                </article>
+                <article class="tracker-loop-card">
+                    <span class="tracker-step-number">03</span>
+                    <div class="tracker-loop-icon"><i class="fa-solid fa-person-walking" aria-hidden="true"></i></div>
+                    <h3>Act</h3>
+                    <p>Turn what you learned into one realistic next step rather than chasing every metric at once.</p>
+                </article>
+                <article class="tracker-loop-card">
+                    <span class="tracker-step-number">04</span>
+                    <div class="tracker-loop-icon"><i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                    <h3>Review</h3>
+                    <p>Come back, see what changed, and build consistency from what your own data tells you.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="tracker-image-section" aria-labelledby="tracker-image-heading">
+            <div class="tracker-image-copy">
+                <span class="tracker-eyebrow"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> LESS NOISE, MORE SIGNAL</span>
+                <h2 id="tracker-image-heading">Your data should help you decide what to do next.</h2>
+                <p>FitFlow is intentionally focused: record the essentials, review the trend, and keep moving. No endless dashboards. No pressure to log every second of your day.</p>
+                <a href="features.html" class="tracker-text-link">Explore the full feature set <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <figure class="tracker-image-card">
+                <img
+                    src="https://images.ctfassets.net/lzny33ho1g45/best-fitness-tracking-apps-p-img/e2e0d9b19f341b84bc368acf6054ac9f/file.png?w=900&h=600&fit=thumb&fm=webp&q=45"
+                    srcset="https://images.ctfassets.net/lzny33ho1g45/best-fitness-tracking-apps-p-img/e2e0d9b19f341b84bc368acf6054ac9f/file.png?w=480&h=320&fit=thumb&fm=webp&q=45 480w, https://images.ctfassets.net/lzny33ho1g45/best-fitness-tracking-apps-p-img/e2e0d9b19f341b84bc368acf6054ac9f/file.png?w=900&h=600&fit=thumb&fm=webp&q=45 900w"
+                    sizes="(max-width: 760px) 100vw, 50vw"
+                    width="900"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Fitness tracking dashboard concept"
+                >
+                <figcaption>Designed around the next useful decision.</figcaption>
+            </figure>
+        </section>
+
+        <section class="tracker-final-cta" aria-labelledby="tracker-cta-heading">
+            <div>
+                <span class="tracker-eyebrow"><i class="fa-solid fa-flag-checkered" aria-hidden="true"></i> READY WHEN YOU ARE</span>
+                <h2 id="tracker-cta-heading">Start with one record. Let the loop grow from there.</h2>
+            </div>
+            <div class="tracker-actions">
+                <a class="tracker-btn tracker-btn-primary" href="signup.html">Create your free account <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="tracker-btn tracker-btn-secondary tracker-btn-light" href="index.html">Back to FitFlow</a>
+            </div>
+        </section>
+    </main>
+
     <footer></footer>
 
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
     <script src="hamburger.js"></script>
-    <script src="privacyandterms.js"></script>
 </body>
-
 </html>
