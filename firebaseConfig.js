@@ -1,28 +1,27 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { 
-    getAuth, 
-    signInWithEmailAndPassword, 
-    createUserWithEmailAndPassword, 
-    onAuthStateChanged, 
-    signOut, 
-    reauthenticateWithCredential, 
-    updatePassword, 
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    reauthenticateWithCredential,
+    updatePassword,
     EmailAuthProvider,
-    sendPasswordResetEmail // ✅ Added EmailAuthProvider
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-import { 
-    getDatabase, 
-    ref, 
-    update, 
-    set, 
+import {
+    getDatabase,
+    ref,
+    update,
+    set,
     child,
     remove,
-    get, 
-    push 
+    get,
+    push
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDfU_CER8IJqqmNIKIQyVEUJJhEWtxNIzI",
     authDomain: "fitflow-fitness-website.firebaseapp.com",
@@ -33,29 +32,27 @@ const firebaseConfig = {
     measurementId: "G-5LGXQ81QRQ"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// Export Firebase modules
-export { 
-    auth, 
-    database, 
-    signInWithEmailAndPassword, 
-    ref, 
-    update, 
-    createUserWithEmailAndPassword, 
-    set, 
-    get, 
-    getAuth, 
-    push, 
+export {
+    auth,
+    database,
+    signInWithEmailAndPassword,
+    ref,
+    update,
+    createUserWithEmailAndPassword,
+    set,
+    get,
+    getAuth,
+    push,
     onAuthStateChanged,
-    remove, 
-    signOut, 
-    reauthenticateWithCredential, 
-    updatePassword, 
+    remove,
+    signOut,
+    reauthenticateWithCredential,
+    updatePassword,
     EmailAuthProvider,
-    sendPasswordResetEmail ,
+    sendPasswordResetEmail,
     child
 };
