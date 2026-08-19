@@ -1,141 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activities - FitFlow</title>
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="activites.css">
-    <script src="notifications.js" type="module"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f9b8e"><title>Activities | FitFlow</title>
+<link rel="icon" href="logo.webp" type="image/webp"><link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="sidebar.css"><link rel="stylesheet" href="activites.css"><link rel="stylesheet" href="premium-pages.css">
 </head>
-<body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
-
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
-                    <li><a href="activites.html"><span class="icon">👟</span> Activities</a></li>
-                    <li><a href="progress.html"><span class="icon">📈</span> Progress</a></li>
-                    <li><a href="nutrition.html"><span class="icon">🍎</span> Nutrition</a></li>
-                    <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
-                    <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
-                </ul>   
-            </nav>
-            <div class="user-profile">
-                <div class="avatar" id="user-avatar">JD</div>
-                <div class="user-info">
-                    <h4 id="user-name">Loading...</h4>
-                </div>
-            </div>
-            
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search activities...">
-                    <button class="search-btn">🔍</button>
-                </div>
-                <div class="header-actions">
-                    <div class="notification-wrapper">
-                        <button id="bell-icon" class="notification-btn">
-                          🔔
-                        </button>
-                        <div id="login-history" class="dropdown hidden">
-                          <ul></ul>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="welcome-section">
-                <h1>Your Activities</h1>
-                <p>Track, manage, and analyze your fitness activities</p>
-                
-                <div class="activities-container">
-                    <!-- Activity Form -->
-                    <div class="activity-form-container">
-                        <h2>Add New Activity</h2>
-                        <form id="activity-form">
-                            <div class="form-group">
-                                <label for="activity-name">Activity Name</label>
-                                <input type="text" id="activity-name" required placeholder="e.g., Running, Swimming, Yoga">
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="activity-duration">Duration (minutes)</label>
-                                    <input type="number" id="activity-duration" required min="1" placeholder="e.g., 30">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="activity-calories">Calories Burned</label>
-                                    <input type="number" id="activity-calories" required min="1" placeholder="e.g., 250">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="activity-date">Date</label>
-                                <input type="date" id="activity-date" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="activity-notes">Notes (optional)</label>
-                                <textarea id="activity-notes" rows="3" placeholder="Add any additional details here..."></textarea>
-                            </div>
-                            
-                            <button type="submit" class="save-activity-btn">Save Activity</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Activity Visualization -->
-                    <div class="activity-visualization">
-                        <div class="chart-container">
-                            <h2>Calories Burned This Week</h2>
-                            <canvas id="calories-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Activity List -->
-                <div class="activity-list-container">
-                    <h2>Recent Activities</h2>
-                    <div class="activity-filters">
-                        <select id="activity-sort">
-                            <option value="date-desc">Newest First</option>
-                            <option value="date-asc">Oldest First</option>
-                            <option value="calories-desc">Highest Calories</option>
-                            <option value="calories-asc">Lowest Calories</option>
-                            <option value="duration-desc">Longest Duration</option>
-                            <option value="duration-asc">Shortest Duration</option>
-                        </select>
-                        <input type="text" id="activity-search" placeholder="Search activities...">
-                    </div>
-                    <div id="activities-list" class="activities-list">
-                        <div class="loading-activities">Loading your activities...</div>
-                    </div>
-                </div>
-            </div>
-            
-            
-        </main>
-    </div>
-
-   <!-- Add this before your activities.js script -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="activities.js"></script>
-    <script type="module" src="dashboardjs.js"></script>
-    <script type="module">
-        import { initSidebar } from "./components/sidebar.js";
-        initSidebar()
-      </script>
-    <script type="module" src="main.js"></script>
-</body>
-</html>
-
+<body><div class="dashboard"><main class="main-content">
+<header class="header"><div class="search-bar" role="search"><input type="search" placeholder="Search activities..." aria-label="Search activities"><button class="search-btn" type="button" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button></div><div class="header-actions"><div class="notification-wrapper"><button id="bell-icon" class="notification-btn" type="button" aria-label="Notifications"><i class="fa-solid fa-bell"></i></button><div id="login-history" class="dropdown hidden"><ul></ul></div></div></div></header>
+<div class="welcome-section"><p class="eyebrow"><i class="fa-solid fa-person-running"></i> Movement</p><h1>Your Activities</h1><p>Record movement once, then use the history to build consistency.</p>
+<div class="activities-container">
+<section class="activity-form-container"><div class="section-title"><span class="section-icon"><i class="fa-solid fa-plus"></i></span><div><h2>Add activity</h2><p>Keep today's log simple and useful.</p></div></div>
+<form id="activity-form">
+<div class="form-group"><label for="activity-name">Activity name</label><input type="text" id="activity-name" required placeholder="Running, Swimming, Yoga..."></div>
+<div class="form-row"><div class="form-group"><label for="activity-duration">Duration (minutes)</label><input type="number" id="activity-duration" required min="1" placeholder="30"></div><div class="form-group"><label for="activity-calories">Calories burned</label><input type="number" id="activity-calories" required min="1" placeholder="250"></div></div>
+<div class="form-group"><label for="activity-date">Date</label><input type="date" id="activity-date" required></div>
+<div class="form-group"><label for="activity-notes">Notes <span>(optional)</span></label><textarea id="activity-notes" rows="3" placeholder="How did it feel?"></textarea></div>
+<button type="submit" class="save-activity-btn"><i class="fa-solid fa-check"></i> Save activity</button>
+</form></section>
+<section class="activity-visualization"><div class="section-title"><span class="section-icon"><i class="fa-solid fa-chart-column"></i></span><div><h2>Weekly movement</h2><p>Calories burned across the week.</p></div></div><div class="chart-container"><canvas id="calories-chart"></canvas></div></section>
+</div>
+<section class="activity-list-container"><div class="section-header"><div><span class="eyebrow"><i class="fa-solid fa-clock-rotate-left"></i> History</span><h2>Recent activities</h2></div><span class="section-kicker">Your record becomes your feedback loop.</span></div>
+<div class="activity-filters"><select id="activity-sort" aria-label="Sort activities"><option value="date-desc">Newest first</option><option value="date-asc">Oldest first</option><option value="calories-desc">Highest calories</option><option value="calories-asc">Lowest calories</option><option value="duration-desc">Longest duration</option><option value="duration-asc">Shortest duration</option></select><input type="search" id="activity-search" placeholder="Search activities..." aria-label="Search activities"></div>
+<div id="activities-list" class="activities-list"><div class="loading-activities"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading your activities...</div></div></section>
+</div></main></div>
+<script src="notifications.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="activities.js"></script><script type="module" src="dashboardjs.js"></script>
+<script type="module">import { initSidebar } from "./components/sidebar.js"; initSidebar();</script><script type="module" src="main.js"></script>
+</body></html>

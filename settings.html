@@ -1,54 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0f9b8e">
-    <title>Settings | FitFlow</title>
-    <link rel="icon" href="logo.webp" type="image/webp">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="settings.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0f9b8e">
+<title>Settings | FitFlow</title><link rel="icon" href="logo.webp" type="image/webp"><link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"><link rel="stylesheet" href="settings.css"><link rel="stylesheet" href="premium-pages.css">
 </head>
-<body>
-    <main class="settings-page">
-        <div class="settings-brand">
-            <a href="dashboard.html" class="brand-link" aria-label="Back to FitFlow dashboard">
-                <img src="logo.webp" alt="" class="brand-icon">
-                <span>FitFlow</span>
-            </a>
-            <a href="dashboard.html" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Dashboard</a>
-        </div>
-        <section class="settings-container" aria-labelledby="settings-title">
-            <div class="settings-heading">
-                <div>
-                    <span class="eyebrow"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Account</span>
-                    <h1 id="settings-title">Settings</h1>
-                    <p>Manage your FitFlow profile and account preferences.</p>
-                </div>
-                <span class="settings-heading-icon"><i class="fa-solid fa-gear" aria-hidden="true"></i></span>
-            </div>
-            <div class="user-profile">
-                <div class="avatar" id="user-avatar">U</div>
-                <div class="user-info"><h2 id="user-name">Loading...</h2><p id="user-email">Loading...</p></div>
-            </div>
-            <hr>
-            <section class="profile-settings" aria-labelledby="profile-title">
-                <div class="section-title">
-                    <span class="section-icon"><i class="fa-solid fa-user-pen" aria-hidden="true"></i></span>
-                    <div><h2 id="profile-title">Profile Settings</h2><p>Keep your account details up to date.</p></div>
-                </div>
-                <label for="name">Display name</label>
-                <input type="text" id="name" placeholder="Your Name" autocomplete="name">
-                <div class="settings-actions">
-                    <button id="saveChangesBtn" class="primary-action"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i><span>Save Changes</span></button>
-                    <button id="changePasswordBtn" class="secondary-action"><i class="fa-solid fa-key" aria-hidden="true"></i><span>Change Password</span></button>
-                    <button id="dashboardBtn" class="secondary-action"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Go to Dashboard</span></button>
-                    <button id="logoutBtn" class="danger-action"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i><span>Logout</span></button>
-                </div>
-            </section>
-        </section>
-    </main>
-    <script type="module" src="settings.js"></script>
-</body>
-</html>
+<body><main class="settings-page"><div class="settings-brand"><a href="dashboard.html" class="brand-link" aria-label="Back to FitFlow dashboard"><img src="logo.webp" alt="FitFlow logo" class="brand-icon"><span>FitFlow</span></a><a href="dashboard.html" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Dashboard</a></div>
+<section class="settings-container" aria-labelledby="settings-title"><div class="settings-heading"><div><span class="eyebrow"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Account</span><h1 id="settings-title">Settings</h1><p>Manage your profile, security and session.</p></div><span class="settings-heading-icon" aria-hidden="true"><i class="fa-solid fa-gear"></i></span></div>
+<div class="user-profile"><div class="avatar" id="user-avatar">U</div><div class="user-info"><h2 id="user-name">Loading...</h2><p id="user-email">Loading...</p></div></div><hr>
+<section class="profile-settings" aria-labelledby="profile-title"><div class="section-title"><span class="section-icon"><i class="fa-solid fa-user-pen"></i></span><div><h2 id="profile-title">Profile</h2><p>Keep your display name up to date.</p></div></div><label for="name">Display name</label><input type="text" id="name" placeholder="Your name" autocomplete="name"><div class="settings-actions"><button id="saveChangesBtn" class="primary-action"><i class="fa-solid fa-floppy-disk"></i><span>Save changes</span></button><button id="changePasswordBtn" class="secondary-action"><i class="fa-solid fa-key"></i><span>Change password</span></button><button id="dashboardBtn" class="secondary-action"><i class="fa-solid fa-house"></i><span>Go to dashboard</span></button><button id="logoutBtn" class="danger-action"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Log out</span></button></div></section>
+<section class="account-note"><div class="section-icon"><i class="fa-solid fa-shield-halved"></i></div><div><strong>Authentication</strong><p>Google accounts are managed through Google Sign-In. Email/password accounts can continue to use FitFlow password controls.</p></div></section>
+</section></main><script type="module" src="settings.js"></script></body></html>
