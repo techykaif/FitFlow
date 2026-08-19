@@ -27,7 +27,8 @@
 .google-signin-btn{display:flex;align-items:center;justify-content:center;gap:11px;padding:13px 18px;background:#fff;color:#173f40;border:1px solid #cfdedd;box-shadow:0 5px 16px rgba(16,42,43,.05)}
 .google-signin-btn:hover{border-color:#a8c9c5;box-shadow:0 9px 22px rgba(16,42,43,.08)}
 .google-signin-btn:disabled,.cta-button:disabled{opacity:.68;cursor:wait;transform:none}
-.google-brand-icon{font-size:1.08rem;color:#4285f4}
+.google-mark{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:#f3faf8;border:1px solid #dcebea;flex:0 0 34px;box-shadow:0 2px 7px rgba(16,42,43,.06)}
+.google-mark i{font-size:1.08rem;color:#4285f4;line-height:1}
 .auth-button-spinner{width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
 .auth-message{display:flex;align-items:flex-start;gap:9px;padding:12px 14px;border-radius:12px;margin:0 0 14px;text-align:left;font-size:14px;line-height:1.45}
 .auth-message-error{color:#8d2727;background:rgba(224,49,49,.08);border:1px solid rgba(224,49,49,.14)}
