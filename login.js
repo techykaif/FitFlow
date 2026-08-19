@@ -13,20 +13,11 @@ function formatEmail(email) {
 }
 
 async function generateDeviceId() {
-    const info =
-        navigator.userAgent +
-        navigator.language +
-        screen.width +
-        screen.height +
-        screen.colorDepth +
-        navigator.platform;
-
-    const encoder = new TextEncoder();
-    const data = encoder.encode(info);
+    const info = navigator.userAgent + navigator.language + screen.width + screen.height + screen.colorDepth + navigator.platform;
+    const data = new TextEncoder().encode(info);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-    return "device_" + hashHex.slice(0, 16);
+    return "device_" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 16);
 }
 
 async function getDeviceId() {
@@ -39,17 +30,10 @@ async function getDeviceId() {
 }
 
 function getCurrentIST() {
-    const now = new Date();
-    const options = {
-        timeZone: "Asia/Kolkata",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-    };
-    return new Intl.DateTimeFormat("en-GB", options).format(now).replace(",", "");
+    return new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+    }).format(new Date()).replace(",", "");
 }
 
 function showRegistrationConfirmation() {
@@ -64,7 +48,6 @@ function showRegistrationConfirmation() {
     const loginContainer = document.querySelector(".login-container");
     const form = document.getElementById("loginForm");
     if (loginContainer && form) loginContainer.insertBefore(message, form);
-
     window.history.replaceState({}, document.title, window.location.pathname);
 }
 
@@ -72,19 +55,24 @@ function setLoginMessage(message, type = "error") {
     const element = document.getElementById("incorrectMessage");
     if (!element) return;
 
+    if (!message) {
+        element.style.display = "none";
+        element.textContent = "";
+        return;
+    }
+
     element.className = type === "success" ? "auth-message auth-message-success" : "auth-message auth-message-error";
     element.innerHTML = `<i class="fa-solid ${type === "success" ? "fa-circle-check" : "fa-circle-exclamation"}" aria-hidden="true"></i><span>${message}</span>`;
     element.style.display = "flex";
 }
 
 async function completeLogin(user) {
-    if (!user?.email) throw new Error("Your Google account did not provide an email address.");
+    if (!user?.email) throw new Error("Your account did not provide an email address.");
 
     const email = user.email.toLowerCase();
     const formattedEmail = formatEmail(email);
     const currentLoginTime = getCurrentIST();
     const deviceId = await getDeviceId();
-
     const profileRef = ref(database, `users/${formattedEmail}/personal_information`);
     const profileSnapshot = await get(profileRef);
 
@@ -96,10 +84,7 @@ async function completeLogin(user) {
             photoURL: user.photoURL || "",
             auth_provider: "google",
         });
-
-        await update(ref(database, `users/${formattedEmail}/login_activity`), {
-            account_created: currentLoginTime,
-        });
+        await update(ref(database, `users/${formattedEmail}/login_activity`), { account_created: currentLoginTime });
     } else if (user.photoURL) {
         await update(profileRef, { photoURL: user.photoURL });
     }
@@ -107,16 +92,11 @@ async function completeLogin(user) {
     const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
     const snapshot = await get(loginRef);
     const loginData = snapshot.val() || {};
-    let previousLogins = loginData.previous_logins || [];
+    const previousLogins = loginData.last_login
+        ? [...(loginData.previous_logins || []), loginData.last_login].slice(-20)
+        : (loginData.previous_logins || []);
 
-    if (loginData.last_login) {
-        previousLogins = [...previousLogins, loginData.last_login].slice(-20);
-    }
-
-    await update(loginRef, {
-        last_login: currentLoginTime,
-        previous_logins: previousLogins,
-    });
+    await update(loginRef, { last_login: currentLoginTime, previous_logins: previousLogins });
 
     const sessionsRef = ref(database, `users/${formattedEmail}/sessions`);
     const sessionsSnapshot = await get(sessionsRef);
@@ -126,7 +106,6 @@ async function completeLogin(user) {
     Object.keys(sessions).forEach((key) => {
         sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
     });
-
     sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/active`] = true;
     sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/lastLogin`] = currentLoginTime;
 
@@ -134,7 +113,7 @@ async function completeLogin(user) {
     window.location.href = "dashboard.html";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     const loginBtn = document.getElementById("loginBtn");
     const googleSignInBtn = document.getElementById("googleSignInBtn");
     const emailInput = document.getElementById("email");
@@ -144,14 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loginBtn?.addEventListener("click", login);
     googleSignInBtn?.addEventListener("click", signInWithGoogle);
-
-    emailInput?.addEventListener("focus", () => {
-        emailError.style.display = "none";
-    });
-    passwordInput?.addEventListener("focus", () => {
-        passwordError.style.display = "none";
-    });
-
+    emailInput?.addEventListener("focus", () => { emailError.style.display = "none"; });
+    passwordInput?.addEventListener("focus", () => { passwordError.style.display = "none"; });
     showRegistrationConfirmation();
 });
 
@@ -167,15 +140,15 @@ export async function login() {
         emailError.style.display = "block";
         return;
     }
-
     if (!validatePassword(password)) {
         passwordError.textContent = "Password must be at least 6 characters long";
         passwordError.style.display = "block";
         return;
     }
 
-    setLoginMessage("");
+    setLoginMessage();
     loadingMessage.style.display = "block";
+    loadingMessage.textContent = "Logging in, please wait...";
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -192,21 +165,20 @@ export async function login() {
 async function signInWithGoogle() {
     const button = document.getElementById("googleSignInBtn");
     const loadingMessage = document.getElementById("loadingMessage");
-    const originalContent = button?.innerHTML;
-
     if (!button) return;
 
+    const originalContent = button.innerHTML;
     button.disabled = true;
     button.innerHTML = '<span class="auth-button-spinner" aria-hidden="true"></span><span>Connecting to Google...</span>';
     loadingMessage.style.display = "block";
     loadingMessage.textContent = "Opening secure Google sign-in...";
+    setLoginMessage();
 
     try {
         const result = await signInWithPopup(auth, googleProvider);
         await completeLogin(result.user);
     } catch (error) {
         console.error("Google sign-in failed:", error);
-
         if (error.code === "auth/popup-closed-by-user") {
             setLoginMessage("Google sign-in was cancelled.");
         } else if (error.code === "auth/account-exists-with-different-credential") {
@@ -223,28 +195,21 @@ async function signInWithGoogle() {
     }
 }
 
-function validateEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-function validatePassword(password) {
-    return password.length >= 6;
-}
+function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+function validatePassword(password) { return password.length >= 6; }
 
 document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("togglePassword");
     if (!toggle) return;
-
     toggle.addEventListener("click", function () {
         const passwordField = document.getElementById("password");
         const icon = this.querySelector("i");
         const isPassword = passwordField.type === "password";
-
         passwordField.type = isPassword ? "text" : "password";
         if (icon) {
             icon.classList.toggle("fa-eye", !isPassword);
             icon.classList.toggle("fa-eye-slash", isPassword);
         }
+        this.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
     });
 });
