@@ -6,7 +6,6 @@ function setMenuOpen(open) {
     const menu = getPublicMenu();
     const toggle = document.querySelector(".menu-toggle");
     if (!menu) return;
-
     menu.classList.toggle("show", open);
     menu.classList.toggle("is-open", open);
     if (menu.id === "tooltip") menu.style.display = open ? "block" : "none";
@@ -29,7 +28,6 @@ window.toggleMenu = toggleMenu;
 function mountPublicFooter() {
     const existing = document.querySelector("footer");
     if (!existing || existing.dataset.fitflowStandard === "true") return;
-
     existing.dataset.fitflowStandard = "true";
     existing.innerHTML = `
         <div class="footer-content">
@@ -82,7 +80,7 @@ function initPublicPolish() {
         toggle.setAttribute("tabindex", "0");
         toggle.setAttribute("aria-expanded", "false");
         toggle.setAttribute("aria-label", "Open navigation menu");
-        toggle.addEventListener("click", toggleMenu);
+        if (!toggle.getAttribute("onclick")) toggle.addEventListener("click", toggleMenu);
         toggle.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
