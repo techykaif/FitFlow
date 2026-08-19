@@ -1,7 +1,10 @@
+@import url('design-system.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 
 /* FitFlow Premium Component Layer
-   Shared presentation only: no application logic or layout dependencies. */
+   Shared presentation only: no application logic or layout dependencies.
+   Reusable foundation lives in design-system.css; this file adds FitFlow-specific components.
+*/
 :root {
   --ff-ink:#102a2b; --ff-text:#294344; --ff-muted:#6b7f80; --ff-primary:#0f9b8e; --ff-primary-dark:#087f75;
   --ff-primary-soft:#e6faf7; --ff-accent:#34d399; --ff-surface:#fff; --ff-surface-soft:#f5faf9; --ff-border:#dcebea;
@@ -22,7 +25,6 @@ button,input[type="submit"],input[type="button"] { cursor:pointer; }
 .primary,.btn-primary,.primary-btn,.submit-btn,.submit-button { background:linear-gradient(135deg,var(--ff-primary),#0b857b) !important; border-color:transparent !important; color:#fff !important; box-shadow:0 10px 24px rgba(15,155,142,.18); }
 .primary:hover,.btn-primary:hover,.primary-btn:hover,.submit-btn:hover,.submit-button:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(15,155,142,.24); }
 
-/* Shared icon treatment */
 .premium-icon { display:inline-block; width:1.15em; margin-inline-end:.42em; font-size:.92em; line-height:1; vertical-align:-.06em; color:currentColor; }
 .nav .premium-icon { width:20px; margin-inline-end:11px; font-size:.92rem; text-align:center; }
 .notification-btn .premium-icon,.search-btn .premium-icon { margin:0; font-size:1rem; }
@@ -31,13 +33,7 @@ button .premium-icon { pointer-events:none; }
 .registration-success-message { display:flex; align-items:flex-start; gap:10px; margin-bottom:18px; padding:12px 14px; color:#075e56; background:var(--ff-primary-soft); border:1px solid #bce9e2; border-radius:12px; font-size:.9rem; line-height:1.45; }
 .registration-success-message i { margin-top:2px; color:var(--ff-primary); }
 
-/* Premium authenticated surfaces */
-.dashboard-card,.chart-card,.activity-form-container,.activity-list-container,.meal-form-container,.meal-log-container,.progress-section,.overview-card,.sleep-tracker-section,.sleep-visualization,.sleep-history,.sleep-goals,.quote-card,.dashboard-charts .chart-container,.nutrition-charts .chart-container {
-  background:rgba(255,255,255,.94) !important;
-  border:1px solid var(--ff-border) !important;
-  border-radius:var(--ff-radius) !important;
-  box-shadow:var(--ff-shadow-sm) !important;
-}
+.dashboard-card,.chart-card,.activity-form-container,.activity-list-container,.meal-form-container,.meal-log-container,.progress-section,.overview-card,.sleep-tracker-section,.sleep-visualization,.sleep-history,.sleep-goals,.quote-card,.dashboard-charts .chart-container,.nutrition-charts .chart-container { background:rgba(255,255,255,.94) !important; border:1px solid var(--ff-border) !important; border-radius:var(--ff-radius) !important; box-shadow:var(--ff-shadow-sm) !important; }
 .dashboard-card:hover,.chart-card:hover,.activity-form-container:hover,.activity-list-container:hover,.meal-form-container:hover,.meal-log-container:hover,.progress-section:hover,.overview-card:hover,.sleep-tracker-section:hover,.sleep-visualization:hover,.sleep-history:hover,.sleep-goals:hover { border-color:#c6e5e1 !important; box-shadow:var(--ff-shadow-md) !important; }
 .dashboard-card h3,.chart-card h4,.activity-form-container h2,.activity-list-container h2,.meal-form-container h2,.meal-log-container h2,.progress-section h2,.overview-section h2,.sleep-tracker-section h2,.sleep-visualization h2,.sleep-history h2,.sleep-goals h2 { color:var(--ff-ink) !important; letter-spacing:-.025em; }
 .welcome-section h1,.container .welcome-section h1 { color:var(--ff-ink) !important; letter-spacing:-.045em; }
@@ -52,16 +48,13 @@ button .premium-icon { pointer-events:none; }
 
 .save-activity-btn,.log-meal-btn,.save-btn { background:linear-gradient(135deg,var(--ff-primary),#0b857b) !important; border:0 !important; color:#fff !important; box-shadow:0 10px 22px rgba(15,155,142,.16); }
 .save-activity-btn:hover,.log-meal-btn:hover,.save-btn:hover { transform:translateY(-2px); box-shadow:0 14px 28px rgba(15,155,142,.22); }
-
 .activity-filters,.meal-log-filters,.history-filters { gap:10px; }
 .activity-list,.meal-log,.sleep-records-container { border:1px solid #e7f0ef; border-radius:14px; overflow:hidden; }
 .loading-activities,.loading-meals,.empty-state { color:var(--ff-muted) !important; }
 .progress-bar,.progress-fill,.progress-bar-container { border-radius:999px !important; }
 .progress-fill,.progress-bar-container .progress-bar { background:linear-gradient(90deg,var(--ff-primary),var(--ff-accent)) !important; }
 
-.enhanced-hero {
-  background:radial-gradient(circle at 80% 20%,rgba(52,211,153,.20),transparent 34%),linear-gradient(135deg,#f4fbfa 0%,#e8f7f4 48%,#f8fcfb 100%) !important;
-}
+.enhanced-hero { background:radial-gradient(circle at 80% 20%,rgba(52,211,153,.20),transparent 34%),linear-gradient(135deg,#f4fbfa 0%,#e8f7f4 48%,#f8fcfb 100%) !important; }
 .enhanced-hero::after { content:""; position:absolute; width:520px; height:520px; right:-170px; top:-180px; border-radius:50%; background:rgba(15,155,142,.08); filter:blur(2px); pointer-events:none; }
 .enhanced-hero .hero-content { position:relative; z-index:2; }
 .enhanced-hero .hero-content h1 { color:var(--ff-ink); font-weight:800; letter-spacing:-.045em; }
@@ -73,7 +66,6 @@ button .premium-icon { pointer-events:none; }
 .enhanced-hero .stats-card.calories::before { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
 .enhanced-hero .stats-card.heart::before { background:linear-gradient(90deg,#ef4444,#fb7185); }
 .enhanced-hero .stats-card.water::before { background:linear-gradient(90deg,#0ea5e9,#38bdf8); }
-
 .enhanced-features,.how-it-works,.enhanced-testimonials { position:relative; overflow:hidden; }
 .enhanced-features::before,.how-it-works::before,.enhanced-testimonials::before { content:""; position:absolute; width:280px; height:280px; border-radius:50%; background:rgba(52,211,153,.07); filter:blur(4px); pointer-events:none; }
 .enhanced-features::before { top:-120px; right:-100px; } .how-it-works::before { bottom:-130px; left:-110px; } .enhanced-testimonials::before { top:-120px; left:-120px; }
@@ -83,7 +75,7 @@ button .premium-icon { pointer-events:none; }
 .feature-icon,.step-icon,.quote-icon { box-shadow:0 8px 18px rgba(15,155,142,.10); }
 .enhanced-testimonials .testimonial-card { backdrop-filter:blur(8px); }
 
-.table-container,table { border:1px solid var(--ff-border); border-radius:14px; background:#fff; }
+table,.table-container { border:1px solid var(--ff-border); border-radius:14px; background:#fff; }
 table { border-collapse:separate; border-spacing:0; overflow:hidden; } th { color:var(--ff-ink); background:var(--ff-surface-soft); font-weight:750; } td,th { border-color:#edf4f3; } tbody tr:hover { background:#fbfefd; }
 .badge,.status,.tag,.category { border-radius:999px; font-weight:700; }
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:3px solid rgba(52,211,153,.42); outline-offset:3px; }
