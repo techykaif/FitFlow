@@ -1,3 +1,5 @@
+import { auth, onAuthStateChanged } from "./firebaseConfig.js";
+
 function getPublicMenu() {
     return document.getElementById("nav-menu") || document.getElementById("tooltip");
 }
@@ -8,25 +10,31 @@ const PUBLIC_NAV_ITEMS = [
     ["tracker.html", "fa-heart-pulse", "Tracker"],
     ["features.html", "fa-table-cells-large", "Features"],
     ["blog.html", "fa-book-open", "Blog"],
-    ["signup.html", "fa-user-plus", "Sign Up"],
-    ["login.html", "fa-arrow-right-to-bracket", "Log In"],
+    ["signup.html", "fa-user-plus", "Sign Up", "signed-out"],
+    ["login.html", "fa-arrow-right-to-bracket", "Log In", "signed-out"],
+    ["dashboard.html", "fa-chart-line", "Dashboard", "signed-in"],
     ["contact.html", "fa-envelope", "Contact"],
     ["support.html", "fa-circle-question", "Support"]
 ];
+
+let currentAuthUser = null;
 
 function getCurrentPublicPage() {
     const path = window.location.pathname.split("/").filter(Boolean).pop();
     return path || "index.html";
 }
 
-function normalizePublicNavigation() {
+function normalizePublicNavigation(isAuthenticated = Boolean(currentAuthUser)) {
     const menu = document.getElementById("nav-menu");
     if (!menu) return;
 
     const currentPage = getCurrentPublicPage();
     const fragment = document.createDocumentFragment();
 
-    PUBLIC_NAV_ITEMS.forEach(([href, icon, label]) => {
+    PUBLIC_NAV_ITEMS.forEach(([href, icon, label, visibility]) => {
+        if (visibility === "signed-in" && !isAuthenticated) return;
+        if (visibility === "signed-out" && isAuthenticated) return;
+
         const item = document.createElement("li");
         const link = document.createElement("a");
         const iconElement = document.createElement("i");
@@ -122,6 +130,12 @@ function initPublicPolish() {
     normalizePublicNavigation();
     mountPublicFooter();
     replaceFakeTestimonials();
+
+    onAuthStateChanged(auth, (user) => {
+        currentAuthUser = user;
+        normalizePublicNavigation(Boolean(user));
+        setMenuOpen(false);
+    });
 
     const toggle = document.querySelector(".menu-toggle");
     if (toggle) {
