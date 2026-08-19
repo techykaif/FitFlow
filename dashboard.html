@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="dashboard.css">
 <link rel="stylesheet" href="sidebar.css">
 <link rel="stylesheet" href="premium-pages.css">
+<link rel="stylesheet" href="final-ui-polish.css">
 </head>
 <body>
 <div class="dashboard">
@@ -34,13 +35,8 @@
 </section>
 
 <section class="dashboard-card daily-plan-card" aria-labelledby="daily-plan-title">
-  <div class="card-heading">
-    <span class="card-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span>
-    <div><h3 id="daily-plan-title">Today's Plan</h3><p class="section-kicker">Simple actions based on what you have logged</p></div>
-  </div>
-  <div id="daily-plan" class="daily-plan-grid">
-    <article class="plan-item"><span class="plan-number">01</span><div><strong>Loading your plan...</strong><p>FitFlow is checking your recent activity.</p></div></article>
-  </div>
+  <div class="card-heading"><span class="card-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span><div><h3 id="daily-plan-title">Today's Plan</h3><p class="section-kicker">Simple actions based on what you have logged</p></div></div>
+  <div id="daily-plan" class="daily-plan-grid"><article class="plan-item"><span class="plan-number">01</span><span class="card-icon"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i></span><div><strong>Loading your plan...</strong><p>FitFlow is checking your recent activity.</p></div></article></div>
 </section>
 
 <section class="quick-actions" aria-labelledby="quick-actions-title">
@@ -56,8 +52,8 @@
 <section class="quote-container" aria-label="Quote of the day"><div class="quote-card" id="quoteOfTheDay"><div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div><div><p class="quote-text">"The best way to predict the future is to create it."</p><p class="quote-author">— Abraham Lincoln</p></div></div></section>
 
 <section class="dashboard-charts" aria-label="Weekly fitness charts">
-  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Recovery</span><h4>Weekly Sleep</h4></div><i class="fa-solid fa-bed" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardSleepChart"></canvas></div></article>
-  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Movement</span><h4>Weekly Activity</h4></div><i class="fa-solid fa-person-running" aria-hidden="true"></i></div><div class="chart-container"><canvas id="dashboardActivityChart"></canvas></div></article>
+  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Recovery</span><h4>Weekly Sleep</h4></div><i class="fa-solid fa-bed" aria-hidden="true"></i></div><div class="chart-container" id="sleep-chart-container"><canvas id="dashboardSleepChart"></canvas></div></article>
+  <article class="chart-card"><div class="chart-heading"><div><span class="chart-kicker">Movement</span><h4>Weekly Activity</h4></div><i class="fa-solid fa-person-running" aria-hidden="true"></i></div><div class="chart-container" id="activity-chart-container"><canvas id="dashboardActivityChart"></canvas></div></article>
 </section>
 
 <section class="dashboard-card weekly-review-card" aria-labelledby="weekly-review-title">

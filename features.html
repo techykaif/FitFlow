@@ -1,281 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features - FitFlow Health & Wellness Tracker</title>
+    <meta name="description" content="See what FitFlow actually does: activity, nutrition, sleep, progress, achievements, and a data-driven daily plan.">
+    <meta name="theme-color" content="#0f9b8e">
+    <link rel="icon" href="logo.webp" type="image/webp">
+    <title>Features — FitFlow</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="website icon" href="logo.jpeg" type="jpeg">
-    <link rel="stylesheet" href="features.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="premium-components.css">
+    <link rel="stylesheet" href="features.css">
 </head>
-<script type="module" src="menuhider.js"></script>
 <body>
-   <!-- Header -->
-   <header>
-    <div class="logo">
-        <img src="logo.webp" alt="Health & Wellness Logo">
-    </div>
-    <div class="name">
-        <h1 style="margin-bottom: -20px">FITFLOW</h1><br>
-        <p>Growing Strong,Staying Healthy</p>
-    </div>
-    <nav>
-        <ul id="nav-menu">
-            <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-            </li>
-            <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                    Tracker</a></li>
-            <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-            </li>
-            <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-            <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-            <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-            </li>
-        </ul>
-
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<header>
+    <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+    <div class="name"><h1>FITFLOW</h1><p>Personal wellness, made useful.</p></div>
+    <nav aria-label="Primary navigation">
+        <ul id="nav-menu"></ul>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">☰</button>
     </nav>
-    <div id="tooltip">
-        <ol>
-            <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-            </li>
-            <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                    Tracker</a></li>
-            <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-            </li>
-            <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-            <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-            <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-            </li>
-        </ol>
-
-    </div>
 </header>
 
-    <!-- Hero Section -->
-    <section class="features-hero">
+<main>
+    <section class="features-hero" aria-labelledby="features-title">
         <div class="hero-content">
-            <h1>Transform Your Wellness Journey</h1>
-            <p>FitFlow is your all-in-one health companion, designed to help you achieve your fitness goals and maintain a balanced lifestyle.</p>
-            <a href="signup.html" class="cta-button">Start Your Journey</a>
+            <span class="eyebrow"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> THE FITFLOW TOOLKIT</span>
+            <h1 id="features-title">Everything is built around one question: <span class="highlight">what should you do next?</span></h1>
+            <p>FitFlow combines simple wellness logging with progress views, achievements, and an explainable daily plan. No invented metrics, no generative AI dependency.</p>
+            <a href="signup.html" class="cta-button">Create your free account <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
-        <div class="hero-image">
+        <div class="hero-image" aria-hidden="true">
             <div class="pulse-circle"></div>
-            <img src="./logo.webp" alt="FitFlow Dashboard Preview" width="200" height="200">
-
+            <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
         </div>
     </section>
 
-    <!-- Features Overview -->
-    <section class="features-overview">
-        <h2>Why Choose <span class="highlight">FitFlow</span>?</h2>
-        <p class="section-description">Our comprehensive wellness platform offers everything you need to track, improve, and maintain your health.</p>
-        
+    <section class="features-overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">What you can actually use</h2>
+        <p class="section-description">Each area feeds the same loop: log something useful, review the history, then decide what is worth changing.</p>
+
         <div class="features-tabs">
-            <div class="tabs-nav">
-                <button class="tab-btn active" data-tab="tracking">Activity Tracking</button>
-                <button class="tab-btn" data-tab="health">Health Monitoring</button>
-                <button class="tab-btn" data-tab="goals">Personalized Goals</button>
-                <button class="tab-btn" data-tab="nutrition">Nutrition Tracking</button>
-                <button class="tab-btn" data-tab="reports">Progress Reports</button>
+            <div class="tabs-nav" role="tablist" aria-label="FitFlow features">
+                <button class="tab-btn active" type="button" data-tab="tracking">Activity</button>
+                <button class="tab-btn" type="button" data-tab="health">Sleep</button>
+                <button class="tab-btn" type="button" data-tab="goals">Progress</button>
+                <button class="tab-btn" type="button" data-tab="nutrition">Nutrition</button>
+                <button class="tab-btn" type="button" data-tab="reports">Daily plan</button>
             </div>
-            
+
             <div class="tab-content">
                 <div class="tab-pane active" id="tracking">
-                    <div class="tab-image">
-                        <i class="fas fa-running feature-icon"></i>
-                    </div>
-                    <div class="tab-info">
-                        <h3>Activity Tracking</h3>
-                        <p>Track every step of your fitness journey with our comprehensive activity monitoring system.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> Record workouts in real-time</li>
-                            <li><i class="fas fa-check-circle"></i> Track steps, distance, and calories burned</li>
-                            <li><i class="fas fa-check-circle"></i> Support for over 50 different activities</li>
-                            <li><i class="fas fa-check-circle"></i> Sync with popular fitness devices</li>
-                        </ul>
-                    </div>
+                    <div class="tab-image"><i class="fa-solid fa-person-running feature-icon" aria-hidden="true"></i></div>
+                    <div class="tab-info"><h3>Activity tracking</h3><p>Record workouts, walks, or other movement and keep a searchable history.</p><ul class="feature-list"><li><i class="fa-solid fa-check-circle"></i> Activity name and duration</li><li><i class="fa-solid fa-check-circle"></i> Calories burned</li><li><i class="fa-solid fa-check-circle"></i> Notes and dates</li><li><i class="fa-solid fa-check-circle"></i> Weekly movement chart</li></ul></div>
                 </div>
-                
+
                 <div class="tab-pane" id="health">
-                    <div class="tab-image">
-                        <i class="fas fa-heartbeat feature-icon"></i>
-                    </div>
-                    <div class="tab-info">
-                        <h3>Health Monitoring</h3>
-                        <p>Keep track of vital health metrics to ensure you're always at your best.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> Heart rate monitoring and analysis</li>
-                            <li><i class="fas fa-check-circle"></i> Sleep quality tracking and recommendations</li>
-                            <li><i class="fas fa-check-circle"></i> Stress level assessment</li>
-                            <li><i class="fas fa-check-circle"></i> Blood pressure and glucose tracking</li>
-                        </ul>
-                    </div>
+                    <div class="tab-image"><i class="fa-solid fa-moon feature-icon" aria-hidden="true"></i></div>
+                    <div class="tab-info"><h3>Sleep & recovery</h3><p>Record sleep timing and quality, then review consistency over the last week or month.</p><ul class="feature-list"><li><i class="fa-solid fa-check-circle"></i> Sleep and wake times</li><li><i class="fa-solid fa-check-circle"></i> Calculated duration</li><li><i class="fa-solid fa-check-circle"></i> Sleep quality</li><li><i class="fa-solid fa-check-circle"></i> Recovery guidance</li></ul></div>
                 </div>
-                
+
                 <div class="tab-pane" id="goals">
-                    <div class="tab-image">
-                        <i class="fas fa-bullseye feature-icon"></i>
-                    </div>
-                    <div class="tab-info">
-                        <h3>Personalized Goals</h3>
-                        <p>Set and achieve targets that are tailored specifically to your needs and lifestyle.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> AI-powered goal recommendations</li>
-                            <li><i class="fas fa-check-circle"></i> Adaptive targets based on your progress</li>
-                            <li><i class="fas fa-check-circle"></i> Milestone celebrations and rewards</li>
-                            <li><i class="fas fa-check-circle"></i> Challenge friends and family</li>
-                        </ul>
-                    </div>
+                    <div class="tab-image"><i class="fa-solid fa-chart-line feature-icon" aria-hidden="true"></i></div>
+                    <div class="tab-info"><h3>Progress & achievements</h3><p>Turn your records into weekly, monthly, and yearly views that make consistency easier to see.</p><ul class="feature-list"><li><i class="fa-solid fa-check-circle"></i> Sleep, nutrition, and activity charts</li><li><i class="fa-solid fa-check-circle"></i> Combined progress view</li><li><i class="fa-solid fa-check-circle"></i> Data-based achievements</li><li><i class="fa-solid fa-check-circle"></i> Review guidance</li></ul></div>
                 </div>
-                
+
                 <div class="tab-pane" id="nutrition">
-                    <div class="tab-image">
-                        <i class="fas fa-apple-alt feature-icon"></i>
-                    </div>
-                    <div class="tab-info">
-                        <h3>Nutrition Tracking</h3>
-                        <p>Maintain a balanced diet with our comprehensive nutrition monitoring tools.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> Extensive food database with nutritional information</li>
-                            <li><i class="fas fa-check-circle"></i> Meal planning and recipe suggestions</li>
-                            <li><i class="fas fa-check-circle"></i> Macro and micronutrient tracking</li>
-                            <li><i class="fas fa-check-circle"></i> Water intake monitoring</li>
-                        </ul>
-                    </div>
+                    <div class="tab-image"><i class="fa-solid fa-utensils feature-icon" aria-hidden="true"></i></div>
+                    <div class="tab-info"><h3>Nutrition tracking</h3><p>Log meals and basic macros so your nutrition history can be compared over time.</p><ul class="feature-list"><li><i class="fa-solid fa-check-circle"></i> Meal type and food name</li><li><i class="fa-solid fa-check-circle"></i> Calories</li><li><i class="fa-solid fa-check-circle"></i> Protein, carbs, and fats</li><li><i class="fa-solid fa-check-circle"></i> Meal history and filters</li></ul></div>
                 </div>
-                
+
                 <div class="tab-pane" id="reports">
-                    <div class="tab-image">
-                        <i class="fas fa-chart-line feature-icon"></i>
-                    </div>
-                    <div class="tab-info">
-                        <h3>Progress Reports</h3>
-                        <p>Visualize your journey with detailed analytics and insights.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> Weekly and monthly progress summaries</li>
-                            <li><i class="fas fa-check-circle"></i> Interactive charts and graphs</li>
-                            <li><i class="fas fa-check-circle"></i> Personalized insights and recommendations</li>
-                            <li><i class="fas fa-check-circle"></i> Export and share your achievements</li>
-                        </ul>
-                    </div>
+                    <div class="tab-image"><i class="fa-solid fa-list-check feature-icon" aria-hidden="true"></i></div>
+                    <div class="tab-info"><h3>Data-driven daily plan</h3><p>The dashboard checks recent records and suggests small, explainable actions. It does not pretend to be an AI coach.</p><ul class="feature-list"><li><i class="fa-solid fa-check-circle"></i> Uses your recent records</li><li><i class="fa-solid fa-check-circle"></i> Highlights missing areas</li><li><i class="fa-solid fa-check-circle"></i> Suggests manageable next steps</li><li><i class="fa-solid fa-check-circle"></i> Works without an external AI API</li></ul></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <h2>How <span class="highlight">FitFlow</span> Works</h2>
-        <p class="section-description">Our simple three-step process gets you on the path to better health in no time.</p>
-        
+    <section class="how-it-works" aria-labelledby="works-title">
+        <h2 id="works-title">How the FitFlow loop works</h2>
+        <p class="section-description">The product becomes useful when the records lead to a review and a next action.</p>
         <div class="steps-container">
-            <div class="step" data-aos="fade-up">
-                <div class="step-number">1</div>
-                <div class="step-icon"><i class="fas fa-user-plus"></i></div>
-                <h3>Create Your Profile</h3>
-                <p>Sign up and tell us about your health goals, preferences, and current fitness level.</p>
-            </div>
-            
-            <div class="step-connector"></div>
-            
-            <div class="step" data-aos="fade-up" data-aos-delay="200">
-                <div class="step-number">2</div>
-                <div class="step-icon"><i class="fas fa-sliders-h"></i></div>
-                <h3>Customize Your Plan</h3>
-                <p>Receive a personalized wellness plan tailored to your specific needs and goals.</p>
-            </div>
-            
-            <div class="step-connector"></div>
-            
-            <div class="step" data-aos="fade-up" data-aos-delay="400">
-                <div class="step-number">3</div>
-                <div class="step-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Track & Improve</h3>
-                <p>Monitor your progress, adjust your goals, and celebrate your achievements.</p>
-            </div>
+            <article class="step"><div class="step-number">01</div><div class="step-icon"><i class="fa-solid fa-plus"></i></div><h3>Log</h3><p>Add an activity, meal, or sleep record.</p></article>
+            <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+            <article class="step"><div class="step-number">02</div><div class="step-icon"><i class="fa-solid fa-chart-line"></i></div><h3>Understand</h3><p>Review recent history and progress.</p></article>
+            <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+            <article class="step"><div class="step-number">03</div><div class="step-icon"><i class="fa-solid fa-person-walking"></i></div><h3>Act</h3><p>Choose one practical next step.</p></article>
+            <div class="step-connector" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+            <article class="step"><div class="step-number">04</div><div class="step-icon"><i class="fa-solid fa-rotate"></i></div><h3>Review</h3><p>Return and see what changed.</p></article>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section" aria-labelledby="cta-title">
         <div class="cta-content">
-            <h2>Ready to Transform Your Health Journey?</h2>
-            <p>Join thousands of users who have already improved their wellness with FitFlow.</p>
-            <div class="cta-buttons">
-                <a href="signup.html" class="cta-button primary">Get Started Free</a>
-                <a href="tracker.html" class="cta-button secondary">Explore the Tracker</a>
-            </div>
+            <h2 id="cta-title">Ready to make your own data useful?</h2>
+            <p>Start with one record. The rest of the loop can grow from there.</p>
+            <div class="cta-buttons"><a href="signup.html" class="cta-button primary">Get started</a><a href="tracker.html" class="cta-button secondary">Explore the tracker</a></div>
         </div>
-        <div class="cta-background"></div>
     </section>
+</main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              </div>
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with
-                third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this
-                privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure
-                to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform
-                constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
-    <script src="privacyandterms.js"></script>
-    <script src="hamburger.js"></script>
-    <script src="scripts.js"></script>
-    <script src="feature.js"></script>
+<footer></footer>
+<script src="hamburger.js"></script>
+<script src="feature.js"></script>
 </body>
-
 </html>
-

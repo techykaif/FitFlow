@@ -1,0 +1,93 @@
+/* Progress page final visual refinement */
+.time-range-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.35rem;
+  margin: 0 0 2rem;
+  background: #eef8f7;
+  border: 1px solid #d5ebe8;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.time-range-selector .time-btn {
+  appearance: none;
+  min-width: 92px;
+  min-height: 46px;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #ffffff !important;
+  color: #163d3b !important;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 2;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.time-range-selector .time-btn:hover {
+  background: #e1f2f0 !important;
+  color: #087f78 !important;
+}
+
+/* Selected range: solid teal surface + white label for clear contrast. */
+.time-range-selector .time-btn.active,
+.time-range-selector .time-btn[aria-selected="true"],
+.time-range-selector .time-btn[aria-pressed="true"],
+.time-range-selector .time-btn.selected {
+  background: #0f9b8e !important;
+  color: #ffffff !important;
+  border-color: #0f9b8e !important;
+  box-shadow: 0 5px 14px rgba(15, 155, 142, 0.22) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.time-range-selector .time-btn.active:hover,
+.time-range-selector .time-btn[aria-selected="true"]:hover,
+.time-range-selector .time-btn[aria-pressed="true"]:hover,
+.time-range-selector .time-btn.selected:hover {
+  background: #0b7a70 !important;
+  color: #ffffff !important;
+}
+
+/* Remove decorative legacy pseudo-elements from the selected control. */
+.time-range-selector .time-btn.active::before,
+.time-range-selector .time-btn.active::after,
+.time-range-selector .time-btn[aria-selected="true"]::before,
+.time-range-selector .time-btn[aria-selected="true"]::after,
+.time-range-selector .time-btn[aria-pressed="true"]::before,
+.time-range-selector .time-btn[aria-pressed="true"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+.time-range-selector .time-btn.active *,
+.time-range-selector .time-btn[aria-selected="true"] *,
+.time-range-selector .time-btn[aria-pressed="true"] *,
+.time-range-selector .time-btn.selected * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+}
+
+@media (max-width: 640px) {
+  .time-range-selector {
+    width: 100%;
+  }
+
+  .time-range-selector .time-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0.75rem;
+  }
+}

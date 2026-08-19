@@ -3,145 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - FitFlow Health & Wellness Tracker</title>
+    <meta name="description" content="FitFlow product notes about wellness logging, progress reviews, and building a useful feedback loop.">
+    <meta name="theme-color" content="#0f9b8e">
+    <link rel="icon" href="logo.webp" type="image/webp">
+    <title>Notes — FitFlow</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
-    
+    <link rel="stylesheet" href="premium-components.css">
+    <link rel="stylesheet" href="blog.css">
 </head>
-<script type="module" src="menuhider.js"></script>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="logo.webp" alt="Health & Wellness Logo">
-        </div>
-        <div class="name">
-            <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
-        </div>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a></li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a></li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a></li>
-            </ul>
+<header>
+    <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+    <div class="name"><h1>FITFLOW</h1><p>Personal wellness, made useful.</p></div>
+    <nav aria-label="Primary navigation">
+        <ul id="nav-menu"></ul>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">☰</button>
+    </nav>
+</header>
 
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a></li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a></li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a></li>
-            </ol>
+<main>
+    <section class="blog-title-container" aria-labelledby="blog-title">
+        <span class="eyebrow"><i class="fa-solid fa-book-open" aria-hidden="true"></i> FITFLOW NOTES</span>
+        <h1 class="blog-title" id="blog-title">How the product works</h1>
+        <p>Short notes on the ideas behind FitFlow. These are intentionally practical rather than pretending to be a health publication.</p>
+    </section>
 
-        </div>
-    </header>
-    
- <!-- Blog Section -->
- <div class="blog-title-container">
-    <h1 class="blog-title">Our Blog</h1>
-  </div>
-  
-<section id="blog-posts" class="blog-grid">
-  <!-- Blog posts are inserted here dynamically -->
-</section>
+    <section id="blog-posts" class="blog-grid" aria-label="FitFlow product notes">
+        <article class="blog-post">
+            <div class="blog-post-icon"><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></div>
+            <span class="blog-post-meta">Product · The loop</span>
+            <h2>Why FitFlow uses Log → Understand → Act → Review</h2>
+            <p>A tracker is only useful if the information changes what you do. FitFlow keeps the loop simple: record a few useful signals, inspect the history, choose a realistic next step, then return to review what changed.</p>
+        </article>
+        <article class="blog-post">
+            <div class="blog-post-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+            <span class="blog-post-meta">Product · Progress</span>
+            <h2>Why consistency matters more than a perfect day</h2>
+            <p>One workout or one meal says very little. Repeated records make trends visible, which is why FitFlow's progress views focus on days and weeks rather than a single score.</p>
+        </article>
+        <article class="blog-post">
+            <div class="blog-post-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+            <span class="blog-post-meta">Engineering · Trust</span>
+            <h2>Keeping recommendations explainable</h2>
+            <p>The dashboard's daily plan is based on recent records and simple rules. That keeps the recommendation understandable and avoids presenting a generative model as something the product does not actually provide.</p>
+        </article>
+    </section>
 
- <!-- Blogger JSONP callback handler -->
- <script>
-     function handleBloggerData(data) {
-         const blogContainer = document.getElementById('blog-posts');
-         const posts = data.feed.entry;
+    <section class="blog-empty-note" aria-label="More notes">
+        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+        <div><strong>More notes will live here as FitFlow evolves.</strong><p>No third-party JSONP feed is loaded on this page, so external content cannot inject markup into the site.</p></div>
+    </section>
+</main>
 
-         posts.forEach(post => {
-             const title = post.title.$t;
-             const link = post.link.find(l => l.rel === 'alternate').href;
-             const content = post.content.$t;
-
-             const tempDiv = document.createElement('div');
-             tempDiv.innerHTML = content;
-             const summary = tempDiv.textContent.substring(0, 100) + "...";
-
-             const postElement = document.createElement('div');
-             postElement.classList.add('blog-post');
-             postElement.innerHTML = `
-                 <h2>${title}</h2>
-                 <p>${summary}</p>
-                 <a href="${link}" target="_blank">Read More</a>
-             `;
-             blogContainer.appendChild(postElement);
-         });
-     }
- </script>
-
- <!-- Blogger feed via JSONP (No CORS issues) -->
- <script src="https://fitflowhealth.blogspot.com/feeds/posts/default?alt=json-in-script&callback=handleBloggerData"></script>
-
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              </div>
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-    
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-    </footer>
-    <script src="privacyandterms.js"></script>
-    <script src="hamburger.js"></script>
-    <script src="scripts.js"></script>
+<footer></footer>
+<script src="hamburger.js"></script>
 </body>
 </html>

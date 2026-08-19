@@ -1,140 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - FitFlow Health & Wellness Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="about.css"> <!-- Link to separate About page styles -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</noscript>
-
-    <link rel="website icon" href="logo.jpeg" type="jpeg">
+    <meta name="theme-color" content="#0f9b8e">
+    <meta name="description" content="Learn why FitFlow exists, how it works, and about the developer who built it.">
+    <title>About FitFlow | Product & Developer</title>
+    <link rel="icon" href="logo.webp" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="about.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="enhanced-styles.css">
 </head>
-<script type="module" src="menuhider.js"></script>
 <body>
-    <!-- Header -->
     <header>
-        <div class="logo">
-            <img src="logo.webp" alt="Health & Wellness Logo">
-        </div>
-        <div class="name">
-            <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
-        </div>
-        <nav>
+        <div class="logo"><img src="logo.webp" alt="FitFlow logo"></div>
+        <div class="name"><h1>FITFLOW</h1><p>Log less blindly. Know what to do next.</p></div>
+        <nav aria-label="Primary navigation">
             <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="about.html" aria-current="page"><i class="fa-solid fa-circle-info"></i> About</a></li>
+                <li><a href="tracker.html"><i class="fa-solid fa-heart-pulse"></i> Tracker</a></li>
+                <li><a href="features.html"><i class="fa-solid fa-layer-group"></i> Features</a></li>
+                <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Blog</a></li>
+                <li><a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Log in</a></li>
+                <li><a href="signup.html"><i class="fa-solid fa-user-plus"></i> Sign up</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
             </ul>
-
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <button class="menu-toggle" type="button" aria-label="Open navigation">☰</button>
         </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ol>
-
-        </div>
     </header>
 
-    <section class="about-us">
-        <h1>Meet the Developer Behind FitFlow</h1>
-        <p class="intro">I'm a passionate developer, designer, and wellness enthusiast dedicated to helping you live your healthiest life. Here's who I am:</p>
-    
-        <div class="team-grid">
-            <!-- Member Card -->
-            <div class="team-card">
-                <img src="logo.webp" alt="Mohd Kaif Ansari" class="team-photo">
-                <h2>Mohd Kaif Ansari</h2>
-                <p class="role">Developer & Tester</p>
-                <p class="bio">Crafts features that are smooth, functional, and user-friendly. Kaif ensures every interaction on FitFlow feels natural and seamless.</p>
-                <p><strong>Email:</strong> <a href="mailto:mka10171@gmail.com">mka10171@gmail.com</a></p>
-                <p><strong>Phone:</strong> (123) 456-7890</p>
+    <main class="about-page">
+        <section class="about-hero">
+            <div class="hero-copy">
+                <span class="eyebrow"><i class="fa-solid fa-compass"></i> The idea behind FitFlow</span>
+                <h1>A wellness tracker designed around the <span>next decision.</span></h1>
+                <p>FitFlow is a personal wellness companion built to turn activity, nutrition and sleep records into a simple loop: <strong>Log → Understand → Act → Review.</strong></p>
+                <div class="hero-actions">
+                    <a class="about-button primary" href="signup.html"><i class="fa-solid fa-arrow-right"></i> Try FitFlow</a>
+                    <a class="about-button secondary" href="https://github.com/techykaif/FitFlow" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View source</a>
+                </div>
             </div>
-        </div>
-    </section>    
+            <div class="product-loop" aria-label="FitFlow product loop">
+                <div><span>01</span><strong>Log</strong><small>Sleep, meals, movement</small></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div><span>02</span><strong>Understand</strong><small>Trends and patterns</small></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div><span>03</span><strong>Act</strong><small>One practical next step</small></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div><span>04</span><strong>Review</strong><small>Build consistency</small></div>
+            </div>
+        </section>
 
+        <section class="about-section product-story">
+            <div class="section-heading"><span class="eyebrow"><i class="fa-solid fa-lightbulb"></i> Why it exists</span><h2>Not another place to enter numbers</h2></div>
+            <div class="story-grid">
+                <article><i class="fa-solid fa-database"></i><h3>Capture useful data</h3><p>Record the parts of daily wellness that are easy to forget: activity, meals and sleep.</p></article>
+                <article><i class="fa-solid fa-chart-line"></i><h3>Make patterns visible</h3><p>Use progress views and recent history to understand consistency instead of chasing one perfect day.</p></article>
+                <article><i class="fa-solid fa-person-walking"></i><h3>Turn insight into action</h3><p>The dashboard prioritizes a small next action so the product remains useful after the data is entered.</p></article>
+            </div>
+        </section>
 
+        <section class="about-section developer-section">
+            <div class="developer-card">
+                <div class="developer-avatar" aria-hidden="true">K</div>
+                <div class="developer-copy">
+                    <span class="eyebrow"><i class="fa-solid fa-code"></i> Developer</span>
+                    <h2>Mohd Kaif Ansari</h2>
+                    <p class="developer-role">Software Developer · Product Builder</p>
+                    <p>FitFlow was built as a real-world product project focused on the intersection of product thinking, frontend engineering, authentication, data modeling and usable analytics. The goal is not to add technology for its own sake, but to make the underlying workflow understandable and dependable.</p>
+                    <div class="developer-links">
+                        <a href="https://techykaif.netlify.app" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> Portfolio</a>
+                        <a href="https://github.com/techykaif" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+                        <a href="https://github.com/techykaif/FitFlow" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-code-branch"></i> FitFlow repository</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Footer -->
+        <section class="about-section engineering-section">
+            <div class="section-heading"><span class="eyebrow"><i class="fa-solid fa-screwdriver-wrench"></i> Built like a real product</span><h2>Engineering behind FitFlow</h2></div>
+            <div class="engineering-grid">
+                <article><i class="fa-solid fa-lock"></i><h3>Authentication</h3><p>Firebase Authentication supports email/password and Google Sign-In with shared profile and session handling.</p></article>
+                <article><i class="fa-solid fa-cloud"></i><h3>User data</h3><p>Firebase Realtime Database stores wellness records so dashboards and progress views can work from the user's own history.</p></article>
+                <article><i class="fa-solid fa-chart-column"></i><h3>Explainable analytics</h3><p>Charts and daily recommendations are derived from recorded data rather than depending on a hidden generative model.</p></article>
+                <article><i class="fa-solid fa-mobile-screen-button"></i><h3>Responsive experience</h3><p>The authenticated product uses a shared design system so tracking, review and account pages feel like one application.</p></article>
+            </div>
+        </section>
+
+        <section class="about-section honest-product">
+            <div class="honest-panel">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div><span class="eyebrow">A deliberate choice</span><h2>No fake user counts. No fake testimonials.</h2><p>FitFlow is presented honestly as a product project that can be used and evaluated. We do not invent adoption numbers, customer stories or contact details to make the project look bigger than it is.</p></div>
+            </div>
+        </section>
+    </main>
+
     <footer>
         <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              </div>
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
+            <div class="footer-column footer-brand">
+                <a class="footer-logo" href="index.html"><img src="logo.webp" alt="FitFlow logo"><span>FitFlow</span></a>
+                <p>A personal wellness companion built around actionable feedback, not data entry for its own sake.</p>
             </div>
+            <div class="footer-column"><h4>Product</h4><ul><li><a href="index.html">Home</a></li><li><a href="features.html">Features</a></li><li><a href="tracker.html">Tracker</a></li><li><a href="about.html">About FitFlow</a></li></ul></div>
+            <div class="footer-column"><h4>Account</h4><ul><li><a href="login.html">Log in</a></li><li><a href="signup.html">Create account</a></li><li><a href="support.html">Support</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div class="footer-column"><h4>Developer</h4><ul><li><a href="https://techykaif.netlify.app" target="_blank" rel="noopener noreferrer">Portfolio</a></li><li><a href="https://github.com/techykaif" target="_blank" rel="noopener noreferrer">GitHub profile</a></li><li><a href="https://github.com/techykaif/FitFlow" target="_blank" rel="noopener noreferrer">FitFlow repository</a></li></ul></div>
         </div>
-        <div class="copyright">
-            <p>© 2025 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
+        <div class="footer-bottom"><p>© 2026 FitFlow. Built as an open-source product project.</p><div class="social-media"><a href="https://github.com/techykaif/FitFlow" target="_blank" rel="noopener noreferrer" aria-label="FitFlow on GitHub"><i class="fa-brands fa-github"></i></a><a href="https://techykaif.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Developer portfolio"><i class="fa-solid fa-globe"></i></a></div></div>
     </footer>
-    
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p>
-            <p>By using this platform, you agree to the collection and use of information in accordance with this privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-    
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure to read these terms carefully before using our services.</p>
-            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform constitutes acceptance of the updated terms.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-    </footer>
-    <script src="hamburger.js"></script>
-    <script src="privacyandterms.js"></script>
-</body>
 
-</html> ̰
+    <script src="hamburger.js"></script>
+</body>
+</html>

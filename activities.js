@@ -1,366 +1,222 @@
-// Initialize Firebase with your config
-import { auth, database, onAuthStateChanged, ref, update, get, push, set } from "./firebaseConfig.js";
+import { auth, database, onAuthStateChanged, ref, get, push, set, update } from "./firebaseConfig.js";
 
-document.addEventListener('DOMContentLoaded', function () {
-    let formattedEmail = '';
-    
-    // Format email for Firebase path (matching login.js approach)
-    function formatEmail(email) {
-        const formatted = email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
-        return formatted;
+let formattedEmail = "";
+let activitiesCache = [];
+let caloriesChart = null;
+let editingActivityId = null;
+
+function formatEmail(email) {
+    return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
+}
+
+function icon(className) {
+    const element = document.createElement("i");
+    element.className = className;
+    element.setAttribute("aria-hidden", "true");
+    return element;
+}
+
+function renderState(container, className, title, description, iconName) {
+    container.replaceChildren();
+    const wrapper = document.createElement("div");
+    wrapper.className = className;
+    if (iconName) {
+        const iconWrap = document.createElement("div");
+        iconWrap.className = "empty-state-icon";
+        iconWrap.appendChild(icon(iconName));
+        wrapper.appendChild(iconWrap);
     }
-    
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+    const text = document.createElement("p");
+    text.textContent = description;
+    wrapper.append(heading, text);
+    container.appendChild(wrapper);
+}
+
+function initChart() {
+    const canvas = document.getElementById("calories-chart");
+    if (!canvas || typeof Chart === "undefined") return;
+    caloriesChart = new Chart(canvas.getContext("2d"), {
+        type: "bar",
+        data: { labels: [], datasets: [{ label: "Calories Burned", data: [], backgroundColor: "rgba(76, 175, 80, .6)", borderColor: "rgba(76, 175, 80, 1)", borderWidth: 1 }] },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: "Calories" } }, x: { title: { display: true, text: "Date" } } } },
+    });
+}
+
+function updateChart(activities) {
+    if (!caloriesChart) return;
+    const days = [];
+    const today = new Date();
+    for (let i = 6; i >= 0; i -= 1) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        days.push(date.toISOString().split("T")[0]);
+    }
+    const totals = Object.fromEntries(days.map((day) => [day, 0]));
+    activities.forEach((activity) => {
+        if (totals[activity.date] !== undefined) totals[activity.date] += Number(activity.calories) || 0;
+    });
+    caloriesChart.data.labels = days.map((day) => new Date(`${day}T00:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }));
+    caloriesChart.data.datasets[0].data = days.map((day) => totals[day]);
+    caloriesChart.update();
+}
+
+function updateEditButton() {
+    const button = document.querySelector(".save-activity-btn");
+    if (!button) return;
+    button.replaceChildren();
+    button.appendChild(icon(editingActivityId ? "fa-solid fa-pen" : "fa-solid fa-check"));
+    button.appendChild(document.createTextNode(editingActivityId ? " Update activity" : " Save activity"));
+}
+
+function resetForm() {
+    const form = document.getElementById("activity-form");
+    form.reset();
+    document.getElementById("activity-date").valueAsDate = new Date();
+    editingActivityId = null;
+    updateEditButton();
+}
+
+function editActivity(activity) {
+    document.getElementById("activity-name").value = activity.name || "";
+    document.getElementById("activity-duration").value = activity.duration ?? "";
+    document.getElementById("activity-calories").value = activity.calories ?? "";
+    document.getElementById("activity-date").value = activity.date || "";
+    document.getElementById("activity-notes").value = activity.notes || "";
+    editingActivityId = activity.id;
+    updateEditButton();
+    document.querySelector(".activity-form-container")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderActivities(activities) {
+    const list = document.getElementById("activities-list");
+    if (!list) return;
+    if (!activities.length) {
+        renderState(list, "no-activities", "No activities found", "Add your first activity above or adjust your search.", "fa-solid fa-person-running");
+        return;
+    }
+
+    list.replaceChildren();
+    activities.forEach((activity) => {
+        const item = document.createElement("article");
+        item.className = "activity-item";
+
+        const details = document.createElement("div");
+        details.className = "activity-details";
+        const heading = document.createElement("h3");
+        heading.textContent = activity.name || "Unnamed activity";
+        const notes = document.createElement("p");
+        notes.textContent = activity.notes || "No notes";
+        details.append(heading, notes);
+
+        const meta = document.createElement("div");
+        meta.className = "activity-meta";
+        [["fa-regular fa-calendar", new Date(`${activity.date}T00:00:00`).toLocaleDateString()], ["fa-regular fa-clock", `${activity.duration || 0} min`], ["fa-solid fa-fire-flame-curved", `${activity.calories || 0} cal`]].forEach(([iconName, text]) => {
+            const span = document.createElement("span");
+            span.append(icon(iconName), document.createTextNode(` ${text}`));
+            meta.appendChild(span);
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "activity-actions";
+        const edit = document.createElement("button");
+        edit.type = "button";
+        edit.className = "edit-btn";
+        edit.setAttribute("aria-label", `Edit ${activity.name || "activity"}`);
+        edit.appendChild(icon("fa-solid fa-pen"));
+        edit.addEventListener("click", () => editActivity(activity));
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "delete-btn";
+        del.setAttribute("aria-label", `Delete ${activity.name || "activity"}`);
+        del.appendChild(icon("fa-solid fa-trash"));
+        del.addEventListener("click", () => deleteActivity(activity.id));
+        actions.append(edit, del);
+
+        item.append(details, meta, actions);
+        list.appendChild(item);
+    });
+}
+
+function applyFilters() {
+    const search = (document.getElementById("activity-search")?.value || "").trim().toLowerCase();
+    const sort = document.getElementById("activity-sort")?.value || "date-desc";
+    const filtered = activitiesCache.filter((activity) => `${activity.name || ""} ${activity.notes || ""}`.toLowerCase().includes(search));
+    filtered.sort((a, b) => {
+        if (sort === "date-asc") return new Date(a.date) - new Date(b.date);
+        if (sort === "calories-desc") return (Number(b.calories) || 0) - (Number(a.calories) || 0);
+        if (sort === "calories-asc") return (Number(a.calories) || 0) - (Number(b.calories) || 0);
+        if (sort === "duration-desc") return (Number(b.duration) || 0) - (Number(a.duration) || 0);
+        if (sort === "duration-asc") return (Number(a.duration) || 0) - (Number(b.duration) || 0);
+        return new Date(b.date) - new Date(a.date);
+    });
+    renderActivities(filtered);
+}
+
+async function loadActivities() {
+    const list = document.getElementById("activities-list");
+    if (list) renderState(list, "loading-activities", "Loading activities", "Your recent movement records are being loaded.", "fa-solid fa-circle-notch fa-spin");
+    try {
+        const snapshot = await get(ref(database, `users/${formattedEmail}/activities`));
+        activitiesCache = snapshot.exists() ? Object.entries(snapshot.val()).map(([id, activity]) => ({ id, ...activity })) : [];
+        applyFilters();
+        updateChart(activitiesCache);
+    } catch (error) {
+        console.error("Error loading activities:", error);
+        if (list) renderState(list, "loading-error", "We couldn't load your activities", "Please refresh and try again.");
+    }
+}
+
+async function deleteActivity(id) {
+    if (!id || !confirm("Are you sure you want to delete this activity?")) return;
+    try {
+        await update(ref(database), { [`users/${formattedEmail}/activities/${id}`]: null });
+        await loadActivities();
+    } catch (error) {
+        console.error("Error deleting activity:", error);
+        alert("We couldn't delete that activity. Please try again.");
+    }
+}
+
+async function saveActivity(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+    const activity = {
+        name: document.getElementById("activity-name").value.trim(),
+        duration: Number(document.getElementById("activity-duration").value) || 0,
+        calories: Number(document.getElementById("activity-calories").value) || 0,
+        date: document.getElementById("activity-date").value,
+        notes: document.getElementById("activity-notes").value.trim(),
+    };
+    try {
+        if (editingActivityId) {
+            await update(ref(database, `users/${formattedEmail}/activities/${editingActivityId}`), { ...activity, updated: Date.now() });
+        } else {
+            await set(push(ref(database, `users/${formattedEmail}/activities`)), { ...activity, timestamp: Date.now() });
+        }
+        resetForm();
+        await loadActivities();
+    } catch (error) {
+        console.error("Error saving activity:", error);
+        alert("We couldn't save that activity. Please try again.");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("activity-date").valueAsDate = new Date();
+    document.getElementById("activity-form")?.addEventListener("submit", saveActivity);
+    document.getElementById("activity-sort")?.addEventListener("change", applyFilters);
+    document.getElementById("activity-search")?.addEventListener("input", applyFilters);
+    initChart();
+
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "tracker.html";
-        } else {
-            formattedEmail = formatEmail(user.email);
-            loadActivities();
+            return;
         }
+        formattedEmail = formatEmail(user.email);
+        loadActivities();
     });
-    
-    // Initialize Chart.js
-    const ctx = document.getElementById('calories-chart');
-    let caloriesChart = new Chart(ctx.getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Calories Burned',
-                data: [],
-                backgroundColor: 'rgba(76, 175, 80, 0.6)',
-                borderColor: 'rgba(76, 175, 80, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Calories'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    }
-                }
-            }
-        }
-    });
-
-    const activityForm = document.getElementById('activity-form');
-    
-    activityForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        // Get form values
-        const activityName = document.getElementById('activity-name').value;
-        const activityDuration = parseInt(document.getElementById('activity-duration').value);
-        const activityCalories = parseInt(document.getElementById('activity-calories').value);
-        const activityDate = document.getElementById('activity-date').value;
-        const activityNotes = document.getElementById('activity-notes').value;
-
-        // Create activity object
-        const activity = {
-            name: activityName,
-            duration: activityDuration,
-            calories: activityCalories,
-            date: activityDate,
-            notes: activityNotes,
-            timestamp: Date.now()
-        };
-
-        try {
-            const activitiesRef = ref(database, `users/${formattedEmail}/activities`);
-            const newActivityRef = push(activitiesRef);
-            const newActivityKey = newActivityRef.key;
-            
-            const updates = {};
-            updates[`users/${formattedEmail}/activities/${newActivityKey}`] = activity;
-            
-            await update(ref(database), updates);
-            
-            activityForm.reset();
-            document.getElementById('activity-date').valueAsDate = new Date();
-            alert('Activity saved successfully!');
-            loadActivities();
-        } catch (error) {
-            alert('Error saving activity. Please try again.');
-        }
-    });
-
-    // Set today's date as default for the date input
-    const dateInput = document.getElementById('activity-date');
-    if (dateInput) {
-        dateInput.valueAsDate = new Date();
-    }
-
-    // Load activities from Firebase
-    async function loadActivities() {
-        const activitiesList = document.getElementById('activities-list');
-        
-        if (!activitiesList) {
-            return;
-        }
-        
-        activitiesList.innerHTML = '<div class="loading-activities">Loading your activities...</div>';
-
-        try {
-            const activitiesRef = ref(database, `users/${formattedEmail}/activities`);
-            const snapshot = await get(activitiesRef);
-            const activities = [];
-            if (snapshot.exists()) {
-                Object.entries(snapshot.val()).forEach(([key, value]) => {
-                    activities.push({
-                        id: key,
-                        ...value
-                    });
-                });
-            }
-
-            if (activities.length === 0) {
-                activitiesList.innerHTML = '<div class="no-activities">No activities found. Add your first activity above!</div>';
-                return;
-            }
-
-            sortActivities(activities);
-            updateChart(activities);
-        } catch (error) {
-            activitiesList.innerHTML = '<div class="loading-error">Error loading activities. Please refresh the page.</div>';
-        }
-    }
-
-    // Sort and display activities
-    function sortActivities(activities) {
-        const sortSelect = document.getElementById('activity-sort');
-        
-        if (!sortSelect) {
-            return;
-        }
-        
-        const sortValue = sortSelect.value;
-        
-        switch (sortValue) {
-            case 'date-desc':
-                activities.sort((a, b) => new Date(b.date) - new Date(a.date));
-                break;
-            case 'date-asc':
-                activities.sort((a, b) => new Date(a.date) - new Date(b.date));
-                break;
-            case 'calories-desc':
-                activities.sort((a, b) => b.calories - a.calories);
-                break;
-            case 'calories-asc':
-                activities.sort((a, b) => a.calories - b.calories);
-                break;
-            case 'duration-desc':
-                activities.sort((a, b) => b.duration - a.duration);
-                break;
-            case 'duration-asc':
-                activities.sort((a, b) => a.duration - b.duration);
-                break;
-            default:
-                break;
-        }
-    
-        displayActivities(activities);
-    }
-    
-
-    // Display activities in the list
-    function displayActivities(activities) {
-        const activitiesList = document.getElementById('activities-list');
-        
-        if (!activitiesList) {
-            return;
-        }
-        
-        const searchInput = document.getElementById('activity-search');
-        const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
-
-        const filteredActivities = activities.filter(activity => {
-            const nameMatch = activity.name.toLowerCase().includes(searchValue);
-            const notesMatch = activity.notes && activity.notes.toLowerCase().includes(searchValue);
-            return nameMatch || notesMatch;
-        });
-
-        if (filteredActivities.length === 0) {
-            activitiesList.innerHTML = '<div class="no-activities">No matching activities found.</div>';
-            return;
-        }
-
-        activitiesList.innerHTML = '';
-
-        filteredActivities.forEach(activity => {
-            const activityDate = new Date(activity.date).toLocaleDateString();
-
-            const activityItem = document.createElement('div');
-            activityItem.className = 'activity-item';
-            activityItem.innerHTML = `
-                <div class="activity-details">
-                    <h3>${activity.name}</h3>
-                    <p>${activity.notes || 'No notes'}</p>
-                </div>
-                <div class="activity-meta">
-                    <span>📅 ${activityDate}</span>
-                    <span>⏱️ ${activity.duration} min</span>
-                    <span>🔥 ${activity.calories} cal</span>
-                </div>
-                <div class="activity-actions">
-                    <button class="edit-btn" data-id="${activity.id}">✏️</button>
-                    <button class="delete-btn" data-id="${activity.id}">🗑️</button>
-                </div>
-            `;
-
-            activitiesList.appendChild(activityItem);
-
-            const deleteBtn = activityItem.querySelector('.delete-btn');
-            const editBtn = activityItem.querySelector('.edit-btn');
-            
-            if (deleteBtn) {
-                deleteBtn.addEventListener('click', function () {
-                    if (confirm('Are you sure you want to delete this activity?')) {
-                        deleteActivity(activity.id);
-                    }
-                });
-            }
-
-            if (editBtn) {
-                editBtn.addEventListener('click', function () {
-                    editActivity(activity);
-                });
-            }
-        });
-    }
-
-    // Delete activity
-    async function deleteActivity(activityId) {
-        try {
-            const updates = {};
-            updates[`users/${formattedEmail}/activities/${activityId}`] = null;
-            
-            await update(ref(database), updates);
-            alert('Activity deleted successfully!');
-            loadActivities();
-        } catch (error) {
-            alert('Error deleting activity. Please try again.');
-        }
-    }
-
-    // Edit activity
-    function editActivity(activity) {
-        const nameInput = document.getElementById('activity-name');
-        const durationInput = document.getElementById('activity-duration');
-        const caloriesInput = document.getElementById('activity-calories');
-        const dateInput = document.getElementById('activity-date');
-        const notesInput = document.getElementById('activity-notes');
-        
-        if (nameInput) nameInput.value = activity.name;
-        if (durationInput) durationInput.value = activity.duration;
-        if (caloriesInput) caloriesInput.value = activity.calories;
-        if (dateInput) dateInput.value = activity.date;
-        if (notesInput) notesInput.value = activity.notes || '';
-
-        const submitBtn = document.querySelector('.save-activity-btn');
-        if (submitBtn) {
-            submitBtn.textContent = 'Update Activity';
-            submitBtn.dataset.editId = activity.id;
-        }
-
-        const formContainer = document.querySelector('.activity-form-container');
-        if (formContainer) {
-            formContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        activityForm.onsubmit = async function (e) {
-            e.preventDefault();
-
-            const activityName = document.getElementById('activity-name').value;
-            const activityDuration = parseInt(document.getElementById('activity-duration').value);
-            const activityCalories = parseInt(document.getElementById('activity-calories').value);
-            const activityDate = document.getElementById('activity-date').value;
-            const activityNotes = document.getElementById('activity-notes').value;
-
-            const updatedActivity = {
-                name: activityName,
-                duration: activityDuration,
-                calories: activityCalories,
-                date: activityDate,
-                notes: activityNotes,
-                timestamp: activity.timestamp,
-                updated: Date.now()
-            };
-
-            try {
-                const updates = {};
-                updates[`users/${formattedEmail}/activities/${activity.id}`] = updatedActivity;
-                
-                await update(ref(database), updates);
-                
-                activityForm.reset();
-                document.getElementById('activity-date').valueAsDate = new Date();
-                submitBtn.textContent = 'Save Activity';
-                delete submitBtn.dataset.editId;
-
-                activityForm.onsubmit = null;
-
-                alert('Activity updated successfully!');
-                loadActivities();
-            } catch (error) {
-                alert('Error updating activity. Please try again.');
-            }
-        };
-    }
-
-    // Update chart with activities data
-    function updateChart(activities) {
-        const last7Days = [];
-        const today = new Date();
-
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-            last7Days.push(date.toISOString().split('T')[0]);
-        }
-
-        const caloriesPerDay = {};
-        last7Days.forEach(day => {
-            caloriesPerDay[day] = 0;
-        });
-
-        activities.forEach(activity => {
-            if (last7Days.includes(activity.date)) {
-                caloriesPerDay[activity.date] += activity.calories;
-            }
-        });
-
-        caloriesChart.data.labels = last7Days.map(day => {
-            const date = new Date(day);
-            return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-        });
-
-        caloriesChart.data.datasets[0].data = last7Days.map(day => caloriesPerDay[day]);
-        caloriesChart.update();
-    }
-
-    // Event listeners for sorting and searching
-    const sortSelect = document.getElementById('activity-sort');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', function () {
-            loadActivities();
-        });
-    }
-
-    const searchInput = document.getElementById('activity-search');
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            loadActivities();
-        });
-    }
 });
