@@ -1,24 +1,36 @@
-function toggleMenu() {
-    const menuBar = document.getElementById('tooltip');
-    if (!menuBar) return;
-    menuBar.style.display = menuBar.style.display === 'flex' ? 'none' : 'flex';
-
-    window.authReady?.then(() => {
-        if (!window.isUserLoggedIn) return;
-        const hideAuthLinks = () => {
-            document.querySelectorAll("#tooltip ol li a[href='login.html'], #tooltip ol li a[href='signup.html']")
-                .forEach((el) => { if (el.parentElement) el.parentElement.style.display = 'none'; });
-        };
-        hideAuthLinks();
-        setTimeout(hideAuthLinks, 100);
-    });
+function getPublicMenu() {
+    return document.getElementById("nav-menu") || document.getElementById("tooltip");
 }
 
-function mountPublicFooter() {
-    const existing = document.querySelector('footer');
-    if (!existing || existing.dataset.fitflowStandard === 'true') return;
+function setMenuOpen(open) {
+    const menu = getPublicMenu();
+    const toggle = document.querySelector(".menu-toggle");
+    if (!menu) return;
 
-    existing.dataset.fitflowStandard = 'true';
+    menu.classList.toggle("show", open);
+    menu.classList.toggle("is-open", open);
+    if (menu.id === "tooltip") menu.style.display = open ? "block" : "none";
+    if (toggle) {
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+    }
+}
+
+function toggleMenu(event) {
+    event?.stopPropagation();
+    const menu = getPublicMenu();
+    if (!menu) return;
+    const open = menu.classList.contains("show") || menu.classList.contains("is-open") || menu.style.display === "flex" || menu.style.display === "block";
+    setMenuOpen(!open);
+}
+
+window.toggleMenu = toggleMenu;
+
+function mountPublicFooter() {
+    const existing = document.querySelector("footer");
+    if (!existing || existing.dataset.fitflowStandard === "true") return;
+
+    existing.dataset.fitflowStandard = "true";
     existing.innerHTML = `
         <div class="footer-content">
             <div class="footer-column footer-brand">
@@ -46,7 +58,7 @@ function mountPublicFooter() {
 }
 
 function replaceFakeTestimonials() {
-    const section = document.querySelector('.enhanced-testimonials');
+    const section = document.querySelector(".enhanced-testimonials");
     if (!section) return;
     section.innerHTML = `
         <div class="section-header">
@@ -64,28 +76,42 @@ function initPublicPolish() {
     mountPublicFooter();
     replaceFakeTestimonials();
 
-    document.querySelectorAll('#nav-menu a').forEach((link) => {
-        link.addEventListener('mouseenter', (event) => {
-            const title = link.getAttribute('title');
-            if (!title || document.querySelector('.custom-tooltip')) return;
-            const tooltip = document.createElement('div');
-            tooltip.className = 'custom-tooltip';
+    const toggle = document.querySelector(".menu-toggle");
+    if (toggle) {
+        toggle.setAttribute("role", "button");
+        toggle.setAttribute("tabindex", "0");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open navigation menu");
+        toggle.addEventListener("click", toggleMenu);
+        toggle.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleMenu(event);
+            }
+        });
+    }
+
+    document.querySelectorAll("#nav-menu a, #tooltip a").forEach((link) => {
+        link.addEventListener("click", () => setMenuOpen(false));
+        link.addEventListener("mouseenter", (event) => {
+            const title = link.getAttribute("title");
+            if (!title || document.querySelector(".custom-tooltip")) return;
+            const tooltip = document.createElement("div");
+            tooltip.className = "custom-tooltip";
             tooltip.textContent = title;
             document.body.appendChild(tooltip);
             tooltip.style.left = `${event.pageX}px`;
             tooltip.style.top = `${event.pageY + 30}px`;
         });
-        link.addEventListener('mouseleave', () => document.querySelector('.custom-tooltip')?.remove());
+        link.addEventListener("mouseleave", () => document.querySelector(".custom-tooltip")?.remove());
     });
 
-    document.addEventListener('click', (event) => {
-        const menuBar = document.getElementById('tooltip');
-        const menuToggle = document.querySelector('.menu-toggle');
-        if (menuBar && menuToggle && !menuBar.contains(event.target) && !menuToggle.contains(event.target)) menuBar.style.display = 'none';
+    document.addEventListener("click", (event) => {
+        const menu = getPublicMenu();
+        const menuToggle = document.querySelector(".menu-toggle");
+        if (menu && menuToggle && !menu.contains(event.target) && !menuToggle.contains(event.target)) setMenuOpen(false);
     });
-
-    document.querySelector('.menu-toggle')?.addEventListener('click', (event) => event.stopPropagation());
 }
 
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPublicPolish, { once: true });
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPublicPolish, { once: true });
 else initPublicPolish();
